@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <title>Lịch Sử Đặt Lịch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 25%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+            .sidebar h2 {
+                color: #4CAF50;
+                font-size: 24px;
+                margin: 0 0 10px 0;
+            }
+
+            /* Định dạng chung cho các mục sidebar */
+            .sidebar p {
+                font-size: 18px;
+                color: #333;
+                margin: 10px 0;
+            }
+
+                /* Khi ở trang Lịch sử đặt lịch, chữ Lịch sử đặt lịch sẽ in đậm và to hơn */
+                .sidebar p.active {
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: #4CAF50;
+                }
+
+            .sidebar a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+        .content {
+            width: 75%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .content h1 {
+                font-size: 24px;
+                color: #333;
+                margin: 0 0 20px 0;
+            }
+
+        .appointment {
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .appointment-details {
+            font-size: 16px;
+            color: #333;
+        }
+
+            .appointment-details p {
+                margin: 5px 0;
+            }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+            .status.pending {
+                background-color: #f44336;
+            }
+
+            .status.approved {
+                background-color: #4CAF50;
+            }
+
+            .status.done {
+                background-color: #39B34C;
+            }
+
+            .status.drug {
+                background-color: #388DD2;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <!-- 'Thông tin bệnh nhân' có thể bấm để chuyển trang -->
+            <a href="@Url.Action("Index", "CustomerPersonal")"><p>Thông tin bệnh nhân</p></a>
+            <!-- 'Lịch sử đặt lịch' hiện đang active, vì vậy chữ sẽ in đậm -->
+            <p class="active">Lịch sử đặt lịch</p>
+        </div>
+        <div class="content">
+            <h1>LỊCH SỬ ĐẶT LỊCH</h1>
+            <div class="appointment">
+                <div class="appointment-header">
+                    <span>13:21 P.M | 1/10/2024</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Khung giờ khám bệnh:</strong> 16:00 P.M</p>
+                    <p><strong>Ngày khám bệnh:</strong> 2/10/2024</p>
+                    <p><strong>Bác sĩ phụ trách:</strong> Lê Dương Bảo Lâm</p>
+                    <p><strong>Chuyên khoa:</strong> Phụ sản</p>
+                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
+                    <span class="status pending">Chưa được duyệt</span>
+                </div>
+            </div>
+            <div class="appointment">
+                <div class="appointment-header">
+                    <span>8:02 A.M | 25/09/2024</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Khung giờ khám bệnh:</strong> 09:00 A.M</p>
+                    <p><strong>Ngày khám bệnh:</strong> 28/09/2024</p>
+                    <p><strong>Bác sĩ phụ trách:</strong> Trấn Thành</p>
+                    <p><strong>Chuyên khoa:</strong> Da liễu</p>
+                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
+                    <span class="status approved">Đã được duyệt</span>
+                </div>
+            </div>
+
+            <div class="appointment">
+                <div class="appointment-header">
+                    <span>21:02 A.M | 03/09/2024</span>
+                </div>
+                <div class="appointment-details">
+                    <p><strong>Khung giờ khám bệnh:</strong> 14:15 P.M</p>
+                    <p><strong>Ngày khám bệnh:</strong> 10/09/2024</p>
+                    <p><strong>Bác sĩ phụ trách:</strong> Trường Giang</p>
+                    <p><strong>Chuyên khoa:</strong> Dạ giày</p>
+                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
+                    <span class="status done">Đã khám</span>
+                    <span class="status drug">Đơn thuốc</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

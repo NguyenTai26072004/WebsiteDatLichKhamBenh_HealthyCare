@@ -1,0 +1,98 @@
+﻿<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header_Footer</title>
+    <link rel="stylesheet" href="~/assets/css/header_footer.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        .greeting {
+            margin-top: 7px;
+            color: #4CAF50; /* Màu xanh lá cây */
+            font-weight: bold; /* Chữ đậm */
+            font-size: 15px; /* Kích thước chữ */
+            margin-right: 10px; /* Khoảng cách bên phải */
+            padding: 5px 10px; /* Khoảng cách trong */
+        }
+    </style>
+</head>
+<body>
+    <!-- header -->
+    <header class="header">
+        <!--logo-->
+        <a class="logo" href="@Url.Action("Index", "CustomerHome")">
+            <img alt="Healthy Life Logo" src="~/assets/img/healthy-life-logo.png" style="height: 50px;" />
+        </a>
+
+        <nav>
+            <a class="nav_item" href="@Url.Action("Index", "CustomerHome")">Trang Chủ</a>
+            <a class="nav_item" href="@Url.Action("Index", "CustomerFindDoctor")">Đặt Lịch</a>
+            <a class="nav_item" href="#">Tin Tức</a>
+            <a class="nav_item" href="@Url.Action("Index", "CustomerPersonal")">Thông Tin Sức Khỏe</a>
+        </nav>
+
+        <div class="buttons">
+            @if (Session["Username"] != null)
+            {
+                <!-- Hiển thị tên người dùng và nút Đăng Xuất -->
+                <span class="greeting">Xin chào, @Session["Username"]!</span>
+                <button onclick="location.href='@Url.Action("Logout", "CustomerLogin")'">Đăng Xuất</button>
+            }
+            else
+            {
+                <!-- Hiển thị nút Đăng Ký và Đăng Nhập khi chưa đăng nhập -->
+                <button onclick="location.href='@Url.Action("Index", "CustomerRegister")'">Đăng Ký</button>
+                <button onclick="location.href='@Url.Action("Index", "CustomerLogin")'">Đăng Nhập</button>
+            }
+        </div>
+    </header>
+
+    <div class="" style="height:auto">
+        @RenderBody()
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="~/assets/img/healthy-life-logo.png" alt="Healthy Life logo">
+        </div>
+        <div class="footer-container">
+            <div class="section contact-info">
+                <h3>Phòng khám Healthy Life</h3>
+                <p>828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
+                <p>ĐT: (094) 2770 374</p>
+                <p>Email: <a href="mailto:hlhuflit@st.huflily.edu.vn">hlhuflit@st.huflily.edu.vn</a></p>
+                <p>Website: <a href="http://www.hlhuflit.com.vn">www.hlhuflit.com.vn</a></p>
+            </div>
+            <div class="section system-info">
+                <h3>Hệ thống</h3>
+                <ul>
+                    <li>Cơ sở 1</li>
+                    <li>Cơ sở 2</li>
+                    <li>Cơ sở 3</li>
+                    <li>Phòng khám Healthy Life</li>
+                </ul>
+            </div>
+            <div class="section support">
+                <h3>Hỗ trợ chuyên môn</h3>
+                <a class="button" href="tel:0942770374">094 2770 374</a>
+                <h3>Tổng đài đặt khám</h3>
+                <a class="button" href="tel:19001234">1900 1234</a>
+            </div>
+            <div class="section social-media">
+                <h3>Theo dõi tin tức từ</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#"><i class="fab fa-zalo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Section -->
+        <div class="footer-bottom">
+            <p>Bản quyền thuộc về Phòng khám Healthy Life</p>
+        </div>
+    </footer>
+</body>
+</html>

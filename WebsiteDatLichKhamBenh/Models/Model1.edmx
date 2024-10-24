@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WebDatLichKhamBenhDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="idAccount" />
+          </Key>
+          <Property Name="idAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaiKhoan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BacSi">
+          <Key>
+            <PropertyRef Name="idBS" />
+          </Key>
+          <Property Name="idBS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenBS" Type="nvarchar" MaxLength="100" />
+          <Property Name="anhBS" Type="nvarchar" MaxLength="500" />
+          <Property Name="chuyenKhoa" Type="nvarchar" MaxLength="100" />
+          <Property Name="diemDanhGia" Type="int" />
+          <Property Name="luotDat" Type="int" />
+          <Property Name="idAccount" Type="int" />
+        </EntityType>
+        <EntityType Name="BenhNhan">
+          <Key>
+            <PropertyRef Name="idBenhNhan" />
+          </Key>
+          <Property Name="idBenhNhan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenBenhNhan" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ngaySinh" Type="date" />
+          <Property Name="tienSuBenh" Type="nvarchar" MaxLength="500" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
+          <Property Name="idAccount" Type="int" />
+        </EntityType>
+        <EntityType Name="CaKham">
+          <Key>
+            <PropertyRef Name="MaCaKham" />
+          </Key>
+          <Property Name="MaCaKham" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idBS" Type="int" />
+          <Property Name="NgayKham" Type="date" />
+          <Property Name="MaKhungGio" Type="int" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+          <Property Name="idCoSo" Type="int" />
+        </EntityType>
+        <EntityType Name="CoSo">
+          <Key>
+            <PropertyRef Name="idCoSo" />
+          </Key>
+          <Property Name="idCoSo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+          <Property Name="tenBenhVien" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DonThuoc">
+          <Key>
+            <PropertyRef Name="MaDonThuoc" />
+          </Key>
+          <Property Name="MaDonThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaLichKham" Type="int" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
+          <Property Name="NgayKeDon" Type="date" />
+          <Property Name="MaThuoc" Type="nvarchar" MaxLength="100" />
+          <Property Name="TenThuoc" Type="nvarchar" MaxLength="100" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="LieuLuong" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaCaKham" Type="int" />
+        </EntityType>
+        <EntityType Name="KhungGio">
+          <Key>
+            <PropertyRef Name="MaKhungGio" />
+          </Key>
+          <Property Name="MaKhungGio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GioKham" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LichKham">
+          <Key>
+            <PropertyRef Name="MaLichKham" />
+          </Key>
+          <Property Name="MaLichKham" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaBenhNhan" Type="int" />
+          <Property Name="MaCaKham" Type="int" />
+          <Property Name="NgayDatLich" Type="date" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__BacSi__idAccount__3D5E1FD2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="idAccount" />
+            </Principal>
+            <Dependent Role="BacSi">
+              <PropertyRef Name="idAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BenhNhan__idAcco__398D8EEE">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="idAccount" />
+            </Principal>
+            <Dependent Role="BenhNhan">
+              <PropertyRef Name="idAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__idBS__440B1D61">
+          <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BacSi">
+              <PropertyRef Name="idBS" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="idBS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__idCoSo__45F365D3">
+          <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoSo">
+              <PropertyRef Name="idCoSo" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="idCoSo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__MaKhungG__44FF419A">
+          <End Role="KhungGio" Type="Self.KhungGio" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhungGio">
+              <PropertyRef Name="MaKhungGio" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="MaKhungGio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonThuoc__MaCaKh__4D94879B">
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
+          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaKham">
+              <PropertyRef Name="MaCaKham" />
+            </Principal>
+            <Dependent Role="DonThuoc">
+              <PropertyRef Name="MaCaKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonThuoc__MaLich__4CA06362">
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="0..1" />
+          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LichKham">
+              <PropertyRef Name="MaLichKham" />
+            </Principal>
+            <Dependent Role="DonThuoc">
+              <PropertyRef Name="MaLichKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichKham__MaBenh__48CFD27E">
+          <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenhNhan">
+              <PropertyRef Name="idBenhNhan" />
+            </Principal>
+            <Dependent Role="LichKham">
+              <PropertyRef Name="MaBenhNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichKham__MaCaKh__49C3F6B7">
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaKham">
+              <PropertyRef Name="MaCaKham" />
+            </Principal>
+            <Dependent Role="LichKham">
+              <PropertyRef Name="MaCaKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebDatLichKhamBenhDBModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BacSi" EntityType="Self.BacSi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaKham" EntityType="Self.CaKham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CoSo" EntityType="Self.CoSo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonThuoc" EntityType="Self.DonThuoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhungGio" EntityType="Self.KhungGio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichKham" EntityType="Self.LichKham" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BacSi__idAccount__3D5E1FD2" Association="Self.FK__BacSi__idAccount__3D5E1FD2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="BacSi" EntitySet="BacSi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BenhNhan__idAcco__398D8EEE" Association="Self.FK__BenhNhan__idAcco__398D8EEE">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="BenhNhan" EntitySet="BenhNhan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__idBS__440B1D61" Association="Self.FK__CaKham__idBS__440B1D61">
+            <End Role="BacSi" EntitySet="BacSi" />
+            <End Role="CaKham" EntitySet="CaKham" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__idCoSo__45F365D3" Association="Self.FK__CaKham__idCoSo__45F365D3">
+            <End Role="CoSo" EntitySet="CoSo" />
+            <End Role="CaKham" EntitySet="CaKham" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__MaKhungG__44FF419A" Association="Self.FK__CaKham__MaKhungG__44FF419A">
+            <End Role="KhungGio" EntitySet="KhungGio" />
+            <End Role="CaKham" EntitySet="CaKham" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonThuoc__MaCaKh__4D94879B" Association="Self.FK__DonThuoc__MaCaKh__4D94879B">
+            <End Role="CaKham" EntitySet="CaKham" />
+            <End Role="DonThuoc" EntitySet="DonThuoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonThuoc__MaLich__4CA06362" Association="Self.FK__DonThuoc__MaLich__4CA06362">
+            <End Role="LichKham" EntitySet="LichKham" />
+            <End Role="DonThuoc" EntitySet="DonThuoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichKham__MaBenh__48CFD27E" Association="Self.FK__LichKham__MaBenh__48CFD27E">
+            <End Role="BenhNhan" EntitySet="BenhNhan" />
+            <End Role="LichKham" EntitySet="LichKham" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichKham__MaCaKh__49C3F6B7" Association="Self.FK__LichKham__MaCaKh__49C3F6B7">
+            <End Role="CaKham" EntitySet="CaKham" />
+            <End Role="LichKham" EntitySet="LichKham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebDatLichKhamBenhDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="idAccount" />
+          </Key>
+          <Property Name="idAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BacSis" Relationship="Self.FK__BacSi__idAccount__3D5E1FD2" FromRole="Account" ToRole="BacSi" />
+          <NavigationProperty Name="BenhNhans" Relationship="Self.FK__BenhNhan__idAcco__398D8EEE" FromRole="Account" ToRole="BenhNhan" />
+        </EntityType>
+        <EntityType Name="BacSi">
+          <Key>
+            <PropertyRef Name="idBS" />
+          </Key>
+          <Property Name="idBS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenBS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="anhBS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="chuyenKhoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="diemDanhGia" Type="Int32" />
+          <Property Name="luotDat" Type="Int32" />
+          <Property Name="idAccount" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__BacSi__idAccount__3D5E1FD2" FromRole="BacSi" ToRole="Account" />
+          <NavigationProperty Name="CaKhams" Relationship="Self.FK__CaKham__idBS__440B1D61" FromRole="BacSi" ToRole="CaKham" />
+        </EntityType>
+        <EntityType Name="BenhNhan">
+          <Key>
+            <PropertyRef Name="idBenhNhan" />
+          </Key>
+          <Property Name="idBenhNhan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenBenhNhan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ngaySinh" Type="DateTime" Precision="0" />
+          <Property Name="tienSuBenh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="idAccount" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__BenhNhan__idAcco__398D8EEE" FromRole="BenhNhan" ToRole="Account" />
+          <NavigationProperty Name="LichKhams" Relationship="Self.FK__LichKham__MaBenh__48CFD27E" FromRole="BenhNhan" ToRole="LichKham" />
+        </EntityType>
+        <EntityType Name="CaKham">
+          <Key>
+            <PropertyRef Name="MaCaKham" />
+          </Key>
+          <Property Name="MaCaKham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idBS" Type="Int32" />
+          <Property Name="NgayKham" Type="DateTime" Precision="0" />
+          <Property Name="MaKhungGio" Type="Int32" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idCoSo" Type="Int32" />
+          <NavigationProperty Name="BacSi" Relationship="Self.FK__CaKham__idBS__440B1D61" FromRole="CaKham" ToRole="BacSi" />
+          <NavigationProperty Name="CoSo" Relationship="Self.FK__CaKham__idCoSo__45F365D3" FromRole="CaKham" ToRole="CoSo" />
+          <NavigationProperty Name="KhungGio" Relationship="Self.FK__CaKham__MaKhungG__44FF419A" FromRole="CaKham" ToRole="KhungGio" />
+          <NavigationProperty Name="DonThuocs" Relationship="Self.FK__DonThuoc__MaCaKh__4D94879B" FromRole="CaKham" ToRole="DonThuoc" />
+          <NavigationProperty Name="LichKhams" Relationship="Self.FK__LichKham__MaCaKh__49C3F6B7" FromRole="CaKham" ToRole="LichKham" />
+        </EntityType>
+        <EntityType Name="CoSo">
+          <Key>
+            <PropertyRef Name="idCoSo" />
+          </Key>
+          <Property Name="idCoSo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tenBenhVien" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaKhams" Relationship="Self.FK__CaKham__idCoSo__45F365D3" FromRole="CoSo" ToRole="CaKham" />
+        </EntityType>
+        <EntityType Name="DonThuoc">
+          <Key>
+            <PropertyRef Name="MaDonThuoc" />
+          </Key>
+          <Property Name="MaDonThuoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaLichKham" Type="Int32" />
+          <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NgayKeDon" Type="DateTime" Precision="0" />
+          <Property Name="MaThuoc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TenThuoc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="LieuLuong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaCaKham" Type="Int32" />
+          <NavigationProperty Name="CaKham" Relationship="Self.FK__DonThuoc__MaCaKh__4D94879B" FromRole="DonThuoc" ToRole="CaKham" />
+          <NavigationProperty Name="LichKham" Relationship="Self.FK__DonThuoc__MaLich__4CA06362" FromRole="DonThuoc" ToRole="LichKham" />
+        </EntityType>
+        <EntityType Name="KhungGio">
+          <Key>
+            <PropertyRef Name="MaKhungGio" />
+          </Key>
+          <Property Name="MaKhungGio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GioKham" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaKhams" Relationship="Self.FK__CaKham__MaKhungG__44FF419A" FromRole="KhungGio" ToRole="CaKham" />
+        </EntityType>
+        <EntityType Name="LichKham">
+          <Key>
+            <PropertyRef Name="MaLichKham" />
+          </Key>
+          <Property Name="MaLichKham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaBenhNhan" Type="Int32" />
+          <Property Name="MaCaKham" Type="Int32" />
+          <Property Name="NgayDatLich" Type="DateTime" Precision="0" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BenhNhan" Relationship="Self.FK__LichKham__MaBenh__48CFD27E" FromRole="LichKham" ToRole="BenhNhan" />
+          <NavigationProperty Name="CaKham" Relationship="Self.FK__LichKham__MaCaKh__49C3F6B7" FromRole="LichKham" ToRole="CaKham" />
+          <NavigationProperty Name="DonThuocs" Relationship="Self.FK__DonThuoc__MaLich__4CA06362" FromRole="LichKham" ToRole="DonThuoc" />
+        </EntityType>
+        <Association Name="FK__BacSi__idAccount__3D5E1FD2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="idAccount" />
+            </Principal>
+            <Dependent Role="BacSi">
+              <PropertyRef Name="idAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BenhNhan__idAcco__398D8EEE">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="idAccount" />
+            </Principal>
+            <Dependent Role="BenhNhan">
+              <PropertyRef Name="idAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__idBS__440B1D61">
+          <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BacSi">
+              <PropertyRef Name="idBS" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="idBS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichKham__MaBenh__48CFD27E">
+          <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BenhNhan">
+              <PropertyRef Name="idBenhNhan" />
+            </Principal>
+            <Dependent Role="LichKham">
+              <PropertyRef Name="MaBenhNhan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__idCoSo__45F365D3">
+          <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoSo">
+              <PropertyRef Name="idCoSo" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="idCoSo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CaKham__MaKhungG__44FF419A">
+          <End Role="KhungGio" Type="Self.KhungGio" Multiplicity="0..1" />
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhungGio">
+              <PropertyRef Name="MaKhungGio" />
+            </Principal>
+            <Dependent Role="CaKham">
+              <PropertyRef Name="MaKhungGio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonThuoc__MaCaKh__4D94879B">
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
+          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaKham">
+              <PropertyRef Name="MaCaKham" />
+            </Principal>
+            <Dependent Role="DonThuoc">
+              <PropertyRef Name="MaCaKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichKham__MaCaKh__49C3F6B7">
+          <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaKham">
+              <PropertyRef Name="MaCaKham" />
+            </Principal>
+            <Dependent Role="LichKham">
+              <PropertyRef Name="MaCaKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonThuoc__MaLich__4CA06362">
+          <End Role="LichKham" Type="Self.LichKham" Multiplicity="0..1" />
+          <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LichKham">
+              <PropertyRef Name="MaLichKham" />
+            </Principal>
+            <Dependent Role="DonThuoc">
+              <PropertyRef Name="MaLichKham" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebDatLichKhamBenhDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="BacSis" EntityType="Self.BacSi" />
+          <EntitySet Name="BenhNhans" EntityType="Self.BenhNhan" />
+          <EntitySet Name="CaKhams" EntityType="Self.CaKham" />
+          <EntitySet Name="CoSoes" EntityType="Self.CoSo" />
+          <EntitySet Name="DonThuocs" EntityType="Self.DonThuoc" />
+          <EntitySet Name="KhungGios" EntityType="Self.KhungGio" />
+          <EntitySet Name="LichKhams" EntityType="Self.LichKham" />
+          <AssociationSet Name="FK__BacSi__idAccount__3D5E1FD2" Association="Self.FK__BacSi__idAccount__3D5E1FD2">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="BacSi" EntitySet="BacSis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BenhNhan__idAcco__398D8EEE" Association="Self.FK__BenhNhan__idAcco__398D8EEE">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="BenhNhan" EntitySet="BenhNhans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__idBS__440B1D61" Association="Self.FK__CaKham__idBS__440B1D61">
+            <End Role="BacSi" EntitySet="BacSis" />
+            <End Role="CaKham" EntitySet="CaKhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichKham__MaBenh__48CFD27E" Association="Self.FK__LichKham__MaBenh__48CFD27E">
+            <End Role="BenhNhan" EntitySet="BenhNhans" />
+            <End Role="LichKham" EntitySet="LichKhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__idCoSo__45F365D3" Association="Self.FK__CaKham__idCoSo__45F365D3">
+            <End Role="CoSo" EntitySet="CoSoes" />
+            <End Role="CaKham" EntitySet="CaKhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CaKham__MaKhungG__44FF419A" Association="Self.FK__CaKham__MaKhungG__44FF419A">
+            <End Role="KhungGio" EntitySet="KhungGios" />
+            <End Role="CaKham" EntitySet="CaKhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonThuoc__MaCaKh__4D94879B" Association="Self.FK__DonThuoc__MaCaKh__4D94879B">
+            <End Role="CaKham" EntitySet="CaKhams" />
+            <End Role="DonThuoc" EntitySet="DonThuocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichKham__MaCaKh__49C3F6B7" Association="Self.FK__LichKham__MaCaKh__49C3F6B7">
+            <End Role="CaKham" EntitySet="CaKhams" />
+            <End Role="LichKham" EntitySet="LichKhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonThuoc__MaLich__4CA06362" Association="Self.FK__DonThuoc__MaLich__4CA06362">
+            <End Role="LichKham" EntitySet="LichKhams" />
+            <End Role="DonThuoc" EntitySet="DonThuocs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebDatLichKhamBenhDBModelStoreContainer" CdmEntityContainer="WebDatLichKhamBenhDBEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BacSis">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BacSi">
+              <MappingFragment StoreEntitySet="BacSi">
+                <ScalarProperty Name="idBS" ColumnName="idBS" />
+                <ScalarProperty Name="tenBS" ColumnName="tenBS" />
+                <ScalarProperty Name="anhBS" ColumnName="anhBS" />
+                <ScalarProperty Name="chuyenKhoa" ColumnName="chuyenKhoa" />
+                <ScalarProperty Name="diemDanhGia" ColumnName="diemDanhGia" />
+                <ScalarProperty Name="luotDat" ColumnName="luotDat" />
+                <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BenhNhans">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BenhNhan">
+              <MappingFragment StoreEntitySet="BenhNhan">
+                <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+                <ScalarProperty Name="tenBenhNhan" ColumnName="tenBenhNhan" />
+                <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+                <ScalarProperty Name="tienSuBenh" ColumnName="tienSuBenh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaKhams">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.CaKham">
+              <MappingFragment StoreEntitySet="CaKham">
+                <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+                <ScalarProperty Name="idBS" ColumnName="idBS" />
+                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
+                <ScalarProperty Name="MaKhungGio" ColumnName="MaKhungGio" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoSoes">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.CoSo">
+              <MappingFragment StoreEntitySet="CoSo">
+                <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="tenBenhVien" ColumnName="tenBenhVien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonThuocs">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DonThuoc">
+              <MappingFragment StoreEntitySet="DonThuoc">
+                <ScalarProperty Name="MaDonThuoc" ColumnName="MaDonThuoc" />
+                <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="NgayKeDon" ColumnName="NgayKeDon" />
+                <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
+                <ScalarProperty Name="TenThuoc" ColumnName="TenThuoc" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="LieuLuong" ColumnName="LieuLuong" />
+                <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhungGios">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.KhungGio">
+              <MappingFragment StoreEntitySet="KhungGio">
+                <ScalarProperty Name="MaKhungGio" ColumnName="MaKhungGio" />
+                <ScalarProperty Name="GioKham" ColumnName="GioKham" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichKhams">
+            <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.LichKham">
+              <MappingFragment StoreEntitySet="LichKham">
+                <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
+                <ScalarProperty Name="MaBenhNhan" ColumnName="MaBenhNhan" />
+                <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+                <ScalarProperty Name="NgayDatLich" ColumnName="NgayDatLich" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

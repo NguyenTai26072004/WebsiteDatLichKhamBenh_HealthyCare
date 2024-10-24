@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <title>Thông Tin Bệnh Nhân</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 25%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+            /* Menu title */
+            .sidebar h2 {
+                color: #4CAF50;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            /* Default style for sidebar items */
+            .sidebar p {
+                font-size: 18px;
+                color: #333;
+                margin: 10px 0;
+            }
+                /* Active state for 'Thông tin bệnh nhân' */
+                .sidebar p.active {
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: #4CAF50;
+                }
+
+            .sidebar a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+        .content {
+            width: 75%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .content h2 {
+                font-size: 24px;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        .info p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .info span {
+            font-weight: bold;
+        }
+
+        .info .value {
+            font-weight: normal;
+        }
+
+        .edit-button {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+            .edit-button button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .edit-button button:hover {
+                    background-color: #45a049;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <!-- 'Thông tin bệnh nhân' is active on this page -->
+            <p class="active">Thông tin bệnh nhân</p>
+            <!-- 'Lịch sử đặt lịch' is not active -->
+            <a href="@Url.Action("Index", "CustomerHistory")"><p>Lịch sử đặt lịch</p></a>
+        </div>
+        <div class="content">
+            <h2>THÔNG TIN BỆNH NHÂN</h2>
+            <div class="info">
+                <p><span>Họ và tên:</span> <span class="value">Nguyễn Quang Huy</span> <span style="float: right;"><span>SĐT:</span> <span class="value">0942770374</span></span></p>
+                <p><span>Ngày sinh:</span> <span class="value">22/10/2004</span> <span style="float: right;"><span>Giới tính:</span> <span class="value">Nam</span></span></p>
+                <p><span>Email:</span> <span class="value">huydeptrai123@gmail.com</span></p>
+                <p><span>Địa chỉ:</span> <span class="value">2/20 Khu Phố 4, Phường Tân Biên, Biên Hòa, Đồng Nai</span></p>
+                <p><span>Tiền sử bệnh án:</span> <span class="value">Tiền sử bệnh tim</span></p>
+            </div>
+            <div class="edit-button">
+                <button>Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

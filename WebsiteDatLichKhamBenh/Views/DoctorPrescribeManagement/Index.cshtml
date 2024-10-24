@@ -1,0 +1,167 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Kê Thuốc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            min-width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+            .sidebar .nav-link {
+                color: #fff;
+            }
+
+                .sidebar .nav-link:hover {
+                    background-color: #495057;
+                }
+
+        .content {
+            padding: 20px;
+        }
+
+        .header {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            background-color: #fff;
+        }
+
+            .header .admin-info {
+                float: right;
+            }
+
+                .header .admin-info a {
+                    margin-left: 15px;
+                    color: #343a40;
+                }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <nav class="sidebar d-flex flex-column p-3">
+            <a href="dashboard.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <i class="fas fa-user-md fa-2x me-2"></i>
+                <span class="fs-4">Trang Bác Sĩ</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "DoctorExaminationManagement")" class="nav-link text-white">
+                        <i class="fas fa-calendar-plus me-2"></i> Đăng Ký Ca Khám
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "DoctorBookingManagement")" class="nav-link text-white">
+                        <i class="fas fa-calendar-check me-2"></i> Quản Lý Lịch Hẹn
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "DoctorPrescribeManagement")" class="nav-link text-white active">
+                        <i class="fas fa-prescription-bottle-alt me-2"></i> Quản Lý Kê Thuốc
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="admin-info">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+            </div>
+        </nav>
+        <div class="content flex-grow-1">
+            <header class="header d-flex justify-content-between align-items-center">
+                <h2>Quản Lý Kê Thuốc</h2>
+                <div class="admin-info">
+                    <span>Chào, Bác Sĩ</span>
+                </div>
+            </header>
+            <div class="mt-4">
+                <h3>Danh Sách Ca Khám Đã Hoàn Thành</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã Ca Khám</th>
+                            <th>Ngày Khám</th>
+                            <th>Khung Giờ</th>
+                            <th>Cơ Sở</th>
+                            <th>Trạng Thái</th>
+                            <th>Kê Thuốc</th>
+                            <th>Xem Đơn Thuốc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CK001</td>
+                            <td>2024-10-15</td>
+                            <td>08:00 - 09:00</td>
+                            <td>Cơ Sở 1</td>
+                            <td class="text-success">Đã Khám</td>
+                            <td>
+                                <button class="btn btn-primary" onclick="location.href='kethuoc.html?ca_kham=CK001'">
+                                    <i class="fas fa-prescription-bottle-alt me-2"></i> Kê Thuốc
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info" onclick="location.href='xemdonthuoc.html?ca_kham=CK001'">
+                                    <i class="fas fa-eye me-2"></i> Xem
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CK002</td>
+                            <td>2024-10-16</td>
+                            <td>09:00 - 10:00</td>
+                            <td>Cơ Sở 2</td>
+                            <td class="text-success">Đã Khám</td>
+                            <td>
+                                <button class="btn btn-primary" onclick="location.href='ke-thuoc.html?ca_kham=CK002'">
+                                    <i class="fas fa-prescription-bottle-alt me-2"></i> Kê Thuốc
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-info" onclick="location.href='xem-don-thuoc.html?ca_kham=CK002'">
+                                    <i class="fas fa-eye me-2"></i> Xem
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CK003</td>
+                            <td>2024-10-17</td>
+                            <td>10:00 - 11:00</td>
+                            <td>Cơ Sở 3</td>
+                            <td class="text-danger">Chưa Khám</td>
+                            <td>
+                                <button class="btn btn-secondary" disabled>
+                                    <i class="fas fa-prescription-bottle-alt me-2"></i> Chưa Thể Kê Thuốc
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary" disabled>
+                                    <i class="fas fa-eye me-2"></i> Không Có Đơn
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Thêm các ca khám khác ở đây -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

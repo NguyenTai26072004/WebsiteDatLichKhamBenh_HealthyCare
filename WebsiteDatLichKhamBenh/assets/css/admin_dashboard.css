@@ -1,0 +1,50 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #343a40;
+    color: #fff;
+    min-height: 100vh;
+}
+
+    .sidebar .nav-link {
+        color: #fff;
+    }
+
+        .sidebar .nav-link:hover {
+            background: #495057;
+        }
+
+.content {
+    width: 100%;
+    padding: 20px;
+}
+
+.header {
+    background: #fff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+    .header .admin-info {
+        float: right;
+    }
+
+        .header .admin-info a {
+            color: #343a40;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+.table thead th {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.btn-custom {
+    margin-right: 5px;
+}

@@ -1,0 +1,190 @@
+﻿body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    background-color: white;
+}
+
+    .header img {
+        height: 50px;
+    }
+
+    .header nav {
+        display: flex;
+        gap: 50px; /* Increased gap between navigation items */
+    }
+
+        .header nav .nav_item {
+            text-decoration: none;
+            color: #39B34C;
+            font-size: 18px;
+            padding: 5px 10px;
+            border-radius: 5px; /* Added border radius for rounded corners */
+        }
+
+        .header nav a:hover {
+            background-color: #39B34C; /* Background color on hover */
+            color: white; /* Text color on hover */
+        }
+
+    .header .buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+        .header .buttons button {
+            padding: 10px 20px;
+            border: 2px solid #39B34C;
+            background-color: white;
+            color: #39B34C;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px; /* Added border radius for rounded corners */
+        }
+
+            .header .buttons button:hover {
+                background-color: #39B34C;
+                color: white;
+            }
+
+/* footer */
+.footer {
+    background-color: #e6f0ff;
+    padding-top: 20px; /* Khoảng cách phía trên footer */
+    border-top: 1px solid #ccc;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 50px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Section Styles */
+.section {
+    flex: 1;
+    padding: 0 20px;
+}
+
+/* Contact Info with Logo on Top */
+.contact-info {
+    text-align: left;
+    position: relative;
+}
+
+.footer-logo {
+    text-align: left;
+    margin-bottom: 10px; /* Khoảng cách giữa logo và dòng chữ */
+}
+
+    .footer-logo img {
+        margin-left: 133px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng để logo nổi bật hơn */
+    }
+
+.contact-info h3 {
+    margin: 10px 0 15px 0;
+    color: #28a745;
+}
+
+/* Common Text and Link Styles */
+.contact-info p, .contact-info a, .system-info ul li, .support .button, .social-media h3 {
+    color: #333;
+    margin: 5px 0;
+}
+
+/* System Info Styling */
+.system-info h3 {
+    margin-top: 0;
+    color: #28a745;
+}
+
+.system-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+    .system-info ul li {
+        margin: 5px 0;
+    }
+
+/* Support Styles */
+.support h3 {
+    margin-top: 0;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.support .button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.support .qr-code {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+    .support .qr-code img {
+        width: 100px;
+        height: 100px;
+    }
+
+/* Social Media Styles */
+.social-media h3 {
+    margin-top: 0;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.social-media .social-icons {
+    display: flex;
+    justify-content: center;
+}
+
+.social-media a {
+    margin: 0 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+    .social-media a i {
+        font-size: 24px;
+    }
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    padding: 15px;
+    background-color: #e9f1f6;
+}
+
+    .footer-bottom p {
+        color: #666;
+        font-size: 14px;
+    }

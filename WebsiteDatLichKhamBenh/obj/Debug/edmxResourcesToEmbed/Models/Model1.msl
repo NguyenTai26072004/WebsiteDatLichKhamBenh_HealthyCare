@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDatLichKhamBenhDBModelStoreContainer" CdmEntityContainer="WebDatLichKhamBenhDBEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+          <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BacSis">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BacSi">
+        <MappingFragment StoreEntitySet="BacSi">
+          <ScalarProperty Name="idBS" ColumnName="idBS" />
+          <ScalarProperty Name="tenBS" ColumnName="tenBS" />
+          <ScalarProperty Name="anhBS" ColumnName="anhBS" />
+          <ScalarProperty Name="chuyenKhoa" ColumnName="chuyenKhoa" />
+          <ScalarProperty Name="diemDanhGia" ColumnName="diemDanhGia" />
+          <ScalarProperty Name="luotDat" ColumnName="luotDat" />
+          <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BenhNhans">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BenhNhan">
+        <MappingFragment StoreEntitySet="BenhNhan">
+          <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+          <ScalarProperty Name="tenBenhNhan" ColumnName="tenBenhNhan" />
+          <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+          <ScalarProperty Name="tienSuBenh" ColumnName="tienSuBenh" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CaKhams">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.CaKham">
+        <MappingFragment StoreEntitySet="CaKham">
+          <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+          <ScalarProperty Name="idBS" ColumnName="idBS" />
+          <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
+          <ScalarProperty Name="MaKhungGio" ColumnName="MaKhungGio" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoSoes">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.CoSo">
+        <MappingFragment StoreEntitySet="CoSo">
+          <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="tenBenhVien" ColumnName="tenBenhVien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonThuocs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DonThuoc">
+        <MappingFragment StoreEntitySet="DonThuoc">
+          <ScalarProperty Name="MaDonThuoc" ColumnName="MaDonThuoc" />
+          <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="NgayKeDon" ColumnName="NgayKeDon" />
+          <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
+          <ScalarProperty Name="TenThuoc" ColumnName="TenThuoc" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="LieuLuong" ColumnName="LieuLuong" />
+          <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KhungGios">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.KhungGio">
+        <MappingFragment StoreEntitySet="KhungGio">
+          <ScalarProperty Name="MaKhungGio" ColumnName="MaKhungGio" />
+          <ScalarProperty Name="GioKham" ColumnName="GioKham" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LichKhams">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.LichKham">
+        <MappingFragment StoreEntitySet="LichKham">
+          <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
+          <ScalarProperty Name="MaBenhNhan" ColumnName="MaBenhNhan" />
+          <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
+          <ScalarProperty Name="NgayDatLich" ColumnName="NgayDatLich" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

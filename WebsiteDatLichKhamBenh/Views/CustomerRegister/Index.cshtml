@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <title>Đăng Ký</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Để tính toán kích thước bao gồm padding */
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .btn-submit:hover {
+                background-color: #45a049;
+            }
+
+        .input-container {
+            position: relative; /* Để định vị icon con mắt */
+        }
+
+        .toggle-password {
+            cursor: pointer;
+            position: absolute; /* Đặt hình ảnh tuyệt đối trong ô nhập */
+            right: 10px; /* Đặt ở bên phải */
+            top: 50%; /* Đặt ở giữa theo chiều dọc */
+            transform: translateY(-50%); /* Căn giữa hoàn hảo */
+            width: 20px; /* Kích thước cho biểu tượng mắt */
+            height: 20px; /* Kích thước cho biểu tượng mắt */
+            pointer-events: all; /* Cho phép sự kiện chuột trên hình ảnh */
+        }
+
+        .gender-group {
+            display: flex; /* Sử dụng Flexbox để căn chỉnh theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            margin-top: 5px; /* Khoảng cách giữa label và các ô tích */
+        }
+
+            .gender-group label {
+                margin-right: 10px; /* Khoảng cách giữa label và ô tích */
+            }
+
+            .gender-group input {
+                margin-right: 5px; /* Khoảng cách giữa ô tích và văn bản */
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Đăng Ký</h2>
+
+        <!-- Hiển thị lỗi nếu có -->
+        @if (ViewBag.Error != null)
+        {
+            <div class="error">@ViewBag.Error</div>
+        }
+
+        <!-- Form đăng ký -->
+        <form id="registerForm" method="post" action="@Url.Action("Register", "CustomerRegister")" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="username">Tên đăng nhập:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" required>
+                    <img id="passwordToggle" src="/assets/img/eye-close.png" alt="Toggle Password" class="toggle-password" onclick="togglePasswordVisibility('password', 'passwordToggle')" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Nhập lại mật khẩu:</label>
+                <div class="input-container">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <img id="confirmPasswordToggle" src="/assets/img/eye-close.png" alt="Toggle Password" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', 'confirmPasswordToggle')" />
+                </div>
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="VD: 0942770374">
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Ngày sinh:</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+            <div class="form-group gender-group">
+                <label>Giới tính:</label>
+                <label>
+                    <input type="radio" name="gender" value="Nam" required> Nam
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="Nữ" required> Nữ
+                </label>
+            </div>
+            <button type="submit" class="btn-submit">Đăng Ký</button>
+        </form>
+        <div id="formError" class="error"></div> <!-- Khu vực hiển thị thông báo lỗi từ validateForm.js -->
+    </div>
+
+    <script src="~/Scripts/validateForm.js"></script>
+    <script>
+        function togglePasswordVisibility(inputId, iconId) {
+            var input = document.getElementById(inputId);
+            var icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.src = "/assets/img/eye-open.png"; // Đường dẫn đến hình ảnh mắt mở
+            } else {
+                input.type = "password";
+                icon.src = "/assets/img/eye-close.png"; // Đường dẫn đến hình ảnh mắt đóng
+            }
+        }
+    </script>
+</body>
+</html>
