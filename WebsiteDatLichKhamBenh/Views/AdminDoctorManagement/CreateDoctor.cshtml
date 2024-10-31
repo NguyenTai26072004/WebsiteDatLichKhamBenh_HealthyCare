@@ -5,31 +5,126 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Thêm Bác Sĩ</h2>
+<h2 class="text-center title-add-doctor">Thêm Bác Sĩ</h2>
 
-@using (Html.BeginForm("CreateDoctor", "AdminDoctorManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateDoctor", "AdminDoctorManagement", FormMethod.Post, new { enctype = "multipart/form-data", id = "createDoctorForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.idAccount)
 
     <div class="form-group">
-        @Html.Label("tenBS", "Tên bác sĩ:")
-        @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.tenBS)
+        @Html.LabelFor(m => m.tenBS, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control doctor-input", placeholder = "Nhập tên bác sĩ..." })
+        @Html.ValidationMessageFor(m => m.tenBS, "", new { @class = "text-danger doctor-error" })
     </div>
 
     <div class="form-group">
-        @Html.Label("chuyenKhoa", "Chuyên khoa:")
-        @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.chuyenKhoa)
+        @Html.LabelFor(m => m.chuyenKhoa, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control doctor-input", placeholder = "Nhập chuyên khoa..." })
+        @Html.ValidationMessageFor(m => m.chuyenKhoa, "", new { @class = "text-danger doctor-error" })
     </div>
 
     <div class="form-group">
-        @Html.Label("imageFile", "Ảnh bác sĩ:")
+        @Html.Label("imageFile", "Ảnh bác sĩ:", new { @class = "control-label" })
         <input type="file" id="imageFile" name="imageFile" class="form-control" />
     </div>
-
 
     <button type="submit" class="btn btn-primary">Thêm</button>
     @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
 }
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Ràng buộc không cho phép nhập số
+            $.validator.addMethod("noNumbers", function (value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+            }, "Trường này không được chứa số.");
+
+            $("#createDoctorForm").validate({
+                rules: {
+                    "tenBS": {
+                        required: true,
+                        minlength: 3,
+                        noNumbers: true // Áp dụng phương thức ràng buộc không cho phép số
+                    },
+                    "chuyenKhoa": {
+                        required: true,
+                        noNumbers: true // Áp dụng phương thức ràng buộc không cho phép số
+                    }
+                },
+                messages: {
+                    "tenBS": {
+                        required: "Vui lòng nhập tên bác sĩ.",
+                        minlength: "Tên bác sĩ phải có ít nhất 3 ký tự."
+                    },
+                    "chuyenKhoa": {
+                        required: "Vui lòng nhập chuyên khoa."
+                    }
+                },
+                errorClass: "text-danger"
+            });
+        });
+    </script>
+}
+
+<style>
+    .title-add-doctor {
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .doctor-input {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.2s;
+    }
+
+        .doctor-input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .text-danger {
+        color: red; /* Màu đỏ cho thông báo lỗi */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-secondary {
+        margin-left: 10px;
+    }
+
+    /* Thêm kiểu cho input file */
+    input[type="file"] {
+        padding: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.2s;
+    }
+
+        input[type="file"]:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+</style>

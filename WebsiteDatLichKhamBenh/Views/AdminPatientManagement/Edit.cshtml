@@ -7,36 +7,38 @@
 
 <h2>Chỉnh Sửa Bệnh Nhân</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "AdminPatientManagement", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(model => model.idBenhNhan) <!-- Thêm trường ẩn cho ID -->
+
     <div class="form-group">
-        @Html.LabelFor(model => model.tenBenhNhan, "Tên bệnh nhân:")  <!-- Thay đổi nhãn hiển thị ở đây -->
+        @Html.LabelFor(model => model.tenBenhNhan, "Tên bệnh nhân:")
         @Html.EditorFor(model => model.tenBenhNhan, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.tenBenhNhan)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ngaySinh, "Ngày sinh:")  <!-- Thay đổi nhãn hiển thị ở đây -->
+        @Html.LabelFor(model => model.ngaySinh, "Ngày sinh:")
         @Html.EditorFor(model => model.ngaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
         @Html.ValidationMessageFor(model => model.ngaySinh)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.GioiTinh, "Giới tính:")  <!-- Thay đổi nhãn hiển thị ở đây -->
+        @Html.LabelFor(model => model.GioiTinh, "Giới tính:")
         @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.GioiTinh)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SDT, "Số điện thoại:")  <!-- Thay đổi nhãn hiển thị ở đây -->
+        @Html.LabelFor(model => model.SDT, "Số điện thoại:")
         @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.SDT)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Email, "Email:")  <!-- Thay đổi nhãn hiển thị ở đây -->
+        @Html.LabelFor(model => model.Email, "Email:")
         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Email)
     </div>

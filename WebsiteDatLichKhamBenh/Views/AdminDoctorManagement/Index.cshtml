@@ -8,8 +8,17 @@
 <!-- Quản Lý Bác Sĩ -->
 <div class="mt-5">
     <h3>Danh Sách Bác Sĩ</h3>
+
     <!-- Nút thêm bác sĩ mới -->
     <a class="btn btn-primary add-btn" href="@Url.Action("CreateAccount", "AdminDoctorManagement")"><i class="fas fa-plus"></i> Thêm Bác Sĩ</a>
+
+    <!-- Thanh tìm kiếm -->
+    <form method="get" class="mt-3 mb-3">
+        <div class="input-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm theo ID hoặc tên bác sĩ" value="@ViewBag.SearchTerm" />
+            <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+        </div>
+    </form>
 
     <div class="table-responsive">
         <table class="table table-striped table-hover mt-3">
@@ -31,6 +40,7 @@
                         <td>@doctor.chuyenKhoa</td>
                         <td>@doctor.luotDat</td>
                         <td>
+                            <a class="btn btn-sm btn-info btn-custom" href="@Url.Action("Details", new { id = doctor.idBS })"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-sm btn-warning btn-custom" href="@Url.Action("Edit", new { id = doctor.idBS })"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-sm btn-danger btn-custom" href="@Url.Action("Delete", new { id = doctor.idBS })"><i class="fas fa-trash-alt"></i></a>
                         </td>
@@ -39,20 +49,21 @@
             </tbody>
         </table>
     </div>
+
     <!-- Pagination -->
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" tabindex="-1">Trước</a>
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, searchTerm = ViewBag.SearchTerm })" tabindex="-1">Trước</a>
             </li>
             @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize); i++)
             {
                 <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, searchTerm = ViewBag.SearchTerm })">@i</a>
                 </li>
             }
             <li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize) ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Sau</a>
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, searchTerm = ViewBag.SearchTerm })">Sau</a>
             </li>
         </ul>
     </nav>

@@ -7,81 +7,76 @@ namespace WebsiteDatLichKhamBenh.Controllers
 {
     public class CustomerRegisterController : Controller
     {
-        // Kết nối tới database
         private readonly WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
 
-        // GET: CustomerRegister
         public ActionResult Index()
         {
             return View();
         }
 
-        // POST: Đăng ký tài khoản
         [HttpPost]
-        public ActionResult Register(string username, string password, string confirmPassword, string email, string phone, DateTime birthDate, string gender)
+        public ActionResult Register(RegisterViewModel model)
         {
-            // Kiểm tra mật khẩu và xác nhận mật khẩu có khớp nhau không
-            if (password != confirmPassword)
+            // Kiểm tra tính hợp lệ của dữ liệu đầu vào
+            if (!ModelState.IsValid)
             {
-                ViewBag.Error = "Mật khẩu và nhập lại mật khẩu không khớp.";
-                return View("Index");
+                // Trả về view với các thông báo lỗi
+                return View("Index", model);
             }
 
-            // Kiểm tra tên đăng nhập đã tồn tại chưa
-            var existingAccount = db.Accounts.FirstOrDefault(a => a.TaiKhoan == username);
+            // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+            var existingAccount = db.Accounts.FirstOrDefault(a => a.TaiKhoan == model.Username);
             if (existingAccount != null)
             {
-                ViewBag.Error = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.";
-                return View("Index");
+                ModelState.AddModelError("", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.");
+                return View("Index", model);
             }
 
-            // Tạo mới đối tượng Account
+            // Nếu không có lỗi, tạo tài khoản mới
             var newAccount = new Account
             {
-                TaiKhoan = username,
-                MatKhau = password, // Lưu mật khẩu gốc
-                Role = "BenhNhan"  // Mặc định vai trò của tài khoản là Bệnh nhân
+                TaiKhoan = model.Username,
+                MatKhau = model.Password,
+                Role = "BenhNhan"
             };
 
             try
             {
-                // Lưu thông tin Account vào database
                 db.Accounts.Add(newAccount);
                 db.SaveChanges();
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Đã xảy ra lỗi khi lưu tài khoản: " + ex.Message;
-                return View("Index");
+                ModelState.AddModelError("", "Đã xảy ra lỗi khi lưu tài khoản: " + ex.Message);
+                return View("Index", model);
             }
 
-            // Sau khi thêm Account, cần lấy idAccount để thêm vào bảng BenhNhan
+            // Lấy ID của tài khoản vừa thêm
             var accountId = newAccount.idAccount;
 
-            // Tạo mới đối tượng BenhNhan
+            // Tạo đối tượng BenhNhan
             var newBenhNhan = new BenhNhan
             {
-                tenBenhNhan = username,
-                Email = email,
-                SDT = phone,
+                tenBenhNhan = model.Username,
+                Email = model.Email,
+                SDT = model.Phone,
                 idAccount = accountId,
-                ngaySinh = birthDate,
-                GioiTinh = gender
+                ngaySinh = model.BirthDate,
+                GioiTinh = model.Gender
             };
 
             try
             {
-                // Lưu thông tin BenhNhan vào database
                 db.BenhNhans.Add(newBenhNhan);
                 db.SaveChanges();
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Đã xảy ra lỗi khi lưu thông tin bệnh nhân: " + ex.Message;
-                return View("Index");
+                ModelState.AddModelError("", "Đã xảy ra lỗi khi lưu thông tin bệnh nhân: " + ex.Message);
+                return View("Index", model);
             }
 
-            // Sau khi đăng ký thành công, chuyển hướng đến trang đăng nhập hoặc trang chủ
+            // Sau khi đăng ký thành công, chuyển hướng đến trang đăng nhập
             return RedirectToAction("Index", "CustomerLogin");
         }
     }

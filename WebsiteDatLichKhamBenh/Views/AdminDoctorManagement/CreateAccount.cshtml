@@ -5,25 +5,117 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Tạo Tài Khoản Bác Sĩ</h2>
+<h2 class="mt-4 tittle_Create_Account">Tạo Tài Khoản Bác Sĩ</h2>
 
-@using (Html.BeginForm("CreateAccount", "AdminDoctorManagement"))
+@using (Html.BeginForm("CreateAccount", "AdminDoctorManagement", FormMethod.Post, new { id = "createAccountForm", @class = "form-account" }))
 {
     @Html.AntiForgeryToken()
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="form-group">
-        @Html.Label("TaiKhoan", "Tên tài khoản")
-        @Html.TextBox("TaiKhoan", null, new { @class = "form-control" })
-        @Html.ValidationMessage("TaiKhoan")
+        @Html.Label("TaiKhoan", "Tên tài khoản:", new { @class = "control-label" })
+        @Html.TextBox("TaiKhoan", null, new { @class = "form-control account-input", placeholder = "Nhập tên tài khoản..." })
+        @Html.ValidationMessage("TaiKhoan", "", new { @class = "text-danger account-error" })
     </div>
 
     <div class="form-group">
-        @Html.Label("MatKhau", "Mật khẩu")
-        @Html.Password("MatKhau", null, new { @class = "form-control" })
-        @Html.ValidationMessage("MatKhau")
+        @Html.Label("MatKhau", "Mật khẩu:", new { @class = "control-label" })
+        @Html.Password("MatKhau", null, new { @class = "form-control password-input", placeholder = "Nhập mật khẩu..." })
+        @Html.ValidationMessage("MatKhau", "", new { @class = "text-danger password-error" })
     </div>
 
     <button type="submit" class="btn btn-primary">Tạo Tài Khoản</button>
     @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
 }
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(function () {
+            // Ràng buộc cho trường tên tài khoản
+            $.validator.addMethod("noSpecialChars", function (value, element) {
+                return this.optional(element) || /^[a-zA-Z0-9]*$/.test(value);
+            }, "Tên tài khoản không được chứa ký tự đặc biệt.");
+
+            // Ràng buộc cho trường mật khẩu
+            $.validator.addMethod("passwordStrength", function (value, element) {
+                return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(value);
+            }, "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự đặc biệt.");
+
+            $("#createAccountForm").validate({
+                rules: {
+                    "TaiKhoan": {
+                        required: true,
+                        minlength: 6,
+                        noSpecialChars: true
+                    },
+                    "MatKhau": {
+                        required: true,
+                        passwordStrength: true
+                    }
+                },
+                messages: {
+                    "TaiKhoan": {
+                        required: "Vui lòng nhập tên tài khoản.",
+                        minlength: "Tên tài khoản phải có ít nhất 6 ký tự."
+                    },
+                    "MatKhau": {
+                        required: "Vui lòng nhập mật khẩu."
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+<style>
+    .tittle_Create_Account {
+        text-align: center;
+    }
+
+    .form-account {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .account-input, .password-input {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.2s;
+    }
+
+        .account-input:focus, .password-input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .error {
+        color: red;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-secondary {
+        margin-left: 10px;
+    }
+</style>

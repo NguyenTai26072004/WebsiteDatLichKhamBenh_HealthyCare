@@ -10,9 +10,11 @@
 <h3>Bạn có chắc chắn muốn xóa bệnh nhân này?</h3>
 <div>
     <h4>@Model.tenBenhNhan</h4>
-    <p>Ngày sinh: @Model.ngaySinh.Value.ToString("dd/MM/yyyy")</p>
+
+    <!-- Kiểm tra xem ngaySinh có giá trị hay không -->
+    <p>Ngày sinh: @(Model.ngaySinh.HasValue ? Model.ngaySinh.Value.ToString("dd/MM/yyyy") : "Không xác định")</p>
     <p>Giới tính: @Model.GioiTinh</p>
-    <p>Số điện thoại: @Model.SDT</p>  
+    <p>Số điện thoại: @Model.SDT</p>
     <p>Email: @Model.Email</p>
 </div>
 

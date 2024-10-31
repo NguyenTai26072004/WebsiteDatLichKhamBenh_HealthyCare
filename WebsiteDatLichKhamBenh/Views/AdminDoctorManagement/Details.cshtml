@@ -1,0 +1,42 @@
+﻿@model WebsiteDatLichKhamBenh.Models.BacSi
+
+@{
+    ViewBag.Title = "Chi Tiết Bác Sĩ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông Tin Chi Tiết Bác Sĩ</h2>
+
+<div>
+    <h4>@Model.tenBS</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Mã Bác Sĩ:</dt>
+        <dd class="col-sm-10">@Model.idBS</dd>
+
+        <dt class="col-sm-2">Tên Bác Sĩ:</dt>
+        <dd class="col-sm-10">@Model.tenBS</dd>
+
+        <dt class="col-sm-2">Chuyên Khoa:</dt>
+        <dd class="col-sm-10">@Model.chuyenKhoa</dd>
+
+        <dt class="col-sm-2">Lượt Đặt:</dt>
+        <dd class="col-sm-10">@Model.luotDat</dd>
+
+        <dt class="col-sm-2">Lượt Đánh Giá:</dt>
+        <dd class="col-sm-10">@Model.diemDanhGia</dd>
+
+        <dt class="col-sm-2">Tên Tài Khoản:</dt>
+        <dd class="col-sm-10">@Model.Account.TaiKhoan</dd>
+
+        <dt class="col-sm-2">Mật Khẩu:</dt>
+        <dd class="col-sm-10">@Model.Account.MatKhau</dd>
+
+        <dt class="col-sm-2">Ảnh Bác Sĩ:</dt>
+        <dd class="col-sm-10">
+            <img src="@Model.anhBS" alt="Ảnh của bác sĩ" style="max-width:200px;" />
+        </dd>
+    </dl>
+
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
+</div>

@@ -97,8 +97,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "AdminExamManagement" ? "active" : "")">
-                        <i class="fas fa-stethoscope me-2"></i> Quản Lý Ca Khám
+                    <a href="@Url.Action("Index", "AdminExamen")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminExamen" ? "active" : "")">
+                        <i class="fas fa-stethoscope me-2">
+                        </i> Quản Lý Ca Khám
                     </a>
                 </li>
                 <li>

@@ -1,5 +1,4 @@
-﻿function validateForm() {
-    // Lấy các giá trị từ form
+﻿function validateForm(event) {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
     const confirmPassword = document.getElementById('confirmPassword').value.trim();
@@ -7,52 +6,84 @@
     const phone = document.getElementById('phone').value.trim();
     const birthDate = document.getElementById('birthDate').value;
     const gender = document.querySelector('input[name="gender"]:checked');
-    const errorMessage = [];
+
+    // Xóa các lỗi cũ
+    document.getElementById('usernameError').textContent = '';
+    document.getElementById('passwordError').textContent = '';
+    document.getElementById('confirmPasswordError').textContent = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('phoneError').textContent = '';
+    document.getElementById('birthDateError').textContent = '';
+    document.getElementById('genderError').textContent = '';
+
+    let isValid = true;
 
     // Kiểm tra tên đăng nhập
-    if (username.length < 8) {
-        errorMessage.push('Tên đăng nhập phải tối thiểu 8 ký tự.');
+    if (!username) {
+        document.getElementById('usernameError').textContent = 'Tên đăng nhập không được để trống.';
+        isValid = false;
+    } else if (username.length < 8) {
+        document.getElementById('usernameError').textContent = 'Tên đăng nhập phải tối thiểu 8 ký tự.';
+        isValid = false;
     }
 
     // Kiểm tra mật khẩu
-    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/; // Có ít nhất 1 chữ, 1 số và 1 ký tự đặc biệt
-    if (password.length < 8) {
-        errorMessage.push('Mật khẩu phải tối thiểu 8 ký tự.');
-    } else if (!passwordPattern.test(password)) {
-        errorMessage.push('Mật khẩu phải chứa ít nhất 1 ký tự chữ, 1 số và 1 ký tự đặc biệt.');
+    if (!password) {
+        document.getElementById('passwordError').textContent = 'Mật khẩu không được để trống.';
+        isValid = false;
+    } else if (password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Mật khẩu phải tối thiểu 8 ký tự.';
+        isValid = false;
+    }
+
+    if (!confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Vui lòng xác nhận mật khẩu.';
+        isValid = false;
     } else if (password !== confirmPassword) {
-        errorMessage.push('Mật khẩu không khớp.');
+        document.getElementById('confirmPasswordError').textContent = 'Mật khẩu không khớp.';
+        isValid = false;
     }
 
     // Kiểm tra định dạng email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        errorMessage.push('Email không đúng định dạng.');
+    if (!email) {
+        document.getElementById('emailError').textContent = 'Email không được để trống.';
+        isValid = false;
+    } else {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').textContent = 'Email không đúng định dạng.';
+            isValid = false;
+        }
     }
 
     // Kiểm tra số điện thoại
-    const phonePattern = /^\d{10,15}$/; // Kiểm tra số điện thoại phải là từ 10 đến 15 chữ số
-    if (!phonePattern.test(phone)) {
-        errorMessage.push('Số điện thoại phải là từ 10 đến 15 số.');
+    if (!phone) {
+        document.getElementById('phoneError').textContent = 'Số điện thoại không được để trống.';
+        isValid = false;
+    } else {
+        const phonePattern = /^\d{10,15}$/;
+        if (!phonePattern.test(phone)) {
+            document.getElementById('phoneError').textContent = 'Số điện thoại phải là từ 10 đến 15 số.';
+            isValid = false;
+        }
     }
 
     // Kiểm tra ngày sinh
     if (!birthDate) {
-        errorMessage.push('Vui lòng chọn ngày sinh.');
+        document.getElementById('birthDateError').textContent = 'Vui lòng chọn ngày sinh.';
+        isValid = false;
     }
 
     // Kiểm tra giới tính
     if (!gender) {
-        errorMessage.push('Vui lòng chọn giới tính.');
+        document.getElementById('genderError').textContent = 'Vui lòng chọn giới tính.';
+        isValid = false;
     }
 
-    // Hiển thị thông báo lỗi
-    const formError = document.getElementById('formError');
-    if (errorMessage.length > 0) {
-        formError.innerHTML = errorMessage.join('<br>');
-        return false; // Ngăn không cho gửi form
+    // Ngăn gửi form nếu có lỗi
+    if (!isValid) {
+        event.preventDefault();
     }
 
-    formError.innerHTML = ''; // Reset thông báo lỗi
-    return true; // Cho phép gửi form
+    return isValid; // Trả về isValid để kiểm tra cuối cùng
 }

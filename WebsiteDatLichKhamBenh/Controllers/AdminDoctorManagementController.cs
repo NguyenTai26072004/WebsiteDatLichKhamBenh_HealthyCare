@@ -16,20 +16,42 @@ namespace WebsiteDatLichKhamBenh.Controllers
         private readonly string _firebaseBucket = "websitedatlichkhambenh.appspot.com";
 
         // GET: AdminDoctorManagement
-        public ActionResult Index(int page = 1, int pageSize = 10)
+        public ActionResult Index(int page = 1, int pageSize = 10, string searchTerm = null)
         {
-            var doctors = db.BacSis
+            var doctorsQuery = db.BacSis.AsQueryable();
+
+            // Tìm kiếm theo ID hoặc tên bác sĩ
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                int id;
+                if (int.TryParse(searchTerm, out id))
+                {
+                    // Nếu searchTerm là số, tìm theo ID
+                    doctorsQuery = doctorsQuery.Where(d => d.idBS == id);
+                }
+                else
+                {
+                    // Tìm theo tên bác sĩ
+                    doctorsQuery = doctorsQuery.Where(d => d.tenBS.Contains(searchTerm));
+                }
+            }
+
+            // Thực hiện phân trang
+            var doctors = doctorsQuery
                             .OrderBy(d => d.idBS)
                             .Skip((page - 1) * pageSize)
                             .Take(pageSize)
                             .ToList();
 
-            ViewBag.TotalCount = db.BacSis.Count();
+            ViewBag.TotalCount = doctorsQuery.Count(); // Tổng số bác sĩ
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = pageSize;
+            ViewBag.SearchTerm = searchTerm; // Lưu từ khóa tìm kiếm
 
             return View(doctors);
         }
+
+
 
         // GET: Tạo tài khoản bác sĩ
         public ActionResult CreateAccount()
@@ -129,19 +151,51 @@ namespace WebsiteDatLichKhamBenh.Controllers
             return View(doctor);
         }
 
-        // POST: Sửa bác sĩ
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BacSi doctor)
+        public async Task<ActionResult> Edit(BacSi doctor, HttpPostedFileBase imageFile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(doctor).State = System.Data.Entity.EntityState.Modified;
+                var existingDoctor = db.BacSis.Find(doctor.idBS);
+                if (existingDoctor == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Cập nhật các trường không thay đổi
+                existingDoctor.tenBS = doctor.tenBS;
+                existingDoctor.chuyenKhoa = doctor.chuyenKhoa;
+                existingDoctor.idAccount = doctor.idAccount; // Giữ lại id tài khoản
+                existingDoctor.luotDat = doctor.luotDat; // Giữ lại lượt đặt
+                existingDoctor.diemDanhGia = doctor.diemDanhGia; // Giữ lại điểm đánh giá
+
+                // Nếu có file ảnh mới, tải lên Firebase
+                if (imageFile != null && imageFile.ContentLength > 0)
+                {
+                    var downloadUrl = await UploadImageToFirebase(imageFile);
+                    existingDoctor.anhBS = downloadUrl; // Cập nhật URL ảnh mới
+                }
+
+                db.Entry(existingDoctor).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(doctor);
         }
+
+
+        // GET: Xem chi tiết bác sĩ
+        public ActionResult Details(int id)
+        {
+            var doctor = db.BacSis.Find(id);
+            if (doctor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(doctor);
+        }
+
 
         // GET: Xóa bác sĩ
         public ActionResult Delete(int id)

@@ -8,6 +8,17 @@
 <!-- Quản Lý Bệnh Nhân -->
 <div class="mt-5">
     <h3>Danh Sách Bệnh Nhân</h3>
+
+    <!-- Thanh tìm kiếm -->
+    <form method="get" action="@Url.Action("Index", "AdminPatientManagement")" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Tìm kiếm theo tên bệnh nhân" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+
     <div class="table-responsive">
         <table class="table table-striped table-hover mt-3">
             <thead>
@@ -54,7 +65,7 @@
             @if (ViewBag.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = ViewBag.CurrentPage - 1 })">Trước</a>
+                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = ViewBag.CurrentPage - 1, searchString = ViewBag.SearchString })">Trước</a>
                 </li>
             }
             else
@@ -67,14 +78,14 @@
             @for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = i })">@i</a>
+                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = i, searchString = ViewBag.SearchString })">@i</a>
                 </li>
             }
 
             @if (ViewBag.CurrentPage < ViewBag.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = ViewBag.CurrentPage + 1 })">Sau</a>
+                    <a class="page-link" href="@Url.Action("Index", "AdminPatientManagement", new { page = ViewBag.CurrentPage + 1, searchString = ViewBag.SearchString })">Sau</a>
                 </li>
             }
             else
