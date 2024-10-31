@@ -1,6 +1,7 @@
-﻿
+﻿@model WebsiteDatLichKhamBenh.Models.BenhNhan
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thông Tin Bệnh Nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,6 +10,7 @@
     <title>Thông Tin Bệnh Nhân</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        /* Body and container styling */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
@@ -21,46 +23,65 @@
             padding: 20px;
         }
 
+        /* Sidebar styling */
         .sidebar {
             width: 25%;
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-right: 20px;
         }
-            /* Menu title */
+
             .sidebar h2 {
                 color: #4CAF50;
-                font-size: 24px;
-                margin-bottom: 20px;
+                font-size: 26px;
+                margin-bottom: 24px;
+                border-bottom: 2px solid #4CAF50;
+                padding-bottom: 10px;
             }
-            /* Default style for sidebar items */
+
+            /* Sidebar items (paragraphs) */
             .sidebar p {
                 font-size: 18px;
                 color: #333;
                 margin: 10px 0;
+                text-decoration: none;
+                display: block;
+                padding: 8px 12px; /* Control padding for hover size */
+                border-radius: 6px;
+                transition: background-color 0.2s, color 0.2s;
             }
-                /* Active state for 'Thông tin bệnh nhân' */
+
+                /* Hover effect for individual sidebar paragraphs only */
+                .sidebar p:hover {
+                    background-color: #4CAF50;
+                    color: #fff;
+                }
+
+                /* Active item styling */
                 .sidebar p.active {
                     font-weight: bold;
                     font-size: 20px;
-                    color: #4CAF50;
+                    color: #fff;
+                    background-color: #4CAF50;
+                    padding: 8px 12px;
+                    border-radius: 6px;
                 }
 
+            /* Link styling */
             .sidebar a {
-                text-decoration: none;
-                color: inherit;
+                text-decoration: none; /* No underline */
+                color: inherit; /* Inherit color from parent */
             }
 
+        /* Content styling */
         .content {
             width: 75%;
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
             .content h2 {
@@ -100,31 +121,78 @@
                 .edit-button button:hover {
                     background-color: #45a049;
                 }
+
+        .note {
+            color: red;
+            font-weight: bold;
+        }
     </style>
+
+
+
+
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
             <h2>Menu</h2>
-            <!-- 'Thông tin bệnh nhân' is active on this page -->
             <p class="active">Thông tin bệnh nhân</p>
-            <!-- 'Lịch sử đặt lịch' is not active -->
-            <a href="@Url.Action("Index", "CustomerHistory")"><p>Lịch sử đặt lịch</p></a>
+            <a href="@Url.Action("Index", "CustomerHistory")">
+                <p>Lịch sử đặt lịch</p>
+            </a>
+
         </div>
         <div class="content">
             <h2>THÔNG TIN BỆNH NHÂN</h2>
             <div class="info">
-                <p><span>Họ và tên:</span> <span class="value">Nguyễn Quang Huy</span> <span style="float: right;"><span>SĐT:</span> <span class="value">0942770374</span></span></p>
-                <p><span>Ngày sinh:</span> <span class="value">22/10/2004</span> <span style="float: right;"><span>Giới tính:</span> <span class="value">Nam</span></span></p>
-                <p><span>Email:</span> <span class="value">huydeptrai123@gmail.com</span></p>
-                <p><span>Địa chỉ:</span> <span class="value">2/20 Khu Phố 4, Phường Tân Biên, Biên Hòa, Đồng Nai</span></p>
-                <p><span>Tiền sử bệnh án:</span> <span class="value">Tiền sử bệnh tim</span></p>
+                <p>
+                    <span>Họ và tên:</span> <span class="value">@Model.tenBenhNhan</span>
+                    <span style="float: right;"><span>SĐT:</span> <span class="value">@Model.SDT</span></span>
+                </p>
+                <p>
+                    <span>Ngày sinh:</span> <span class="value">@((Model.ngaySinh)?.ToString("dd/MM/yyyy"))</span>
+                    <span style="float: right;"><span>Giới tính:</span> <span class="value">@Model.GioiTinh</span></span>
+                </p>
+                <p><span>Email:</span> <span class="value">@Model.Email</span></p>
+                <p>
+                    <span>Tiền sử bệnh án:</span>
+                    <span class="value">
+                        @if (string.IsNullOrEmpty(Model.tienSuBenh))
+                        {
+                            <span class="note">Cần được bổ sung</span>
+                        }
+                        else
+                        {
+                            <text>@Model.tienSuBenh</text>
+                        }
+                    </span>
+                </p>
+                <p>
+                    <span>Dị ứng:</span>
+                    <span class="value">
+                        @if (string.IsNullOrEmpty(Model.DiUng))
+                        {
+                            <span class="note">Cần được bổ sung</span>
+                        }
+                        else
+                        {
+                            <text>@Model.DiUng</text>
+                        }
+                    </span>
+                </p>
+
+
             </div>
+
+
+
+
             <div class="edit-button">
-                <button>Chỉnh sửa</button>
+                <a href="@Url.Action("Edit", "CustomerPersonal")">
+                    <button>Chỉnh sửa</button>
+                </a>
             </div>
         </div>
     </div>
 </body>
 </html>
-

@@ -1,0 +1,29 @@
+﻿@model WebsiteDatLichKhamBenh.Models.Account
+
+@{
+    ViewBag.Title = "Tạo Tài Khoản Bác Sĩ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Tạo Tài Khoản Bác Sĩ</h2>
+
+@using (Html.BeginForm("CreateAccount", "AdminDoctorManagement"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("TaiKhoan", "Tên tài khoản")
+        @Html.TextBox("TaiKhoan", null, new { @class = "form-control" })
+        @Html.ValidationMessage("TaiKhoan")
+    </div>
+
+    <div class="form-group">
+        @Html.Label("MatKhau", "Mật khẩu")
+        @Html.Password("MatKhau", null, new { @class = "form-control" })
+        @Html.ValidationMessage("MatKhau")
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tạo Tài Khoản</button>
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
+}
+

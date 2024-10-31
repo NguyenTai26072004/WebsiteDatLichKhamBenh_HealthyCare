@@ -25,8 +25,6 @@ namespace WebsiteDatLichKhamBenh.Models
         public string TaiKhoan { get; set; }
         public string MatKhau { get; set; }
         public string Role { get; set; }
-
-        public string HoTen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BacSi> BacSis { get; set; }

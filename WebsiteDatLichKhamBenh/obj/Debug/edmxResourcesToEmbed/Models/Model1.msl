@@ -31,6 +31,7 @@
           <ScalarProperty Name="tenBenhNhan" ColumnName="tenBenhNhan" />
           <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
           <ScalarProperty Name="tienSuBenh" ColumnName="tienSuBenh" />
+          <ScalarProperty Name="DiUng" ColumnName="DiUng" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
@@ -89,6 +90,7 @@
           <ScalarProperty Name="MaBenhNhan" ColumnName="MaBenhNhan" />
           <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
           <ScalarProperty Name="NgayDatLich" ColumnName="NgayDatLich" />
+          <ScalarProperty Name="GioDatLich" ColumnName="GioDatLich" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
         </MappingFragment>
       </EntityTypeMapping>

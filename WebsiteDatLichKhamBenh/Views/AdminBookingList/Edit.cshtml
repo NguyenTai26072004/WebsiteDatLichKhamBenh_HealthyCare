@@ -1,0 +1,32 @@
+﻿@model WebsiteDatLichKhamBenh.Models.LichKham
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Chỉnh Sửa Lịch Hẹn";
+}
+
+<h2>Chỉnh Sửa Lịch Hẹn</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.MaLichKham)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaBenhNhan)
+        @Html.TextBoxFor(model => model.MaBenhNhan, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaCaKham)
+        @Html.TextBoxFor(model => model.MaCaKham, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NgayDatLich)
+        @Html.TextBoxFor(model => model.NgayDatLich, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrangThai)
+        @Html.TextBoxFor(model => model.TrangThai, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+}

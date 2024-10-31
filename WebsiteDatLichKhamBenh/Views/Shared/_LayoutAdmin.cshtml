@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Quản lý Lịch Khám Bệnh</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #343a40;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+            .sidebar .nav-link {
+                color: #fff;
+            }
+
+                .sidebar .nav-link.active {
+                    background: #495057; /* Màu nền cho mục đang được chọn */
+                    color: #fff; /* Màu chữ cho mục đang được chọn */
+                }
+
+                .sidebar .nav-link:hover {
+                    background: #495057; /* Màu nền khi hover */
+                    color: #fff; /* Màu chữ khi hover */
+                }
+
+        .content {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .header {
+            background: #fff;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+            .header .admin-info {
+                float: right;
+            }
+
+        .table thead th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .btn-custom {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-flex flex-column p-3">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <i class="fas fa-clinic-medical fa-2x me-2"></i>
+                <span class="fs-4">Quản Lý Khám Bệnh</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "AdminDashboard")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
+                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AdminPatientManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminPatientManagement" ? "active" : "")">
+                        <i class="fas fa-user-injured me-2"></i> Quản Lý Bệnh Nhân
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AdminDoctorManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminDoctorManagement" ? "active" : "")">
+                        <i class="fas fa-user-md me-2"></i> Quản Lý Bác Sĩ
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AdminBookingList")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminBookingList" ? "active" : "")">
+                        <i class="fas fa-calendar-check me-2"></i> Quản Lý Lịch Hẹn
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link @(ViewContext.RouteData.Values["controller"].ToString() == "AdminExamManagement" ? "active" : "")">
+                        <i class="fas fa-stethoscope me-2"></i> Quản Lý Ca Khám
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AdminFacilityManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminFacilityManagement" ? "active" : "")">
+                        <i class="fas fa-hospital me-2"></i> Quản Lý Cơ Sở
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "AdminAccountManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminAccountManagement" ? "active" : "")">
+                        <i class="fas fa-user-cog me-2"></i> Quản Lý Tài Khoản
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-2x me-2"></i>
+                    <strong>Admin</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
+                    <li><a class="dropdown-item" href="#">Thông Tin Tài Khoản</a></li>
+                    <li><a class="dropdown-item" href="#">Đăng Xuất</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content flex-grow-1">
+            <!-- Header -->
+            <header class="header d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">@ViewBag.PageTitle</h2>
+                <div class="admin-info">
+                    <span class="me-3">Chào, Admin</span>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
+                </div>
+            </header>
+
+            <!-- Render body -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

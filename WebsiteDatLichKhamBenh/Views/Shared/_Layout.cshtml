@@ -1,4 +1,5 @@
-﻿<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,50 +7,197 @@
     <link rel="stylesheet" href="~/assets/css/header_footer.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8; /* Màu nền chính cho trang */
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white; /* Nền trắng cho header */
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho header */
+        }
+
+            .header .logo {
+                margin-right: 20px; /* Khoảng cách bên phải cho logo */
+            }
+
+                .header .logo img {
+                    height: 60px; /* Tăng chiều cao logo */
+                    width: auto; /* Để logo tự động điều chỉnh chiều rộng */
+                }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav_item {
+            color: #333; /* Màu chữ cho các liên kết */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+            .nav_item:hover {
+                color: #4CAF50; /* Màu xanh lá cây khi hover */
+            }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Khoảng cách giữa greeting và button */
+        }
+
         .greeting {
-            margin-top: 7px;
-            color: #4CAF50; /* Màu xanh lá cây */
-            font-weight: bold; /* Chữ đậm */
-            font-size: 15px; /* Kích thước chữ */
-            margin-right: 10px; /* Khoảng cách bên phải */
-            padding: 5px 10px; /* Khoảng cách trong */
+            margin: 0;
+            color: #4CAF50; /* Màu chữ xanh lá cây cho greeting */
+            font-size: 16px; /* Kích thước chữ */
+            font-weight: bold; /* In đậm chữ */
+            display: flex; /* Để căn chỉnh biểu tượng và chữ */
+            align-items: center; /* Căn giữa dọc */
+        }
+
+            .greeting i {
+                margin-right: 5px; /* Khoảng cách giữa biểu tượng và chữ */
+                color: #228B22; 
+            }
+
+        button {
+            padding: 10px 15px;
+            border: 1px solid #4CAF50; /* Viền nút xanh lá cây */
+            border-radius: 5px;
+            background-color: white; /* Nền nút trắng */
+            color: #4CAF50; /* Màu chữ xanh lá cây */
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            button:hover {
+                background-color: #4CAF50; /* Nền nút xanh lá cây khi hover */
+                color: white; /* Màu chữ trắng khi hover */
+            }
+
+        /* Footer styles */
+        .footer {
+            background-color: white; /* Nền trắng cho footer */
+            color: #333; /* Màu chữ tối cho footer */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho footer */
+        }
+
+        .footer-logo img {
+            height: 60px; /* Tăng chiều cao logo footer */
+            width: auto; /* Để logo tự động điều chỉnh chiều rộng */
+            margin-bottom: 10px; /* Khoảng cách phía dưới logo */
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+
+        .section {
+            flex: 1 1 200px; /* Đảm bảo mỗi phần có chiều rộng tối thiểu 200px */
+            margin: 10px;
+            text-align: left; /* Căn trái cho nội dung */
+        }
+
+            .section h3 {
+                margin: 10px 0;
+                font-size: 18px;
+                text-decoration: underline; /* Gạch chân tiêu đề */
+                color: #4CAF50; /* Màu chữ xanh lá cây cho tiêu đề */
+            }
+
+            .section p, .section ul {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+        .button {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #4CAF50; /* Nền nút xanh lá cây */
+            color: white; /* Màu chữ trắng */
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .button:hover {
+                background-color: #333; /* Màu nền tối khi hover */
+            }
+
+        .social-icons {
+            margin-right: 74px;
+            display: flex;
+            justify-content: center; /* Căn giữa các biểu tượng */
+            margin-top: 10px; /* Khoảng cách phía trên cho các biểu tượng */
+        }
+
+            .social-icons a {
+                color: #4CAF50; /* Màu chữ xanh lá cây cho biểu tượng */
+                margin: 0 10px;
+                font-size: 20px;
+                transition: color 0.3s;
+            }
+
+                .social-icons a:hover {
+                    color: #333; /* Màu tối hơn khi hover */
+                }
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555; /* Màu chữ nhạt hơn cho footer bottom */
         }
     </style>
 </head>
 <body>
     <!-- header -->
     <header class="header">
-        <!--logo-->
-        <a class="logo" href="@Url.Action("Index", "CustomerHome")">
-            <img alt="Healthy Life Logo" src="~/assets/img/healthy-life-logo.png" style="height: 50px;" />
-        </a>
+        <div class="logo">
+            <a href="@Url.Action("Index", "CustomerHome")">
+                <img alt="Healthy Life Logo" src="~/assets/img/healthy-life-logo.png" />
+            </a>
+        </div>
 
         <nav>
             <a class="nav_item" href="@Url.Action("Index", "CustomerHome")">Trang Chủ</a>
             <a class="nav_item" href="@Url.Action("Index", "CustomerFindDoctor")">Đặt Lịch</a>
             <a class="nav_item" href="#">Tin Tức</a>
-            <a class="nav_item" href="@Url.Action("Index", "CustomerPersonal")">Thông Tin Sức Khỏe</a>
+            <a class="nav_item" href="@Url.Action("PersonalInfo", "CustomerHome")">Thông Tin Sức Khỏe</a>
         </nav>
 
         <div class="buttons">
             @if (Session["Username"] != null)
             {
-                <!-- Hiển thị tên người dùng và nút Đăng Xuất -->
-                <span class="greeting">Xin chào, @Session["Username"]!</span>
+                <span class="greeting">
+                    <i class="fas fa-user-circle"></i> <!-- Biểu tượng chào mừng -->
+                    Xin chào, @Session["Username"]!
+                </span>
                 <button onclick="location.href='@Url.Action("Logout", "CustomerLogin")'">Đăng Xuất</button>
             }
             else
             {
-                <!-- Hiển thị nút Đăng Ký và Đăng Nhập khi chưa đăng nhập -->
                 <button onclick="location.href='@Url.Action("Index", "CustomerRegister")'">Đăng Ký</button>
                 <button onclick="location.href='@Url.Action("Index", "CustomerLogin")'">Đăng Nhập</button>
             }
         </div>
     </header>
 
-    <div class="" style="height:auto">
+    <main style="min-height: calc(100vh - 200px);">
         @RenderBody()
-    </div>
+    </main>
 
     <!-- footer -->
     <footer class="footer">
@@ -61,8 +209,8 @@
                 <h3>Phòng khám Healthy Life</h3>
                 <p>828 Sư Vạn Hạnh, Phường 13, Quận 10, TPHCM</p>
                 <p>ĐT: (094) 2770 374</p>
-                <p>Email: <a href="mailto:hlhuflit@st.huflily.edu.vn">hlhuflit@st.huflily.edu.vn</a></p>
-                <p>Website: <a href="http://www.hlhuflit.com.vn">www.hlhuflit.com.vn</a></p>
+                <p>Email: <a href="mailto:hlhuflit@st.huflily.edu.vn" style="color: #4CAF50;">hlhuflit@st.huflily.edu.vn</a></p>
+                <p>Website: <a href="http://www.hlhuflit.com.vn" style="color: #4CAF50;">www.hlhuflit.com.vn</a></p>
             </div>
             <div class="section system-info">
                 <h3>Hệ thống</h3>
@@ -83,7 +231,7 @@
                 <h3>Theo dõi tin tức từ</h3>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-square"></i></a>
-                    <a href="#"><i class="fab fa-zalo"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>

@@ -1,4 +1,6 @@
-﻿
+﻿@model IEnumerable<WebsiteDatLichKhamBenh.Models.BacSi>
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -180,79 +182,51 @@
 </head>
 <body>
     <div class="nav-header">
-        <h1>
-            Đặt lịch khám qua Healthy Life
-        </h1>
-        <p>
-            Để được tiếp đón ưu tiên và nhận sự hỗ trợ tận tình từ chúng tôi
-        </p>
+        <h1>Đặt lịch khám qua Healthy Life</h1>
+        <p>Để được tiếp đón ưu tiên và nhận sự hỗ trợ tận tình từ chúng tôi</p>
         <div class="search-bar">
-            <i class="fas fa-search">
-            </i>
+            <i class="fas fa-search"></i>
             <input placeholder="Tìm tên bác sĩ, chuyên khoa" type="text" />
         </div>
     </div>
     <div class="container">
-        <h2>
-            Chọn bác sĩ
-        </h2>
+        <h2>Chọn bác sĩ</h2>
         <div class="filters">
             <select>
-                <option>
-                    Chọn chuyên khoa
-                </option>
+                <option>Chọn chuyên khoa</option>
             </select>
             <select>
-                <option>
-                    Tất cả
-                </option>
+                <option>Tất cả</option>
             </select>
         </div>
         <div class="doctor-grid">
-            <div class="doctor-card">
-                <img alt="Doctor 1" height="100" src="https://storage.googleapis.com/a1aa/image/QUgfKo5N0qUsP6EeQQPQMoeKkspd5ONPaAxmZaqG8615WJLnA.jpg" width="100" />
-                <h3>
-                    BSCKII TRẦN THỊ THANH NHO
-                </h3>
-                <div class="info">
-                    <i class="fas fa-briefcase-medical">
-                    </i>
-                    <span>
-                        359
-                    </span>
-                    <i class="fas fa-star" style="margin-left: 10px;">
-                    </i>
-                    <span>
-                        4.8
-                    </span>
+            @foreach (var doctor in Model) // Vòng lặp để hiển thị danh sách bác sĩ
+            {
+                <div class="doctor-card">
+                    <img alt="@doctor.tenBS" height="100" src="@doctor.anhBS" width="100" /> <!-- Lấy ảnh từ Firebase -->
+                    <h3>@doctor.tenBS</h3>
+                    <div class="info">
+                        <i class="fas fa-briefcase-medical"></i>
+                        <span>@doctor.luotDat</span>
+                        <i class="fas fa-star" style="margin-left: 10px;"></i>
+                        <span>@doctor.diemDanhGia</span>
+                    </div>
+                    <div class="specialty">
+                        @doctor.chuyenKhoa
+                    </div>
+                    <button class="book-button" onclick="location.href='@Url.Action("Index", "CustomerBooking")'">
+                        Đặt Khám
+                    </button>
                 </div>
-                <div class="specialty">
-                    Da Liễu
-                </div>
-                <button class="book-button" onclick="location.href='@Url.Action("Index", "CustomerBooking")'">
-                    Đặt Khám
-                </button>
-            </div>
+            }
         </div>
         <div class="pagination">
-            <a class="active" href="#">
-                1
-            </a>
-            <a href="#">
-                2
-            </a>
-            <a href="#">
-                3
-            </a>
-            <a href="#">
-                4
-            </a>
-            <a href="#">
-                5
-            </a>
-            <a href="#">
-                >
-            </a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">></a>
         </div>
     </div>
 </body>

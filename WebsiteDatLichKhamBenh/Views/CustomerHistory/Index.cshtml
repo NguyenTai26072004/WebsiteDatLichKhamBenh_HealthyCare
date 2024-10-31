@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lịch Sử Đặt Lịch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,45 +23,60 @@
         .sidebar {
             width: 25%;
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-right: 20px;
         }
 
             .sidebar h2 {
                 color: #4CAF50;
-                font-size: 24px;
-                margin: 0 0 10px 0;
+                font-size: 26px;
+                margin-bottom: 24px;
+                border-bottom: 2px solid #4CAF50;
+                padding-bottom: 10px;
             }
 
-            /* Định dạng chung cho các mục sidebar */
+            /* Sidebar items (paragraphs) */
             .sidebar p {
                 font-size: 18px;
                 color: #333;
                 margin: 10px 0;
+                text-decoration: none;
+                display: block;
+                padding: 8px 12px; /* Control padding for hover size */
+                border-radius: 6px;
+                transition: background-color 0.2s, color 0.2s;
             }
 
-                /* Khi ở trang Lịch sử đặt lịch, chữ Lịch sử đặt lịch sẽ in đậm và to hơn */
+                /* Hover effect for individual sidebar paragraphs only */
+                .sidebar p:hover {
+                    background-color: #4CAF50;
+                    color: #fff;
+                }
+
+                /* Active item styling */
                 .sidebar p.active {
                     font-weight: bold;
                     font-size: 20px;
-                    color: #4CAF50;
+                    color: #fff;
+                    background-color: #4CAF50;
+                    padding: 8px 12px;
+                    border-radius: 6px;
                 }
 
+            /* Link styling */
             .sidebar a {
-                text-decoration: none;
-                color: inherit;
+                text-decoration: none; /* No underline */
+                color: inherit; /* Inherit color from parent */
             }
 
         .content {
             width: 75%;
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
             .content h1 {
@@ -123,9 +138,7 @@
     <div class="container">
         <div class="sidebar">
             <h2>Menu</h2>
-            <!-- 'Thông tin bệnh nhân' có thể bấm để chuyển trang -->
             <a href="@Url.Action("Index", "CustomerPersonal")"><p>Thông tin bệnh nhân</p></a>
-            <!-- 'Lịch sử đặt lịch' hiện đang active, vì vậy chữ sẽ in đậm -->
             <p class="active">Lịch sử đặt lịch</p>
         </div>
         <div class="content">

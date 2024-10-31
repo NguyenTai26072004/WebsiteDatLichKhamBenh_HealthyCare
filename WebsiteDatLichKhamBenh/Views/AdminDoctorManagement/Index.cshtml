@@ -1,139 +1,59 @@
-﻿@{
-    Layout = null;
+﻿@model IEnumerable<WebsiteDatLichKhamBenh.Models.BacSi>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Quản lý bác sĩ";
 }
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Bác Sĩ</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/assets/css/admin_doctor_management.css">
-</head>
-<body>
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <nav class="sidebar d-flex flex-column p-3">
-            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <i class="fas fa-clinic-medical fa-2x me-2"></i>
-                <span class="fs-4">Quản Lý Khám Bệnh</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="@Url.Action("Index", "AdminDashboard")" class="nav-link text-white">
-                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminPatientManagement")" class="nav-link text-white">
-                        <i class="fas fa-user-injured me-2"></i> Quản Lý Bệnh Nhân
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminDoctorManagement")" class="nav-link active" aria-current="page">
-                        <i class="fas fa-user-md me-2"></i> Quản Lý Bác Sĩ
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminBookingList")" class="nav-link text-white">
-                        <i class="fas fa-calendar-check me-2"></i> Quản Lý Lịch Hẹn
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        <i class="fas fa-stethoscope me-2"></i> Quản Lý Ca Khám
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminFacilityManagement")" class="nav-link text-white">
-                        <i class="fas fa-hospital me-2"></i> Quản Lý Cơ Sở
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminAccountManagement")" class="nav-link text-white">
-                        <i class="fas fa-user-cog me-2"></i> Quản Lý Tài Khoản
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user-circle fa-2x me-2"></i>
-                    <strong>Admin</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
-                    <li><a class="dropdown-item" href="#">Thông Tin Tài Khoản</a></li>
-                    <li><a class="dropdown-item" href="#">Đăng Xuất</a></li>
-                </ul>
-            </div>
-        </nav>
+<!-- Quản Lý Bác Sĩ -->
+<div class="mt-5">
+    <h3>Danh Sách Bác Sĩ</h3>
+    <!-- Nút thêm bác sĩ mới -->
+    <a class="btn btn-primary add-btn" href="@Url.Action("CreateAccount", "AdminDoctorManagement")"><i class="fas fa-plus"></i> Thêm Bác Sĩ</a>
 
-        <!-- Main Content -->
-        <div class="content flex-grow-1">
-            <!-- Header -->
-            <header class="header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Quản Lý Bác Sĩ</h2>
-                <div class="admin-info">
-                    <span class="me-3">Chào, Admin</span>
-                    <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
-                </div>
-            </header>
-
-            <!-- Quản Lý Bác Sĩ -->
-            <div class="mt-5">
-                <h3>Danh Sách Bác Sĩ</h3>
-                <!-- Nút thêm bác sĩ mới -->
-                <button class="btn btn-primary add-btn"><i class="fas fa-plus"></i> Thêm Bác Sĩ</button>
-
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover mt-3">
-                        <thead>
-                            <tr>
-                                <th>Mã Bác Sĩ</th>
-                                <th>Tên Bác Sĩ</th>
-                                <th>Chuyên Khoa</th>
-                                <th>Lượt đặt</th>
-                                <th>Thao Tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>BS001</td>
-                                <td>Nguyễn Văn B</td>
-                                <td>Nội Khoa</td>
-                                <td>30</td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning btn-custom"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm btn-danger btn-custom"><i class="fas fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <!-- Các bác sĩ khác -->
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Pagination -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Trước</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sau</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Mã Bác Sĩ</th>
+                    <th>Tên Bác Sĩ</th>
+                    <th>Chuyên Khoa</th>
+                    <th>Lượt đặt</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in Model)
+                {
+                    <tr>
+                        <td>@doctor.idBS</td>
+                        <td>@doctor.tenBS</td>
+                        <td>@doctor.chuyenKhoa</td>
+                        <td>@doctor.luotDat</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning btn-custom" href="@Url.Action("Edit", new { id = doctor.idBS })"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-sm btn-danger btn-custom" href="@Url.Action("Delete", new { id = doctor.idBS })"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" tabindex="-1">Trước</a>
+            </li>
+            @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize); i++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize) ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>

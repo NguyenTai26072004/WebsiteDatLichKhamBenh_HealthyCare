@@ -26,8 +26,6 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 // Đăng nhập thành công, lưu thông tin vào session
                 Session["UserID"] = account.idAccount;
                 Session["Username"] = account.TaiKhoan;
-                Session["FullName"] = account.HoTen;  // Lưu tên của người dùng (ví dụ: bác sĩ)
-                Session["Role"] = account.Role;  // Lưu vai trò vào session để kiểm tra
 
                 // Kiểm tra vai trò của người dùng và chuyển hướng
                 switch (account.Role)

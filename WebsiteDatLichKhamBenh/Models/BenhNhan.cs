@@ -24,6 +24,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public string tenBenhNhan { get; set; }
         public Nullable<System.DateTime> ngaySinh { get; set; }
         public string tienSuBenh { get; set; }
+        public string DiUng { get; set; }
         public string SDT { get; set; }
         public string Email { get; set; }
         public string GioiTinh { get; set; }

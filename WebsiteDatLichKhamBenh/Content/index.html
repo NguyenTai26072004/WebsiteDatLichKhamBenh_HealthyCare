@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tải Hình Ảnh lên Firebase</title>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js"; // Thêm import cho Storage
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBiqyT-CwH3TMlbofZVFeO5BYDl0rAiQAM",
+            authDomain: "websitedatlichkhambenh.firebaseapp.com",
+            projectId: "websitedatlichkhambenh",
+            storageBucket: "websitedatlichkhambenh.appspot.com",
+            messagingSenderId: "801633828224",
+            appId: "1:801633828224:web:1053020376988f4e321565",
+            measurementId: "G-3HY83PMGTH"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Initialize Storage
+        const storage = getStorage(app);
+
+        async function uploadImage(file) {
+            const storageRef = ref(storage, 'images/' + file.name); // Tạo tham chiếu đến Storage
+            try {
+                await uploadBytes(storageRef, file); // Tải lên file
+                const downloadURL = await getDownloadURL(storageRef); // Lấy URL tải xuống
+                console.log("File available at", downloadURL);
+                alert("Tải lên thành công! Xem tại: " + downloadURL);
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+        }
+
+        function handleUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                uploadImage(file);
+            } else {
+                alert("Vui lòng chọn một tệp.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Tải Hình Ảnh lên Firebase</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="handleUpload()">Tải lên</button>
+</body>
+</html>

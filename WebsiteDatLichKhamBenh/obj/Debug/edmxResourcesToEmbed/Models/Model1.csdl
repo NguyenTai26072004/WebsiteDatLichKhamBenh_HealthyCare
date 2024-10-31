@@ -19,7 +19,7 @@
     <Property Name="tenBS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="anhBS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="chuyenKhoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="diemDanhGia" Type="Int32" />
+    <Property Name="diemDanhGia" Type="Double" />
     <Property Name="luotDat" Type="Int32" />
     <Property Name="idAccount" Type="Int32" />
     <NavigationProperty Name="Account" Relationship="Self.FK__BacSi__idAccount__3D5E1FD2" FromRole="BacSi" ToRole="Account" />
@@ -33,6 +33,7 @@
     <Property Name="tenBenhNhan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ngaySinh" Type="DateTime" Precision="0" />
     <Property Name="tienSuBenh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DiUng" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -97,6 +98,7 @@
     <Property Name="MaBenhNhan" Type="Int32" />
     <Property Name="MaCaKham" Type="Int32" />
     <Property Name="NgayDatLich" Type="DateTime" Precision="0" />
+    <Property Name="GioDatLich" Type="Time" Precision="7" />
     <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="BenhNhan" Relationship="Self.FK__LichKham__MaBenh__48CFD27E" FromRole="LichKham" ToRole="BenhNhan" />
     <NavigationProperty Name="CaKham" Relationship="Self.FK__LichKham__MaCaKh__49C3F6B7" FromRole="LichKham" ToRole="CaKham" />

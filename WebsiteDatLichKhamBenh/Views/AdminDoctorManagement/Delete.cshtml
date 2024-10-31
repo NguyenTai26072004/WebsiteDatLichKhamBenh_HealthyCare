@@ -1,0 +1,19 @@
+﻿@model WebsiteDatLichKhamBenh.Models.BacSi
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xóa Bác Sĩ</h2>
+
+<p>Bạn có chắc chắn muốn xóa bác sĩ <strong>@Model.tenBS</strong>?</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.idBS)
+
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
+}

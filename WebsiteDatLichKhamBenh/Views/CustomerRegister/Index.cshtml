@@ -155,6 +155,12 @@
             </div>
             <button type="submit" class="btn-submit">Đăng Ký</button>
         </form>
+
+        <!-- Thêm dòng chữ ở dưới -->
+        <p style="text-align: center; margin-top: 20px;">
+            Bạn đã có tài khoản?
+            <a href="@Url.Action("Index", "CustomerLogin")" style="color: #4CAF50; text-decoration: underline;">Đăng nhập</a>.
+        </p>
         <div id="formError" class="error"></div> <!-- Khu vực hiển thị thông báo lỗi từ validateForm.js -->
     </div>
 

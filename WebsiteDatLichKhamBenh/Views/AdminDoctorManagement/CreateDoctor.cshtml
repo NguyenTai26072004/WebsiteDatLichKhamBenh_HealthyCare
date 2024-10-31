@@ -1,0 +1,35 @@
+﻿@model WebsiteDatLichKhamBenh.Models.BacSi
+
+@{
+    ViewBag.Title = "Thêm Bác Sĩ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm Bác Sĩ</h2>
+
+@using (Html.BeginForm("CreateDoctor", "AdminDoctorManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.idAccount)
+
+    <div class="form-group">
+        @Html.Label("tenBS", "Tên bác sĩ:")
+        @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.tenBS)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("chuyenKhoa", "Chuyên khoa:")
+        @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.chuyenKhoa)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("imageFile", "Ảnh bác sĩ:")
+        <input type="file" id="imageFile" name="imageFile" class="form-control" />
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Thêm</button>
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
+}

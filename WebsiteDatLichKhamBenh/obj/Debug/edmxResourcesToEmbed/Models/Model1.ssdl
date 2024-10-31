@@ -17,7 +17,7 @@
     <Property Name="tenBS" Type="nvarchar" MaxLength="100" />
     <Property Name="anhBS" Type="nvarchar" MaxLength="500" />
     <Property Name="chuyenKhoa" Type="nvarchar" MaxLength="100" />
-    <Property Name="diemDanhGia" Type="int" />
+    <Property Name="diemDanhGia" Type="float" />
     <Property Name="luotDat" Type="int" />
     <Property Name="idAccount" Type="int" />
   </EntityType>
@@ -29,6 +29,7 @@
     <Property Name="tenBenhNhan" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="ngaySinh" Type="date" />
     <Property Name="tienSuBenh" Type="nvarchar" MaxLength="500" />
+    <Property Name="DiUng" Type="nvarchar" MaxLength="500" />
     <Property Name="SDT" Type="nvarchar" MaxLength="15" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
@@ -82,6 +83,7 @@
     <Property Name="MaBenhNhan" Type="int" />
     <Property Name="MaCaKham" Type="int" />
     <Property Name="NgayDatLich" Type="date" />
+    <Property Name="GioDatLich" Type="time" Precision="7" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK__BacSi__idAccount__3D5E1FD2">

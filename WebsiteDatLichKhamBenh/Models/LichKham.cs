@@ -24,6 +24,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public Nullable<int> MaBenhNhan { get; set; }
         public Nullable<int> MaCaKham { get; set; }
         public Nullable<System.DateTime> NgayDatLich { get; set; }
+        public Nullable<System.TimeSpan> GioDatLich { get; set; }
         public string TrangThai { get; set; }
     
         public virtual BenhNhan BenhNhan { get; set; }
