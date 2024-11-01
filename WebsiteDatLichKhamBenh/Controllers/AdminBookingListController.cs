@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebsiteDatLichKhamBenh.Models;
 
@@ -8,100 +10,85 @@ namespace WebsiteDatLichKhamBenh.Controllers
 {
     public class AdminBookingListController : Controller
     {
+        private WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
+
         // GET: AdminBookingList
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1)
         {
-            var bookingList = new List<LichKhamViewModel>();
+            // Lấy danh sách lịch khám từ database
+            var bookings = db.LichKhams.Include(b => b.BenhNhan).Include(b => b.CaKham); // Giả sử bạn có liên kết với bảng bệnh nhân và ca khám
 
-            using (var context = new WebDatLichKhamBenhDBEntities())
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                var bookings = from lk in context.LichKhams
-                               join bn in context.BenhNhans on lk.MaBenhNhan equals bn.idBenhNhan
-                               join ca in context.CaKhams on lk.MaCaKham equals ca.MaCaKham
-                               join bs in context.BacSis on ca.idBS equals bs.idBS
-                               select new LichKhamViewModel
-                               {
-                                   MaLichKham = lk.MaLichKham,
-                                   TenBenhNhan = bn.tenBenhNhan,
-                                   TenBacSi = bs.tenBS,
-                                   NgayKham = ca.NgayKham.GetValueOrDefault(),
-                                   GioKham = ca.KhungGio.GioKham,
-                                   TrangThai = lk.TrangThai
-                               };
-
-                bookingList = bookings.ToList();
+                bookings = bookings.Where(b =>
+                    b.MaLichKham.Equals(searchTerm) || // Tìm theo mã lịch khám
+                    b.BenhNhan.tenBenhNhan.Contains(searchTerm) //theo tên bệnh nhân
+                );
             }
 
-            return View(bookingList);
+            int pageSize = 10;
+            ViewBag.TotalCount = bookings.Count();
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = page;
+            ViewBag.SearchTerm = searchTerm; // Để giữ giá trị tìm kiếm trong view
+
+            var result = bookings.OrderBy(b => b.NgayDatLich)
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToList();
+
+            return View(result);
         }
 
-        // Thêm lịch hẹn (GET - Form)
-        public ActionResult Create()
+        // Phê duyệt đặt lịch
+        public async Task<ActionResult> Approve(int id) // Chuyển đổi kiểu dữ liệu thành int
         {
-            return View();
-        }
-
-        // Thêm lịch hẹn (POST - Lưu dữ liệu)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(LichKham model)
-        {
-            if (ModelState.IsValid)
+            var booking = await db.LichKhams.FindAsync(id);
+            if (booking != null)
             {
-                using (var context = new WebDatLichKhamBenhDBEntities())
-                {
-                    context.LichKhams.Add(model);
-                    context.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                booking.TrangThai = "Đã xác nhận";
+                await db.SaveChangesAsync();
             }
-            return View(model);
-        }
 
-        // Sửa lịch hẹn (GET - Form)
-        public ActionResult Edit(int id)
-        {
-            using (var context = new WebDatLichKhamBenhDBEntities())
-            {
-                var booking = context.LichKhams.Find(id);
-                if (booking == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(booking);
-            }
-        }
-
-        // Sửa lịch hẹn (POST - Cập nhật dữ liệu)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(LichKham model)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var context = new WebDatLichKhamBenhDBEntities())
-                {
-                    context.Entry(model).State = System.Data.Entity.EntityState.Modified;
-                    context.SaveChanges();
-                }
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-        // Xóa lịch hẹn
-        public ActionResult Delete(int id)
-        {
-            using (var context = new WebDatLichKhamBenhDBEntities())
-            {
-                var booking = context.LichKhams.Find(id);
-                if (booking != null)
-                {
-                    context.LichKhams.Remove(booking);
-                    context.SaveChanges();
-                }
-            }
+            TempData["SuccessMessage"] = "Đặt lịch đã được xác nhận thành công.";
             return RedirectToAction("Index");
+        }
+
+        // Hủy đặt lịch
+        public async Task<ActionResult> Cancel(int id) // Chuyển đổi kiểu dữ liệu thành int
+        {
+            var booking = await db.LichKhams.FindAsync(id);
+            if (booking != null)
+            {
+                booking.TrangThai = "Đã hủy";
+                await db.SaveChangesAsync();
+            }
+
+            TempData["SuccessMessage"] = "Đặt lịch đã được hủy thành công.";
+            return RedirectToAction("Index");
+        }
+
+        // Cập nhật trạng thái đặt lịch qua AJAX
+        [HttpPost]
+        public async Task<ActionResult> UpdateStatus(int lichKhamId, string newStatus) // Chuyển đổi kiểu dữ liệu thành int
+        {
+            var booking = await db.LichKhams.FindAsync(lichKhamId);
+            if (booking != null)
+            {
+                booking.TrangThai = newStatus;
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

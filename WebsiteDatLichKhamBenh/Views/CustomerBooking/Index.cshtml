@@ -1,14 +1,14 @@
-﻿
+﻿@model WebsiteDatLichKhamBenh.Controllers.CustomerBookingViewModel
+
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Đặt Khám";
+    var doctor = Model.Doctor; 
+    var schedule = Model.Schedule; 
 }
 
 <html>
 <head>
-    <title>
-        Doctor Appointment
-    </title>
+    <title>Doctor Appointment</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <style>
@@ -73,8 +73,17 @@
                 margin-right: 5px;
             }
 
-            .stats .rating i {
-                color: #ffeb3b;
+        .share-button {
+            margin-left: auto;
+        }
+
+            .share-button button {
+                background-color: #3b5998;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
             }
 
         .schedule {
@@ -95,11 +104,6 @@
                 margin-right: 5px;
             }
 
-            .schedule-header .location {
-                display: flex;
-                align-items: center;
-            }
-
         .schedule-title {
             margin-top: 10px;
             font-weight: bold;
@@ -107,6 +111,20 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        .date {
+            background-color: #e0f7fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+            .date i {
+                margin-left: 5px;
+            }
 
         .time-slots {
             display: flex;
@@ -129,33 +147,6 @@
                     color: #fff;
                 }
 
-        .share-button {
-            margin-left: auto;
-        }
-
-            .share-button button {
-                background-color: #3b5998;
-                color: #fff;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-        .date {
-            background-color: #e0f7fa;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-            .date i {
-                margin-left: 5px;
-            }
-
         .ui-datepicker {
             font-size: 14px;
         }
@@ -171,31 +162,24 @@
 <body>
     <div class="container">
         <div class="profile">
-            <img alt="Doctor's profile picture" height="150" src="https://storage.googleapis.com/a1aa/image/2A0Mm4luVc6fTybhtpc3f5lVto4ZIdisSvIvq8eXeZQMxTWOB.jpg" width="150" />
+            <img alt="@doctor.tenBS" src="@doctor.anhBS" />
             <div class="profile-info">
-                <h2>
-                    GS Bùi Trung Đạt
-                </h2>
-                <div class="specialty">
-                    Ngoại tim mạch
-                </div>
+                <h2>@doctor.tenBS</h2>
+                <div class="specialty">@doctor.chuyenKhoa</div>
                 <div class="stats">
                     <div class="appointments">
-                        <i class="fas fa-check-circle">
-                        </i>
-                        Lượt hẹn khám : 104
+                        <i class="fas fa-check-circle"></i>
+                        Lượt hẹn khám: @doctor.luotDat
                     </div>
                     <div class="rating">
-                        <i class="fas fa-star">
-                        </i>
-                        Đánh giá : 5 (10 đánh giá)
+                        <i class="fas fa-star"></i>
+                        Đánh giá: @doctor.diemDanhGia
                     </div>
                 </div>
             </div>
             <div class="share-button">
                 <button>
-                    <i class="fab fa-facebook-f">
-                    </i>
+                    <i class="fab fa-facebook-f"></i>
                     Share
                 </button>
             </div>
@@ -203,12 +187,9 @@
         <div class="schedule">
             <div class="schedule-header">
                 <div class="location">
-                    <i class="fas fa-map-marker-alt">
-                    </i>
+                    <i class="fas fa-map-marker-alt"></i>
                     <div>
-                        <strong>
-                            Bệnh Viện E
-                        </strong>
+                        <strong>Bệnh Viện E</strong>
                         <br />
                         Số 87 - 89 Trần Cung, Nghĩa Tân, Cầu Giấy, Hà Nội
                     </div>
@@ -223,100 +204,29 @@
                 </div>
             </div>
             <div class="time-slots">
-                <button>
-                    10:00
-                </button>
-                <button>
-                    10:15
-                </button>
-                <button>
-                    10:30
-                </button>
-                <button>
-                    10:45
-                </button>
-                <button>
-                    11:00
-                </button>
-                <button>
-                    11:15
-                </button>
-                <button>
-                    11:30
-                </button>
-                <button>
-                    11:45
-                </button>
-                <button>
-                    12:00
-                </button>
-                <button>
-                    12:15
-                </button>
-                <button>
-                    12:30
-                </button>
-                <button>
-                    12:45
-                </button>
-                <button>
-                    13:00
-                </button>
-                <button>
-                    13:15
-                </button>
-                <button>
-                    13:30
-                </button>
-                <button>
-                    13:45
-                </button>
-                <button>
-                    14:00
-                </button>
-                <button>
-                    14:15
-                </button>
-                <button>
-                    14:30
-                </button>
-                <button>
-                    14:45
-                </button>
-                <button>
-                    15:00
-                </button>
-                <button>
-                    15:15
-                </button>
-                <button>
-                    15:30
-                </button>
-                <button>
-                    15:45
-                </button>
+                @foreach (var item in schedule)
+                {
+                    <button>@item.GioKham</button>
+                }
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-    </script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
-   $(function() {
+        $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "dd/mm/yy",
-                onSelect: function(dateText) {
+                onSelect: function (dateText) {
                     $("#selected-date").text(dateText);
                     $("#datepicker").hide();
                 }
             });
 
-            $(".date").on("click", function() {
+            $(".date").on("click", function () {
                 $("#datepicker").toggle();
             });
         });
     </script>
 </body>
 </html>
-

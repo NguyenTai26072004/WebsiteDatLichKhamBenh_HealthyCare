@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|c:\\users\\admin\\desktop\\doanphanmem\\dapm-websitedatlichkhambenh\\websitedatlichkhambenh\\controllers\\customerfinddoctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|solutionrelative:websitedatlichkhambenh\\controllers\\customerfinddoctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|c:\\users\\admin\\desktop\\doanphanmem\\dapm-websitedatlichkhambenh\\websitedatlichkhambenh\\views\\customerbooking\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|solutionrelative:websitedatlichkhambenh\\views\\customerbooking\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|c:\\users\\admin\\desktop\\doanphanmem\\dapm-websitedatlichkhambenh\\websitedatlichkhambenh\\controllers\\customerbookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|solutionrelative:websitedatlichkhambenh\\controllers\\customerbookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|c:\\users\\admin\\desktop\\doanphanmem\\dapm-websitedatlichkhambenh\\websitedatlichkhambenh\\views\\customerfinddoctor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|solutionrelative:websitedatlichkhambenh\\views\\customerfinddoctor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|c:\\users\\admin\\desktop\\doanphanmem\\dapm-websitedatlichkhambenh\\websitedatlichkhambenh\\models\\cakham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D1BA5EF8-79A1-4383-BA83-A7055C8ABD50}|WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh.csproj|solutionrelative:websitedatlichkhambenh\\models\\cakham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CaKham.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Models\\CaKham.cs",
+              "RelativeDocumentMoniker": "WebsiteDatLichKhamBenh\\Models\\CaKham.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Models\\CaKham.cs",
+              "RelativeToolTip": "WebsiteDatLichKhamBenh\\Models\\CaKham.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAiwB0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T02:21:37.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomerBookingController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Controllers\\CustomerBookingController.cs",
+              "RelativeDocumentMoniker": "WebsiteDatLichKhamBenh\\Controllers\\CustomerBookingController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Controllers\\CustomerBookingController.cs",
+              "RelativeToolTip": "WebsiteDatLichKhamBenh\\Controllers\\CustomerBookingController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAiwCAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T02:19:39.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Views\\CustomerBooking\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebsiteDatLichKhamBenh\\Views\\CustomerBooking\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Views\\CustomerBooking\\Index.cshtml",
+              "RelativeToolTip": "WebsiteDatLichKhamBenh\\Views\\CustomerBooking\\Index.cshtml",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAAAM8AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-01T02:14:55.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Views\\CustomerFindDoctor\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebsiteDatLichKhamBenh\\Views\\CustomerFindDoctor\\Index.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Views\\CustomerFindDoctor\\Index.cshtml",
+              "RelativeToolTip": "WebsiteDatLichKhamBenh\\Views\\CustomerFindDoctor\\Index.cshtml",
+              "ViewState": "AgIAANAAAAAAAAAAAAAAAOQAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-01T01:44:37.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomerFindDoctorController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Controllers\\CustomerFindDoctorController.cs",
+              "RelativeDocumentMoniker": "WebsiteDatLichKhamBenh\\Controllers\\CustomerFindDoctorController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DoAnPhanMem\\DAPM-WebsiteDatLichKhamBenh\\WebsiteDatLichKhamBenh\\Controllers\\CustomerFindDoctorController.cs",
+              "RelativeToolTip": "WebsiteDatLichKhamBenh\\Controllers\\CustomerFindDoctorController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAUwCEAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T01:40:49.177Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -54,7 +54,6 @@
     <NavigationProperty Name="BacSi" Relationship="Self.FK__CaKham__idBS__440B1D61" FromRole="CaKham" ToRole="BacSi" />
     <NavigationProperty Name="CoSo" Relationship="Self.FK__CaKham__idCoSo__45F365D3" FromRole="CaKham" ToRole="CoSo" />
     <NavigationProperty Name="KhungGio" Relationship="Self.FK__CaKham__MaKhungG__44FF419A" FromRole="CaKham" ToRole="KhungGio" />
-    <NavigationProperty Name="DonThuocs" Relationship="Self.FK__DonThuoc__MaCaKh__4D94879B" FromRole="CaKham" ToRole="DonThuoc" />
     <NavigationProperty Name="LichKhams" Relationship="Self.FK__LichKham__MaCaKh__49C3F6B7" FromRole="CaKham" ToRole="LichKham" />
   </EntityType>
   <EntityType Name="CoSo">
@@ -79,7 +78,6 @@
     <Property Name="SoLuong" Type="Int32" />
     <Property Name="LieuLuong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="MaCaKham" Type="Int32" />
-    <NavigationProperty Name="CaKham" Relationship="Self.FK__DonThuoc__MaCaKh__4D94879B" FromRole="DonThuoc" ToRole="CaKham" />
     <NavigationProperty Name="LichKham" Relationship="Self.FK__DonThuoc__MaLich__4CA06362" FromRole="DonThuoc" ToRole="LichKham" />
   </EntityType>
   <EntityType Name="KhungGio">
@@ -129,7 +127,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__CaKham__idBS__440B1D61">
-    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
+    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BacSi">
@@ -141,7 +141,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__LichKham__MaBenh__48CFD27E">
-    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BenhNhan">
@@ -153,7 +155,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__CaKham__idCoSo__45F365D3">
-    <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1" />
+    <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CoSo">
@@ -176,20 +180,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DonThuoc__MaCaKh__4D94879B">
-    <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
-    <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CaKham">
-        <PropertyRef Name="MaCaKham" />
-      </Principal>
-      <Dependent Role="DonThuoc">
-        <PropertyRef Name="MaCaKham" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__LichKham__MaCaKh__49C3F6B7">
-    <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
+    <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CaKham">
@@ -201,7 +195,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__DonThuoc__MaLich__4CA06362">
-    <End Role="LichKham" Type="Self.LichKham" Multiplicity="0..1" />
+    <End Role="LichKham" Type="Self.LichKham" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="LichKham">
@@ -244,10 +240,6 @@
     <AssociationSet Name="FK__CaKham__MaKhungG__44FF419A" Association="Self.FK__CaKham__MaKhungG__44FF419A">
       <End Role="KhungGio" EntitySet="KhungGios" />
       <End Role="CaKham" EntitySet="CaKhams" />
-    </AssociationSet>
-    <AssociationSet Name="FK__DonThuoc__MaCaKh__4D94879B" Association="Self.FK__DonThuoc__MaCaKh__4D94879B">
-      <End Role="CaKham" EntitySet="CaKhams" />
-      <End Role="DonThuoc" EntitySet="DonThuocs" />
     </AssociationSet>
     <AssociationSet Name="FK__LichKham__MaCaKh__49C3F6B7" Association="Self.FK__LichKham__MaCaKh__49C3F6B7">
       <End Role="CaKham" EntitySet="CaKhams" />

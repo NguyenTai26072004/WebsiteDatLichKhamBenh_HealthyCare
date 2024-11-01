@@ -1,0 +1,18 @@
+﻿@model WebsiteDatLichKhamBenh.Models.CoSo
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Xóa Cơ Sở";
+}
+
+<h3>Xóa Cơ Sở</h3>
+
+<p>Bạn có chắc chắn muốn xóa cơ sở này: <strong>@Model.tenBenhVien</strong>?</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.idCoSo)
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+}

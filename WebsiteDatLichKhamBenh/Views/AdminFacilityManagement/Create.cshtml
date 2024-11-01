@@ -1,0 +1,28 @@
+﻿@model WebsiteDatLichKhamBenh.Models.CoSo
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Thêm Cơ Sở";
+}
+
+<h3>Thêm Cơ Sở</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.tenBenhVien)
+        @Html.TextBoxFor(m => m.tenBenhVien, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.tenBenhVien)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DiaChi)
+        @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DiaChi)
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+}

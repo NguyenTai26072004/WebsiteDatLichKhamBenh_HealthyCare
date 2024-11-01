@@ -1,0 +1,42 @@
+﻿@model WebsiteDatLichKhamBenh.Models.Account
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-danger">Xác nhận xóa tài khoản</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h4>Tài khoản cần xóa</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.TaiKhoan) 
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.TaiKhoan) 
+                </dd>
+            </dl>
+            <div class="alert alert-danger">
+                <strong>Chú ý:</strong> Bạn có chắc chắn muốn xóa tài khoản này không?
+            </div>
+        </div>
+        <div class="card-footer">
+            <p>
+                @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" }) |
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+            </p>
+        </div>
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-3">
+        @Html.ValidationSummary()
+    </div>
+}

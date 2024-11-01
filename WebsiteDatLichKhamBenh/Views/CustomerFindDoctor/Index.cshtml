@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<WebsiteDatLichKhamBenh.Models.BacSi>
 
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string searchTerm = ViewBag.SearchTerm ?? ""; // Lưu từ khóa tìm kiếm
 }
 
 <html>
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
+        /* CSS giữ nguyên từ mã gốc của bạn */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -36,14 +39,15 @@
             }
 
         .search-bar {
+            max-width:921px;
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
             position: relative;
         }
 
-            .search-bar input {
-                width: 50%;
+            .search-bar .input-search {
+                width: 300%;
                 padding: 10px 20px 10px 40px;
                 border-radius: 25px;
                 border: 1px solid #ccc;
@@ -159,19 +163,24 @@
             margin-top: 20px;
         }
 
-            .pagination a {
-                color: #39B34C;
+            .pagination a, .pagination span {
                 padding: 10px 15px;
-                text-decoration: none;
-                border: 1px solid #39B34C;
                 margin: 0 5px;
+                text-decoration: none;
+                color: #39B34C;
+                border: 1px solid #39B34C;
                 border-radius: 5px;
             }
 
-                .pagination a:hover, .pagination a.active {
-                    background-color: #39B34C;
-                    color: #fff;
-                }
+            .pagination .active {
+                background-color: #39B34C;
+                color: #fff;
+            }
+
+            .pagination .disabled {
+                color: #ccc;
+                cursor: not-allowed;
+            }
 
         .fa-search {
             margin-left: 20px;
@@ -179,7 +188,7 @@
 
         .search_icon {
             position: absolute;
-            left: 340px !important
+            left: 340px !important;
         }
     </style>
 </head>
@@ -189,7 +198,9 @@
         <p>Để được tiếp đón ưu tiên và nhận sự hỗ trợ tận tình từ chúng tôi</p>
         <div class="search-bar">
             <i class="fas fa-search search_icon"></i>
-            <input placeholder="Tìm tên bác sĩ, chuyên khoa" type="text" />
+            <form method="get" action="@Url.Action("Index")">
+                <input class= "input-search" placeholder="Tìm tên bác sĩ, chuyên khoa" type="text" name="searchTerm" value="@searchTerm" />
+            </form>
         </div>
     </div>
     <div class="container">
@@ -203,7 +214,7 @@
             </select>
         </div>
         <div class="doctor-grid">
-            @foreach (var doctor in Model) // Vòng lặp để hiển thị danh sách bác sĩ
+            @foreach (var doctor in Model)
             {
                 <div class="doctor-card">
                     <div class="img_doctor_container" style="width:100px; height:100px; border-radius:50%; margin: 0 auto; overflow: hidden;">
@@ -219,19 +230,47 @@
                     <div class="specialty">
                         @doctor.chuyenKhoa
                     </div>
-                    <button class="book-button" onclick="location.href='@Url.Action("Index", "CustomerBooking")'">
+                    <button class="book-button" onclick="location.href='@Url.Action("Index", "CustomerBooking", new { doctorId = doctor.idBS })'">
                         Đặt Khám
                     </button>
                 </div>
             }
         </div>
+
+        <!-- Phân trang -->
         <div class="pagination">
-            <a class="active" href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">></a>
+            <!-- Nút Previous -->
+            @if (currentPage > 1)
+            {
+                <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = currentPage - 1 })">Previous</a>
+            }
+            else
+            {
+                <span class="disabled">Previous</span>
+            }
+
+            <!-- Các nút số trang -->
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == currentPage)
+                {
+                    <span class="active">@i</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = i })">@i</a>
+                }
+            }
+
+            <!-- Nút Next -->
+            @if (currentPage < totalPages)
+            {
+                <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = currentPage + 1 })">Next</a>
+            }
+            else
+            {
+                <span class="disabled">Next</span>
+            }
         </div>
     </div>
 </body>

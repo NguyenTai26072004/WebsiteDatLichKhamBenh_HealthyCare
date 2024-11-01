@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebsiteDatLichKhamBenh.Models;
 
@@ -15,117 +13,75 @@ namespace WebsiteDatLichKhamBenh.Controllers
         private WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
 
         // GET: AdminExamen
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1)
         {
+            // Tìm kiếm theo mã ca khám hoặc tên bác sĩ
             var caKhams = db.CaKhams.Include(c => c.BacSi).Include(c => c.CoSo).Include(c => c.KhungGio);
-            return View(caKhams.ToList());
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                // Kiểm tra xem searchTerm có phải là số không
+                if (int.TryParse(searchTerm, out int maCaKham))
+                {
+                    // Tìm kiếm theo mã ca khám nếu searchTerm là số
+                    caKhams = caKhams.Where(c => c.MaCaKham == maCaKham);
+                }
+                else
+                {
+                    // Tìm kiếm theo tên bác sĩ
+                    caKhams = caKhams.Where(c => c.BacSi.tenBS.Contains(searchTerm));
+                }
+            }
+
+            int pageSize = 10;
+            ViewBag.TotalCount = caKhams.Count();
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = page;
+
+            var result = caKhams.OrderBy(c => c.NgayKham)
+                                .Skip((page - 1) * pageSize)
+                                .Take(pageSize)
+                                .ToList();
+            return View(result);
         }
 
-        // GET: AdminExamen/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CaKham caKham = db.CaKhams.Find(id);
-            if (caKham == null)
-            {
-                return HttpNotFound();
-            }
-            return View(caKham);
-        }
 
-        // GET: AdminExamen/Create
-        public ActionResult Create()
+        // Phê duyệt ca khám
+        public async Task<ActionResult> Approve(int id) // Thay đổi kiểu dữ liệu id
         {
-            ViewBag.idBS = new SelectList(db.BacSis, "idBS", "tenBS");
-            ViewBag.idCoSo = new SelectList(db.CoSoes, "idCoSo", "DiaChi");
-            ViewBag.MaKhungGio = new SelectList(db.KhungGios, "MaKhungGio", "GioKham");
-            return View();
-        }
-
-        // POST: AdminExamen/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaCaKham,idBS,NgayKham,MaKhungGio,TrangThai,idCoSo")] CaKham caKham)
-        {
-            if (ModelState.IsValid)
+            var appointment = await db.CaKhams.FindAsync(id); // Tìm kiếm theo id int
+            if (appointment != null)
             {
-                db.CaKhams.Add(caKham);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                appointment.TrangThai = "Đang hoạt động";
+                await db.SaveChangesAsync();
             }
-
-            ViewBag.idBS = new SelectList(db.BacSis, "idBS", "tenBS", caKham.idBS);
-            ViewBag.idCoSo = new SelectList(db.CoSoes, "idCoSo", "DiaChi", caKham.idCoSo);
-            ViewBag.MaKhungGio = new SelectList(db.KhungGios, "MaKhungGio", "GioKham", caKham.MaKhungGio);
-            return View(caKham);
-        }
-
-        // GET: AdminExamen/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CaKham caKham = db.CaKhams.Find(id);
-            if (caKham == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idBS = new SelectList(db.BacSis, "idBS", "tenBS", caKham.idBS);
-            ViewBag.idCoSo = new SelectList(db.CoSoes, "idCoSo", "DiaChi", caKham.idCoSo);
-            ViewBag.MaKhungGio = new SelectList(db.KhungGios, "MaKhungGio", "GioKham", caKham.MaKhungGio);
-            return View(caKham);
-        }
-
-        // POST: AdminExamen/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaCaKham,idBS,NgayKham,MaKhungGio,TrangThai,idCoSo")] CaKham caKham)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(caKham).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.idBS = new SelectList(db.BacSis, "idBS", "tenBS", caKham.idBS);
-            ViewBag.idCoSo = new SelectList(db.CoSoes, "idCoSo", "DiaChi", caKham.idCoSo);
-            ViewBag.MaKhungGio = new SelectList(db.KhungGios, "MaKhungGio", "GioKham", caKham.MaKhungGio);
-            return View(caKham);
-        }
-
-        // GET: AdminExamen/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CaKham caKham = db.CaKhams.Find(id);
-            if (caKham == null)
-            {
-                return HttpNotFound();
-            }
-            return View(caKham);
-        }
-
-        // POST: AdminExamen/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CaKham caKham = db.CaKhams.Find(id);
-            db.CaKhams.Remove(caKham);
-            db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // Từ chối ca khám
+        public async Task<ActionResult> Reject(int id)
+        {
+            var appointment = await db.CaKhams.FindAsync(id);
+            if (appointment != null)
+            {
+                appointment.TrangThai = "Đã từ chối";
+                await db.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // Cập nhật trạng thái ca khám qua AJAX
+        [HttpPost]
+        public async Task<ActionResult> UpdateStatus(int caKhamId, string newStatus)
+        {
+            var appointment = await db.CaKhams.FindAsync(caKhamId);
+            if (appointment != null)
+            {
+                appointment.TrangThai = newStatus;
+                await db.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
 
         protected override void Dispose(bool disposing)

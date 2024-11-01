@@ -79,7 +79,24 @@
         .gender-group label {
             margin-right: 10px;
         }
+
+    /* Thêm phong cách cho tính năng toggle mật khẩu */
+    .password-wrapper {
+        position: relative;
+    }
+
+    .toggle-password-img {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        pointer-events: all;
+    }
 </style>
+
 <div class="container">
     <h2>Đăng Ký</h2>
 
@@ -93,13 +110,19 @@
 
         <div class="form-group">
             <label for="password">Mật khẩu:</label>
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
+            <div class="password-wrapper">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
+                <img id="passwordToggle" src="/assets/img/eye-close.png" alt="Toggle Password" class="toggle-password-img" onclick="togglePassword()" />
+            </div>
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
         </div>
 
         <div class="form-group">
             <label for="confirmPassword">Xác nhận mật khẩu:</label>
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", id = "confirmPassword" })
+            <div class="password-wrapper">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", id = "confirmPassword" })
+                <img id="confirmPasswordToggle" src="/assets/img/eye-close.png" alt="Toggle Password" class="toggle-password-img" onclick="toggleConfirmPassword()" />
+            </div>
             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error" })
         </div>
 
@@ -131,6 +154,32 @@
         <button type="submit" class="btn-submit">Đăng ký</button>
     }
 </div>
+
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var passwordToggle = document.getElementById("passwordToggle");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.src = "/assets/img/eye-open.png";
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.src = "/assets/img/eye-close.png";
+        }
+    }
+
+    function toggleConfirmPassword() {
+        var confirmPasswordInput = document.getElementById("confirmPassword");
+        var confirmPasswordToggle = document.getElementById("confirmPasswordToggle");
+        if (confirmPasswordInput.type === "password") {
+            confirmPasswordInput.type = "text";
+            confirmPasswordToggle.src = "/assets/img/eye-open.png";
+        } else {
+            confirmPasswordInput.type = "password";
+            confirmPasswordToggle.src = "/assets/img/eye-close.png";
+        }
+    }
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

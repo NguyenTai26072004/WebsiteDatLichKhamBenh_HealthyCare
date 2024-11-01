@@ -1,0 +1,34 @@
+﻿@model WebsiteDatLichKhamBenh.Models.Account
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Thêm Tài Khoản";
+}
+
+<h3>Thêm Tài Khoản Mới</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TaiKhoan)
+        @Html.TextBoxFor(m => m.TaiKhoan, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TaiKhoan, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.MatKhau)
+        @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role)
+        @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+}

@@ -12,8 +12,14 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // GET: CustomerPersonal
         public ActionResult Index()
         {
-            int accountId = Convert.ToInt32(Session["UserID"]);
-            var patient = db.BenhNhans.FirstOrDefault(p => p.idAccount == accountId);
+            int? accountId = Session["UserID"] as int?; // Lấy ID người dùng dưới dạng int
+
+            if (!accountId.HasValue)
+            {
+                return HttpNotFound("Không tìm thấy thông tin tài khoản.");
+            }
+
+            var patient = db.BenhNhans.FirstOrDefault(p => p.idAccount == accountId.Value); // Tìm bệnh nhân bằng idAccount kiểu int
 
             if (patient == null)
             {
@@ -26,8 +32,14 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // GET: CustomerPersonal/Edit
         public ActionResult Edit()
         {
-            int accountId = Convert.ToInt32(Session["UserID"]);
-            var patient = db.BenhNhans.FirstOrDefault(p => p.idAccount == accountId);
+            int? accountId = Session["UserID"] as int?; // Lấy ID người dùng dưới dạng int
+
+            if (!accountId.HasValue)
+            {
+                return HttpNotFound("Không tìm thấy thông tin tài khoản.");
+            }
+
+            var patient = db.BenhNhans.FirstOrDefault(p => p.idAccount == accountId.Value); // Tìm bệnh nhân bằng idAccount kiểu int
 
             if (patient == null)
             {
@@ -45,7 +57,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
             if (ModelState.IsValid)
             {
                 // Tìm bệnh nhân trong cơ sở dữ liệu
-                var patient = db.BenhNhans.Find(model.idBenhNhan);
+                var patient = db.BenhNhans.Find(model.idBenhNhan); // Tìm kiếm theo idBenhNhan kiểu int
                 if (patient == null)
                 {
                     return HttpNotFound("Không tìm thấy thông tin bệnh nhân.");

@@ -10,6 +10,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
     {
         // Đối tượng kết nối với cơ sở dữ liệu
         WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
+
         public ActionResult Index(string searchString, int page = 1)
         {
             int pageSize = 10; // Số lượng bệnh nhân trên mỗi trang
@@ -19,6 +20,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 // Kiểm tra xem từ khóa tìm kiếm có phải là số hay không
+                // Chuyển đổi searchString thành số nếu có thể
                 if (int.TryParse(searchString, out int patientId))
                 {
                     // Nếu là số, tìm kiếm theo ID
@@ -45,20 +47,16 @@ namespace WebsiteDatLichKhamBenh.Controllers
             return View(pagedPatients); // Truyền danh sách bệnh nhân đã phân trang ra view
         }
 
-
-
-
         // GET: Hiển thị form chỉnh sửa bệnh nhân
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id) // Thay đổi kiểu dữ liệu id thành int
         {
-            var patient = db.BenhNhans.Find(id);
+            var patient = db.BenhNhans.Find(id); // Tìm kiếm theo id int
             if (patient == null)
             {
                 return HttpNotFound();
             }
             return View(patient);
         }
-
 
         // POST: Lưu thông tin chỉnh sửa
         [HttpPost]
@@ -68,7 +66,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
             if (ModelState.IsValid)
             {
                 // Tìm bản ghi trong cơ sở dữ liệu
-                var existingPatient = db.BenhNhans.Find(patient.idBenhNhan); // Thay patient.Id bằng ID thực tế của bạn
+                var existingPatient = db.BenhNhans.Find(patient.idBenhNhan); // Tìm kiếm theo id int
                 if (existingPatient == null)
                 {
                     return HttpNotFound();
@@ -89,9 +87,9 @@ namespace WebsiteDatLichKhamBenh.Controllers
         }
 
         // GET: Xác nhận xóa bệnh nhân
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id) // Thay đổi kiểu dữ liệu id thành int
         {
-            var patient = db.BenhNhans.Find(id);
+            var patient = db.BenhNhans.Find(id); // Tìm kiếm theo id int
             if (patient == null)
             {
                 return HttpNotFound();
@@ -101,20 +99,18 @@ namespace WebsiteDatLichKhamBenh.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id) // Thay đổi kiểu dữ liệu id thành int
         {
-            var patient = db.BenhNhans.Find(id);
+            var patient = db.BenhNhans.Find(id); // Tìm kiếm theo id int
             if (patient == null)
             {
                 return HttpNotFound();
             }
 
-            // Xóa bệnh nhân, các bản ghi liên quan sẽ tự động bị xóa nhờ ON DELETE CASCADE
             db.BenhNhans.Remove(patient);
             db.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -364,14 +364,14 @@
     </Compile>
     <Compile Include="Models\LichKhamViewModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -418,13 +418,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -432,6 +429,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -478,17 +478,17 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\AdminDoctorManagement\Edit.cshtml" />
     <Content Include="Views\AdminDoctorManagement\Delete.cshtml" />
-    <Content Include="Views\AdminBookingList\Create.cshtml" />
-    <Content Include="Views\AdminBookingList\Edit.cshtml" />
     <Content Include="Views\CustomerPersonal\Edit.cshtml" />
     <Content Include="Views\AdminDoctorManagement\CreateAccount.cshtml" />
     <Content Include="Views\AdminDoctorManagement\CreateDoctor.cshtml" />
     <Content Include="Views\AdminDoctorManagement\Details.cshtml" />
-    <Content Include="Views\AdminExamen\Create.cshtml" />
-    <Content Include="Views\AdminExamen\Delete.cshtml" />
-    <Content Include="Views\AdminExamen\Details.cshtml" />
-    <Content Include="Views\AdminExamen\Edit.cshtml" />
     <Content Include="Views\AdminExamen\Index.cshtml" />
+    <Content Include="Views\AdminFacilityManagement\Delete.cshtml" />
+    <Content Include="Views\AdminFacilityManagement\Create.cshtml" />
+    <Content Include="Views\AdminFacilityManagement\Edit.cshtml" />
+    <Content Include="Views\AdminAccountManagement\Create.cshtml" />
+    <Content Include="Views\AdminAccountManagement\Edit.cshtml" />
+    <Content Include="Views\AdminAccountManagement\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
