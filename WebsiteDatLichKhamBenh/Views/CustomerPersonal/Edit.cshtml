@@ -144,7 +144,7 @@
 
         <!-- Dropdown cho Tiền sử bệnh án với lựa chọn mặc định trống -->
         <p>
-            <span>Tiền sử bệnh án:</span>
+            <span>Tiền sử bệnh án:<span style="color: red;">*</span></span>
             @Html.DropDownListFor(model => model.tienSuBenh, new SelectList(new[] {
                 "",
                 "Không có",
@@ -164,9 +164,8 @@
             <input type="text" id="customTienSuBenh" name="customTienSuBenh" class="form-control" placeholder="Nhập Tiền sử bệnh án khác..." style="display:none; margin-top:5px;" />
         </p>
 
-        <!-- Dropdown cho Dị ứng với lựa chọn mặc định trống -->
         <p>
-            <span>Dị ứng:</span>
+            <span>Dị ứng:<span style="color: red;">*</span></span>
             @Html.DropDownListFor(model => model.DiUng, new SelectList(new[] {
                 "",
                 "Không có",
@@ -185,6 +184,7 @@
             <!-- Trường nhập ẩn để người dùng nhập khi chọn "Khác..." -->
             <input type="text" id="customDiUng" name="customDiUng" class="form-control" placeholder="Nhập dị ứng khác..." style="display:none; margin-top:5px;" />
         </p>
+        
 
     </div>
 

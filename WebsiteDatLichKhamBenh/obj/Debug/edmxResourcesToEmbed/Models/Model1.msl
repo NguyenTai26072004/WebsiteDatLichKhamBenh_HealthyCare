@@ -71,7 +71,6 @@
           <ScalarProperty Name="TenThuoc" ColumnName="TenThuoc" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
           <ScalarProperty Name="LieuLuong" ColumnName="LieuLuong" />
-          <ScalarProperty Name="MaCaKham" ColumnName="MaCaKham" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

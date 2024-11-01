@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace WebsiteDatLichKhamBenh.Controllers
 {
+
     public class CustomerHistoryController : Controller
     {
         // GET: CustomerHistory

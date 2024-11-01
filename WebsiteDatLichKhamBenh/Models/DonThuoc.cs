@@ -22,7 +22,6 @@ namespace WebsiteDatLichKhamBenh.Models
         public string TenThuoc { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public string LieuLuong { get; set; }
-        public Nullable<int> MaCaKham { get; set; }
     
         public virtual LichKham LichKham { get; set; }
     }

@@ -77,7 +77,6 @@
     <Property Name="TenThuoc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="SoLuong" Type="Int32" />
     <Property Name="LieuLuong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="MaCaKham" Type="Int32" />
     <NavigationProperty Name="LichKham" Relationship="Self.FK__DonThuoc__MaLich__4CA06362" FromRole="DonThuoc" ToRole="LichKham" />
   </EntityType>
   <EntityType Name="KhungGio">

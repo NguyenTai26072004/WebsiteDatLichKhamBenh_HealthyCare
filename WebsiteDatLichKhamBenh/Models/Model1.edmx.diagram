@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cd9a4d77859041299f749c8efa34eb95" Name="Diagram1">
+      <Diagram DiagramId="e7c916be001a46b9a898e7baac8e0318" Name="Diagram1">
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.Account" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BacSi" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BenhNhan" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CaKham" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CoSo" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.DonThuoc" Width="1.5" PointX="9.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.DonThuoc" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.KhungGio" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.LichKham" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BacSi__idAccount__3D5E1FD2" ManuallyRouted="false" />
