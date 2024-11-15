@@ -1,0 +1,87 @@
+﻿@model WebsiteDatLichKhamBenh.Models.DoctorPrescriptionViewModel
+@using WebsiteDatLichKhamBenh.Models
+
+@{
+    ViewBag.Title = "Kê thuốc";
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+}
+
+<h2>Kê thuốc cho bệnh nhân</h2>
+
+@using (Html.BeginForm("SavePrescription", "DoctorPrescribeManagement", FormMethod.Post))
+{
+    <div>
+        <label for="GhiChu">Ghi chú cho toàn bộ đơn thuốc:</label>
+        @Html.TextAreaFor(m => m.GhiChu, new { @class = "form-control", placeholder = "Ghi chú cho đơn thuốc..." })
+    </div>
+
+    <h3>Chi tiết đơn thuốc</h3>
+    <table class="table" id="prescriptionTable">
+        <thead>
+            <tr>
+                <th>Thuốc</th>
+                <th>Liều lượng</th>
+                <th>Số lượng</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < (Model.PrescriptionDetails?.Count ?? 0); i++)
+            {
+                var detail = Model.PrescriptionDetails[i];
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(m => m.PrescriptionDetails[i].MaThuoc, new SelectList(Model.ThuocList, "Value", "Text", detail.MaThuoc), "--Chọn thuốc--", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.PrescriptionDetails[i].LieuLuong, new { @class = "form-control", placeholder = "Liều lượng" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.PrescriptionDetails[i].SoLuong, new { @class = "form-control", placeholder = "Số lượng" })
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" onclick="addRow()">Thêm thuốc</button>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Lưu đơn thuốc</button>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Thêm thuốc mới vào bảng
+        function addRow() {
+            var table = document.querySelector('#prescriptionTable tbody');
+            var rowCount = table.rows.length;
+            var newRow = table.insertRow();
+
+            // Tạo nội dung mới cho dòng
+            newRow.innerHTML = `
+                <td>
+                    <select class="form-control" name="PrescriptionDetails[${rowCount}].MaThuoc">
+                        @foreach (var thuoc in Model.ThuocList)
+                        {
+                            <option value="@thuoc.Value">@thuoc.Text</option>
+                        }
+                    </select>
+                </td>
+                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].LieuLuong" placeholder="Liều lượng"></td>
+                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].SoLuong" placeholder="Số lượng"></td>
+                <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button></td>
+            `;
+        }
+
+        // Xóa thuốc khỏi bảng
+        function removeRow(button) {
+            var row = button.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+    </script>
+}

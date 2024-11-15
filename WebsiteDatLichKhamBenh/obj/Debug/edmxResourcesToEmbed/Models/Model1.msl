@@ -21,6 +21,7 @@
           <ScalarProperty Name="diemDanhGia" ColumnName="diemDanhGia" />
           <ScalarProperty Name="luotDat" ColumnName="luotDat" />
           <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+          <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -30,12 +31,28 @@
           <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
           <ScalarProperty Name="tenBenhNhan" ColumnName="tenBenhNhan" />
           <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
-          <ScalarProperty Name="tienSuBenh" ColumnName="tienSuBenh" />
-          <ScalarProperty Name="DiUng" ColumnName="DiUng" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
           <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BenhNhan_DiUng">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BenhNhan_DiUng">
+        <MappingFragment StoreEntitySet="BenhNhan_DiUng">
+          <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+          <ScalarProperty Name="idDiUng" ColumnName="idDiUng" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BenhNhan_TienSuBenh">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.BenhNhan_TienSuBenh">
+        <MappingFragment StoreEntitySet="BenhNhan_TienSuBenh">
+          <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+          <ScalarProperty Name="idTienSuBenh" ColumnName="idTienSuBenh" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -47,7 +64,17 @@
           <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
           <ScalarProperty Name="MaKhungGio" ColumnName="MaKhungGio" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="idCoSo" ColumnName="idCoSo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietDonThuocs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.ChiTietDonThuoc">
+        <MappingFragment StoreEntitySet="ChiTietDonThuoc">
+          <ScalarProperty Name="MaChiTietDonThuoc" ColumnName="MaChiTietDonThuoc" />
+          <ScalarProperty Name="MaDonThuoc" ColumnName="MaDonThuoc" />
+          <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="LieuLuong" ColumnName="LieuLuong" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -60,17 +87,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DiUngs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DiUng">
+        <MappingFragment StoreEntitySet="DiUng">
+          <ScalarProperty Name="idDiUng" ColumnName="idDiUng" />
+          <ScalarProperty Name="tenDiUng" ColumnName="tenDiUng" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DonThuocs">
       <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DonThuoc">
         <MappingFragment StoreEntitySet="DonThuoc">
           <ScalarProperty Name="MaDonThuoc" ColumnName="MaDonThuoc" />
-          <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
           <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
           <ScalarProperty Name="NgayKeDon" ColumnName="NgayKeDon" />
-          <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
-          <ScalarProperty Name="TenThuoc" ColumnName="TenThuoc" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="LieuLuong" ColumnName="LieuLuong" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -91,6 +122,35 @@
           <ScalarProperty Name="NgayDatLich" ColumnName="NgayDatLich" />
           <ScalarProperty Name="GioDatLich" ColumnName="GioDatLich" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="MaDonThuoc" ColumnName="MaDonThuoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Thuocs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.Thuoc">
+        <MappingFragment StoreEntitySet="Thuoc">
+          <ScalarProperty Name="MaThuoc" ColumnName="MaThuoc" />
+          <ScalarProperty Name="TenThuoc" ColumnName="TenThuoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TienSuBenhs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.TienSuBenh">
+        <MappingFragment StoreEntitySet="TienSuBenh">
+          <ScalarProperty Name="idTienSuBenh" ColumnName="idTienSuBenh" />
+          <ScalarProperty Name="tenTSB" ColumnName="tenTSB" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TinTucs">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.TinTuc">
+        <MappingFragment StoreEntitySet="TinTuc">
+          <ScalarProperty Name="idTinTuc" ColumnName="idTinTuc" />
+          <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

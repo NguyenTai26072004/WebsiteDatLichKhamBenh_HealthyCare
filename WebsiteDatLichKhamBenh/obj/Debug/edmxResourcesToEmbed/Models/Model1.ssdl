@@ -20,6 +20,7 @@
     <Property Name="diemDanhGia" Type="float" />
     <Property Name="luotDat" Type="int" />
     <Property Name="idAccount" Type="int" />
+    <Property Name="idCoSo" Type="int" />
   </EntityType>
   <EntityType Name="BenhNhan">
     <Key>
@@ -28,12 +29,28 @@
     <Property Name="idBenhNhan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tenBenhNhan" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="ngaySinh" Type="date" />
-    <Property Name="tienSuBenh" Type="nvarchar" MaxLength="500" />
-    <Property Name="DiUng" Type="nvarchar" MaxLength="500" />
     <Property Name="SDT" Type="nvarchar" MaxLength="15" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
     <Property Name="idAccount" Type="int" />
+  </EntityType>
+  <EntityType Name="BenhNhan_DiUng">
+    <Key>
+      <PropertyRef Name="idBenhNhan" />
+      <PropertyRef Name="idDiUng" />
+    </Key>
+    <Property Name="idBenhNhan" Type="int" Nullable="false" />
+    <Property Name="idDiUng" Type="int" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="BenhNhan_TienSuBenh">
+    <Key>
+      <PropertyRef Name="idBenhNhan" />
+      <PropertyRef Name="idTienSuBenh" />
+    </Key>
+    <Property Name="idBenhNhan" Type="int" Nullable="false" />
+    <Property Name="idTienSuBenh" Type="int" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="CaKham">
     <Key>
@@ -44,7 +61,16 @@
     <Property Name="NgayKham" Type="date" />
     <Property Name="MaKhungGio" Type="int" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
-    <Property Name="idCoSo" Type="int" />
+  </EntityType>
+  <EntityType Name="ChiTietDonThuoc">
+    <Key>
+      <PropertyRef Name="MaChiTietDonThuoc" />
+    </Key>
+    <Property Name="MaChiTietDonThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDonThuoc" Type="int" />
+    <Property Name="MaThuoc" Type="int" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="LieuLuong" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="CoSo">
     <Key>
@@ -54,18 +80,21 @@
     <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
     <Property Name="tenBenhVien" Type="nvarchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="DiUng">
+    <Key>
+      <PropertyRef Name="idDiUng" />
+    </Key>
+    <Property Name="idDiUng" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenDiUng" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="DonThuoc">
     <Key>
       <PropertyRef Name="MaDonThuoc" />
     </Key>
     <Property Name="MaDonThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MaLichKham" Type="int" />
     <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
     <Property Name="NgayKeDon" Type="date" />
-    <Property Name="MaThuoc" Type="nvarchar" MaxLength="100" />
-    <Property Name="TenThuoc" Type="nvarchar" MaxLength="100" />
-    <Property Name="SoLuong" Type="int" />
-    <Property Name="LieuLuong" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="KhungGio">
     <Key>
@@ -84,8 +113,34 @@
     <Property Name="NgayDatLich" Type="date" />
     <Property Name="GioDatLich" Type="time" Precision="7" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaDonThuoc" Type="int" />
   </EntityType>
-  <Association Name="FK__BacSi__idAccount__3D5E1FD2">
+  <EntityType Name="Thuoc">
+    <Key>
+      <PropertyRef Name="MaThuoc" />
+    </Key>
+    <Property Name="MaThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenThuoc" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TienSuBenh">
+    <Key>
+      <PropertyRef Name="idTienSuBenh" />
+    </Key>
+    <Property Name="idTienSuBenh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenTSB" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TinTuc">
+    <Key>
+      <PropertyRef Name="idTinTuc" />
+    </Key>
+    <Property Name="idTinTuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TieuDe" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MoTa" Type="nvarchar" MaxLength="500" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <Association Name="FK__BacSi__idCoSo__4AB81AF0">
     <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
     <ReferentialConstraint>
@@ -97,7 +152,67 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__BenhNhan__idAcco__398D8EEE">
+  <Association Name="FK__BacSi__idCoSo__4BAC3F29">
+    <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1" />
+    <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoSo">
+        <PropertyRef Name="idCoSo" />
+      </Principal>
+      <Dependent Role="BacSi">
+        <PropertyRef Name="idCoSo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BenhNhan___idBen__4222D4EF">
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="1" />
+    <End Role="BenhNhan_DiUng" Type="Self.BenhNhan_DiUng" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhNhan">
+        <PropertyRef Name="idBenhNhan" />
+      </Principal>
+      <Dependent Role="BenhNhan_DiUng">
+        <PropertyRef Name="idBenhNhan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BenhNhan___idBen__45F365D3">
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="1" />
+    <End Role="BenhNhan_TienSuBenh" Type="Self.BenhNhan_TienSuBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhNhan">
+        <PropertyRef Name="idBenhNhan" />
+      </Principal>
+      <Dependent Role="BenhNhan_TienSuBenh">
+        <PropertyRef Name="idBenhNhan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BenhNhan___idDiU__4316F928">
+    <End Role="DiUng" Type="Self.DiUng" Multiplicity="1" />
+    <End Role="BenhNhan_DiUng" Type="Self.BenhNhan_DiUng" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiUng">
+        <PropertyRef Name="idDiUng" />
+      </Principal>
+      <Dependent Role="BenhNhan_DiUng">
+        <PropertyRef Name="idDiUng" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BenhNhan___idTie__46E78A0C">
+    <End Role="TienSuBenh" Type="Self.TienSuBenh" Multiplicity="1" />
+    <End Role="BenhNhan_TienSuBenh" Type="Self.BenhNhan_TienSuBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TienSuBenh">
+        <PropertyRef Name="idTienSuBenh" />
+      </Principal>
+      <Dependent Role="BenhNhan_TienSuBenh">
+        <PropertyRef Name="idTienSuBenh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BenhNhan__idAcco__3B75D760">
     <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="*" />
     <ReferentialConstraint>
@@ -109,10 +224,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CaKham__idBS__440B1D61">
-    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="FK__CaKham__idBS__5070F446">
+    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
     <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BacSi">
@@ -123,21 +236,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CaKham__idCoSo__45F365D3">
-    <End Role="CoSo" Type="Self.CoSo" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CoSo">
-        <PropertyRef Name="idCoSo" />
-      </Principal>
-      <Dependent Role="CaKham">
-        <PropertyRef Name="idCoSo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__CaKham__MaKhungG__44FF419A">
+  <Association Name="FK__CaKham__MaKhungG__5165187F">
     <End Role="KhungGio" Type="Self.KhungGio" Multiplicity="0..1" />
     <End Role="CaKham" Type="Self.CaKham" Multiplicity="*" />
     <ReferentialConstraint>
@@ -149,24 +248,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__DonThuoc__MaLich__4CA06362">
-    <End Role="LichKham" Type="Self.LichKham" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="*" />
+  <Association Name="FK__ChiTietDo__MaDon__5812160E">
+    <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="0..1" />
+    <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="LichKham">
-        <PropertyRef Name="MaLichKham" />
+      <Principal Role="DonThuoc">
+        <PropertyRef Name="MaDonThuoc" />
       </Principal>
-      <Dependent Role="DonThuoc">
-        <PropertyRef Name="MaLichKham" />
+      <Dependent Role="ChiTietDonThuoc">
+        <PropertyRef Name="MaDonThuoc" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LichKham__MaBenh__48CFD27E">
-    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="FK__ChiTietDo__MaThu__59063A47">
+    <End Role="Thuoc" Type="Self.Thuoc" Multiplicity="0..1" />
+    <End Role="ChiTietDonThuoc" Type="Self.ChiTietDonThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thuoc">
+        <PropertyRef Name="MaThuoc" />
+      </Principal>
+      <Dependent Role="ChiTietDonThuoc">
+        <PropertyRef Name="MaThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LichKham__MaBenh__5BE2A6F2">
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
     <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BenhNhan">
@@ -177,10 +284,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__LichKham__MaCaKh__49C3F6B7">
-    <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="FK__LichKham__MaCaKh__5CD6CB2B">
+    <End Role="CaKham" Type="Self.CaKham" Multiplicity="0..1" />
     <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CaKham">
@@ -191,45 +296,88 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__LichKham__MaDonT__5DCAEF64">
+    <End Role="DonThuoc" Type="Self.DonThuoc" Multiplicity="0..1" />
+    <End Role="LichKham" Type="Self.LichKham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonThuoc">
+        <PropertyRef Name="MaDonThuoc" />
+      </Principal>
+      <Dependent Role="LichKham">
+        <PropertyRef Name="MaDonThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="WebDatLichKhamBenhDBModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BacSi" EntityType="Self.BacSi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BenhNhan_DiUng" EntityType="Self.BenhNhan_DiUng" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BenhNhan_TienSuBenh" EntityType="Self.BenhNhan_TienSuBenh" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CaKham" EntityType="Self.CaKham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietDonThuoc" EntityType="Self.ChiTietDonThuoc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CoSo" EntityType="Self.CoSo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiUng" EntityType="Self.DiUng" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonThuoc" EntityType="Self.DonThuoc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KhungGio" EntityType="Self.KhungGio" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LichKham" EntityType="Self.LichKham" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__BacSi__idAccount__3D5E1FD2" Association="Self.FK__BacSi__idAccount__3D5E1FD2">
+    <EntitySet Name="Thuoc" EntityType="Self.Thuoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TienSuBenh" EntityType="Self.TienSuBenh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TinTuc" EntityType="Self.TinTuc" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BacSi__idCoSo__4AB81AF0" Association="Self.FK__BacSi__idCoSo__4AB81AF0">
       <End Role="Account" EntitySet="Account" />
       <End Role="BacSi" EntitySet="BacSi" />
     </AssociationSet>
-    <AssociationSet Name="FK__BenhNhan__idAcco__398D8EEE" Association="Self.FK__BenhNhan__idAcco__398D8EEE">
+    <AssociationSet Name="FK__BacSi__idCoSo__4BAC3F29" Association="Self.FK__BacSi__idCoSo__4BAC3F29">
+      <End Role="CoSo" EntitySet="CoSo" />
+      <End Role="BacSi" EntitySet="BacSi" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BenhNhan___idBen__4222D4EF" Association="Self.FK__BenhNhan___idBen__4222D4EF">
+      <End Role="BenhNhan" EntitySet="BenhNhan" />
+      <End Role="BenhNhan_DiUng" EntitySet="BenhNhan_DiUng" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BenhNhan___idBen__45F365D3" Association="Self.FK__BenhNhan___idBen__45F365D3">
+      <End Role="BenhNhan" EntitySet="BenhNhan" />
+      <End Role="BenhNhan_TienSuBenh" EntitySet="BenhNhan_TienSuBenh" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BenhNhan___idDiU__4316F928" Association="Self.FK__BenhNhan___idDiU__4316F928">
+      <End Role="DiUng" EntitySet="DiUng" />
+      <End Role="BenhNhan_DiUng" EntitySet="BenhNhan_DiUng" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BenhNhan___idTie__46E78A0C" Association="Self.FK__BenhNhan___idTie__46E78A0C">
+      <End Role="TienSuBenh" EntitySet="TienSuBenh" />
+      <End Role="BenhNhan_TienSuBenh" EntitySet="BenhNhan_TienSuBenh" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BenhNhan__idAcco__3B75D760" Association="Self.FK__BenhNhan__idAcco__3B75D760">
       <End Role="Account" EntitySet="Account" />
       <End Role="BenhNhan" EntitySet="BenhNhan" />
     </AssociationSet>
-    <AssociationSet Name="FK__CaKham__idBS__440B1D61" Association="Self.FK__CaKham__idBS__440B1D61">
+    <AssociationSet Name="FK__CaKham__idBS__5070F446" Association="Self.FK__CaKham__idBS__5070F446">
       <End Role="BacSi" EntitySet="BacSi" />
       <End Role="CaKham" EntitySet="CaKham" />
     </AssociationSet>
-    <AssociationSet Name="FK__CaKham__idCoSo__45F365D3" Association="Self.FK__CaKham__idCoSo__45F365D3">
-      <End Role="CoSo" EntitySet="CoSo" />
-      <End Role="CaKham" EntitySet="CaKham" />
-    </AssociationSet>
-    <AssociationSet Name="FK__CaKham__MaKhungG__44FF419A" Association="Self.FK__CaKham__MaKhungG__44FF419A">
+    <AssociationSet Name="FK__CaKham__MaKhungG__5165187F" Association="Self.FK__CaKham__MaKhungG__5165187F">
       <End Role="KhungGio" EntitySet="KhungGio" />
       <End Role="CaKham" EntitySet="CaKham" />
     </AssociationSet>
-    <AssociationSet Name="FK__DonThuoc__MaLich__4CA06362" Association="Self.FK__DonThuoc__MaLich__4CA06362">
-      <End Role="LichKham" EntitySet="LichKham" />
+    <AssociationSet Name="FK__ChiTietDo__MaDon__5812160E" Association="Self.FK__ChiTietDo__MaDon__5812160E">
       <End Role="DonThuoc" EntitySet="DonThuoc" />
+      <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
     </AssociationSet>
-    <AssociationSet Name="FK__LichKham__MaBenh__48CFD27E" Association="Self.FK__LichKham__MaBenh__48CFD27E">
+    <AssociationSet Name="FK__ChiTietDo__MaThu__59063A47" Association="Self.FK__ChiTietDo__MaThu__59063A47">
+      <End Role="Thuoc" EntitySet="Thuoc" />
+      <End Role="ChiTietDonThuoc" EntitySet="ChiTietDonThuoc" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LichKham__MaBenh__5BE2A6F2" Association="Self.FK__LichKham__MaBenh__5BE2A6F2">
       <End Role="BenhNhan" EntitySet="BenhNhan" />
       <End Role="LichKham" EntitySet="LichKham" />
     </AssociationSet>
-    <AssociationSet Name="FK__LichKham__MaCaKh__49C3F6B7" Association="Self.FK__LichKham__MaCaKh__49C3F6B7">
+    <AssociationSet Name="FK__LichKham__MaCaKh__5CD6CB2B" Association="Self.FK__LichKham__MaCaKh__5CD6CB2B">
       <End Role="CaKham" EntitySet="CaKham" />
+      <End Role="LichKham" EntitySet="LichKham" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LichKham__MaDonT__5DCAEF64" Association="Self.FK__LichKham__MaDonT__5DCAEF64">
+      <End Role="DonThuoc" EntitySet="DonThuoc" />
       <End Role="LichKham" EntitySet="LichKham" />
     </AssociationSet>
   </EntityContainer>

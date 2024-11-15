@@ -1,0 +1,46 @@
+﻿@model WebsiteDatLichKhamBenh.Models.DoctorPrescriptionViewModel
+
+@{
+    ViewBag.Title = "Xem Đơn Thuốc";
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+}
+
+<h2>Thông Tin Đơn Thuốc</h2>
+
+<div>
+    <h4>Mã Lịch Khám: @Model.MaLichKham</h4>
+    <p><strong>Ghi chú:</strong> @Model.GhiChu</p>
+</div>
+
+<h3>Chi Tiết Đơn Thuốc</h3>
+
+@if (Model.PrescriptionDetails != null && Model.PrescriptionDetails.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tên Thuốc</th>
+                <th>Liều Lượng</th>
+                <th>Số Lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model.PrescriptionDetails)
+            {
+                <tr>
+                    <td>@detail.TenThuoc</td>
+                    <td>@detail.LieuLuong</td>
+                    <td>@detail.SoLuong</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Không có chi tiết đơn thuốc nào được ghi nhận.</p>
+}
+
+<div>
+    <a href="@Url.Action("Index", "DoctorPrescribeManagement")" class="btn btn-primary">Quay lại danh sách</a>
+</div>

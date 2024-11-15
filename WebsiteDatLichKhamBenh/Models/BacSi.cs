@@ -27,8 +27,10 @@ namespace WebsiteDatLichKhamBenh.Models
         public Nullable<double> diemDanhGia { get; set; }
         public Nullable<int> luotDat { get; set; }
         public Nullable<int> idAccount { get; set; }
+        public Nullable<int> idCoSo { get; set; }
     
         public virtual Account Account { get; set; }
+        public virtual CoSo CoSo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CaKham> CaKhams { get; set; }
     }

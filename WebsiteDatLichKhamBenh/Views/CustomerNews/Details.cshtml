@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <title>News Detail</title>
+    <style>
+        .news-detail {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .news-detail h2 {
+                font-size: 28px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .news-detail img {
+                max-width: 100%;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .news-detail p {
+                font-size: 18px; /* Đặt cỡ chữ của Mô tả lớn hơn */
+                line-height: 1.6;
+                color: #555;
+                margin-bottom: 15px;
+            }
+
+        .news-content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+            .news-content p {
+                font-size: 18px; /* Đặt cỡ chữ của NewsDetails lớn hơn */
+                color: #444;
+            }
+
+        .container {
+            width: 70%;
+            margin: 20px auto;
+        }
+
+
+        .news-detail {
+            padding: 15px;
+        }
+
+            .news-detail h2 {
+                font-size: 24px;
+            }
+
+            .news-detail p {
+                font-size: 16px; 
+            }
+
+        .news-content p {
+            font-size: 16px; 
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="news-detail">
+            <h2>@Model.TieuDe</h2>
+            <img src="@Model.HinhAnh" alt="@Model.TieuDe" width="100%" height="auto" />
+            <p>@Model.MoTa</p>
+            <div class="news-content">
+                <p>@Model.NoiDung</p>  
+            </div>
+        </div>
+    </div>
+</body>
+</html>

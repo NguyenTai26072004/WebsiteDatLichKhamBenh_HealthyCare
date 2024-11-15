@@ -205,14 +205,20 @@
     </div>
     <div class="container">
         <h2>Chọn bác sĩ</h2>
+        <!--Lọc theo chuyên khoa-->
         <div class="filters">
-            <select>
-                <option>Chọn chuyên khoa</option>
-            </select>
-            <select>
-                <option>Tất cả</option>
-            </select>
+            <form method="get" action="@Url.Action("Index")">
+                <select name="chuyenKhoa">
+                    <option value="">Chọn chuyên khoa</option>
+                    @foreach (var specialty in ViewBag.Specialties)
+                    {
+                        <option value="@specialty" @if (ViewBag.ChuyenKhoa == specialty) { <text> selected</text> }>@specialty</option>
+                    }
+                </select>
+                <button type="submit">Lọc</button>
+            </form>
         </div>
+
         <div class="doctor-grid">
             @foreach (var doctor in Model)
             {
@@ -239,17 +245,15 @@
 
         <!-- Phân trang -->
         <div class="pagination">
-            <!-- Nút Previous -->
             @if (currentPage > 1)
             {
-                <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = currentPage - 1 })">Previous</a>
+                <a href="@Url.Action("Index", new { searchTerm = searchTerm, chuyenKhoa = ViewBag.ChuyenKhoa, page = currentPage - 1 })">Previous</a>
             }
             else
             {
                 <span class="disabled">Previous</span>
             }
 
-            <!-- Các nút số trang -->
             @for (int i = 1; i <= totalPages; i++)
             {
                 if (i == currentPage)
@@ -258,20 +262,21 @@
                 }
                 else
                 {
-                    <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = i })">@i</a>
+                    <a href="@Url.Action("Index", new { searchTerm = searchTerm, chuyenKhoa = ViewBag.ChuyenKhoa, page = i })">@i</a>
                 }
             }
 
-            <!-- Nút Next -->
             @if (currentPage < totalPages)
             {
-                <a href="@Url.Action("Index", new { searchTerm = searchTerm, page = currentPage + 1 })">Next</a>
+                <a href="@Url.Action("Index", new { searchTerm = searchTerm, chuyenKhoa = ViewBag.ChuyenKhoa, page = currentPage + 1 })">Next</a>
             }
             else
             {
                 <span class="disabled">Next</span>
             }
         </div>
+
+
     </div>
 </body>
 </html>

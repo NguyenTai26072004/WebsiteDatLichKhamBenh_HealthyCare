@@ -12,23 +12,34 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.idAccount)
 
+    <!-- Nhập Tên Bác Sĩ -->
     <div class="form-group">
         @Html.LabelFor(m => m.tenBS, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control doctor-input", placeholder = "Nhập tên bác sĩ..." })
         @Html.ValidationMessageFor(m => m.tenBS, "", new { @class = "text-danger doctor-error" })
     </div>
 
+    <!-- Nhập Chuyên Khoa -->
     <div class="form-group">
         @Html.LabelFor(m => m.chuyenKhoa, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control doctor-input", placeholder = "Nhập chuyên khoa..." })
         @Html.ValidationMessageFor(m => m.chuyenKhoa, "", new { @class = "text-danger doctor-error" })
     </div>
 
+    <!-- Chọn Cơ Sở -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.idCoSo, "Cơ Sở", new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.idCoSo, (SelectList)ViewBag.CoSoList, "Chọn cơ sở", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.idCoSo, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Upload Hình Ảnh -->
     <div class="form-group">
         @Html.Label("imageFile", "Ảnh bác sĩ:", new { @class = "control-label" })
         <input type="file" id="imageFile" name="imageFile" class="form-control" />
     </div>
 
+    <!-- Nút Thêm -->
     <button type="submit" class="btn btn-primary">Thêm</button>
     @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
 }
@@ -49,11 +60,14 @@
                     "tenBS": {
                         required: true,
                         minlength: 3,
-                        noNumbers: true // Áp dụng phương thức ràng buộc không cho phép số
+                        noNumbers: true
                     },
                     "chuyenKhoa": {
                         required: true,
-                        noNumbers: true // Áp dụng phương thức ràng buộc không cho phép số
+                        noNumbers: true
+                    },
+                    "idCoSo": {
+                        required: true
                     }
                 },
                 messages: {
@@ -63,6 +77,9 @@
                     },
                     "chuyenKhoa": {
                         required: "Vui lòng nhập chuyên khoa."
+                    },
+                    "idCoSo": {
+                        required: "Vui lòng chọn cơ sở."
                     }
                 },
                 errorClass: "text-danger"
@@ -102,7 +119,7 @@
         }
 
     .text-danger {
-        color: red; /* Màu đỏ cho thông báo lỗi */
+        color: red;
     }
 
     .btn-primary {
@@ -114,7 +131,6 @@
         margin-left: 10px;
     }
 
-    /* Thêm kiểu cho input file */
     input[type="file"] {
         padding: 5px;
         border: 1px solid #ced4da;

@@ -28,5 +28,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
             // Nếu đã đăng nhập, chuyển hướng đến trang Thông Tin Sức Khỏe
             return RedirectToAction("Index", "CustomerPersonal");
         }
+
+       
     }
 }

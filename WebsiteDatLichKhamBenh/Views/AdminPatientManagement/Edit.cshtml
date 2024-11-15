@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(model => model.idBenhNhan) <!-- Thêm trường ẩn cho ID -->
+    @Html.HiddenFor(model => model.idBenhNhan)
 
     <div class="form-group">
         @Html.LabelFor(model => model.tenBenhNhan, "Tên bệnh nhân:")
@@ -21,14 +21,8 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.ngaySinh, "Ngày sinh:")
-        @Html.EditorFor(model => model.ngaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+        <input type="date" name="ngaySinh" class="form-control" value="@ViewBag.NgaySinh" />
         @Html.ValidationMessageFor(model => model.ngaySinh)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.GioiTinh, "Giới tính:")
-        @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.GioiTinh)
     </div>
 
     <div class="form-group">
@@ -43,6 +37,26 @@
         @Html.ValidationMessageFor(model => model.Email)
     </div>
 
-    <button type="submit" class="btn btn-primary">Lưu</button>
-    <a href="@Url.Action("Index", "AdminPatientManagement")" class="btn btn-secondary">Hủy</a>
+    <!-- Thêm trường Giới tính -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.GioiTinh, "Giới tính:")
+        @Html.DropDownListFor(model => model.GioiTinh, new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Nam", Value = "Nam" },
+            new SelectListItem { Text = "Nữ", Value = "Nữ" }
+        }, "Chọn giới tính", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.GioiTinh)
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-20">Lưu</button>
+    <a href="@Url.Action("Index", "AdminPatientManagement")" class="btn btn-secondary mt-20">Hủy</a>
 }
+
+<style>
+    .mt-20 {
+        margin-top: 20px;
+    }
+</style>
+
+
+

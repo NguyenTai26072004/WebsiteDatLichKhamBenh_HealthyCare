@@ -2,17 +2,17 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    ViewBag.PageTitle = "Quản lý danh sách đặt lịch";
+    ViewBag.PageTitle = "Quản lý lịch khám";
 }
 
-<!-- Quản Lý Danh Sách Đặt Lịch -->
+<!-- Quản Lý Ca Khám -->
 <div class="mt-5">
-    <h3>Danh Sách Đặt Lịch</h3>
+    <h3>Danh Sách Ca Khám</h3>
 
     <!-- Thanh tìm kiếm -->
     <form method="get" class="mt-3 mb-3">
         <div class="input-group">
-            <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm theo mã lịch khám hoặc tên bệnh nhân" value="@ViewBag.SearchTerm" />
+            <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm mã ca khám hoặc bác sĩ" value="@ViewBag.SearchTerm" />
             <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
         </div>
     </form>
@@ -22,9 +22,9 @@
             <thead>
                 <tr>
                     <th>Mã Lịch Khám</th>
-                    <th>Tên Bệnh Nhân</th>
                     <th>Ngày Đặt Lịch</th>
                     <th>Giờ Đặt Lịch</th>
+                    <th>Bệnh Nhân</th>
                     <th>Trạng Thái</th>
                     <th>Thao Tác</th>
                 </tr>
@@ -34,42 +34,56 @@
                 {
                     <tr>
                         <td>@item.MaLichKham</td>
-                        <td>@item.BenhNhan.tenBenhNhan</td>
-                        <td>@item.NgayDatLich</td>
-                        <td>@item.GioDatLich</td>
                         <td>
-                            @if (item.TrangThai == "Đã xác nhận")
+                            @if (item.NgayDatLich.HasValue)
                             {
-                                <span class="badge bg-success text-white rounded-pill">@item.TrangThai</span>
+                                @item.NgayDatLich.Value.ToString("dd/MM/yyyy")
                             }
-                            else if (item.TrangThai == "Chờ xác nhận")
+                            else
+                            {
+                                <span>Chưa có thông tin</span>
+                            }
+                        </td>
+                        <td>@item.GioDatLich</td>
+                        <td>@item.BenhNhan.tenBenhNhan</td>
+                        <td>
+                            @if (item.TrangThai == "Đang chờ duyệt")
                             {
                                 <span class="badge bg-warning text-dark rounded-pill">@item.TrangThai</span>
                             }
-                            else if (item.TrangThai == "Đã hủy")
+                            else if (item.TrangThai == "Đã được duyệt")
+                            {
+                                <span class="badge bg-success text-white rounded-pill">@item.TrangThai</span>
+                            }
+                            else if (item.TrangThai == "Đã từ chối")
+                            {
+                                <span class="badge bg-danger text-white rounded-pill">@item.TrangThai</span>
+                            }
+                            else if (item.TrangThai == "Đã khám")
                             {
                                 <span class="badge bg-danger text-white rounded-pill">@item.TrangThai</span>
                             }
                         </td>
                         <td>
-                            @if (item.TrangThai == "Chờ xác nhận")
+                            <!-- Nút sửa trạng thái -->
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="@item.MaLichKham" data-status="@item.TrangThai" title="Sửa trạng thái">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                            <!-- Nút xóa nếu trạng thái là "Đã từ chối" -->
+                            @if (item.TrangThai == "Đã từ chối")
                             {
-                                <a class="btn btn-sm btn-success" href="@Url.Action("Approve", new { id = item.MaLichKham })" title="Xác nhận">
-                                    <i class="fas fa-check"></i>
-                                </a>
-                                <a class="btn btn-sm btn-danger" href="@Url.Action("Cancel", new { id = item.MaLichKham })" title="Hủy">
-                                    <i class="fas fa-times"></i>
-                                </a>
+                                <button class="btn btn-sm btn-danger delete-booking-btn show-delete-modal-btn" data-id="@item.MaLichKham" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             }
                             else
                             {
-                                <button class="btn btn-secondary btn-sm" disabled title="Trạng thái không thể thay đổi">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="@item.MaLichKham" data-status="@item.TrangThai" title="Sửa trạng thái">
-                                    <i class="fas fa-edit"></i>
+                                <button class="btn btn-sm btn-secondary" disabled title="Không thể xóa">
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             }
+
                         </td>
                     </tr>
                 }
@@ -95,24 +109,24 @@
         </ul>
     </nav>
 </div>
-
 <!-- Modal Sửa Trạng Thái -->
-<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+<div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="statusModalLabel">Sửa Trạng Thái</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Sửa Trạng Thái</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="statusForm">
                     <input type="hidden" id="lichKhamId" name="lichKhamId" />
                     <div class="mb-3">
                         <label for="newStatus" class="form-label">Trạng Thái Mới</label>
-                        <select id="newStatus" name="newStatus" class="form-control" required>
+                        <select id="newStatus" name="newStatus" class="form-control">
                             <option value="">-- Chọn trạng thái --</option>
-                            <option value="Đã xác nhận">Đã xác nhận</option>
-                            <option value="Đã hủy">Đã hủy</option>
+                            <option value="Đã được duyệt">Duyệt</option>
+                            <option value="Đã từ chối">Từ chối</option>
+                            <option value="Đã khám">Đã khám</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
@@ -122,34 +136,63 @@
     </div>
 </div>
 
+<!-- Modal Xác Nhận Xóa -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác Nhận Xóa Lịch Khám</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa lịch khám này không?</p>
+                <!-- Ẩn trường input để giữ id của lịch khám -->
+                <input type="hidden" id="deleteLichKhamId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <!-- Nút xác nhận xóa sẽ submit form -->
+                <form id="deleteForm" method="post" action="@Url.Action("Delete", "AdminBookingList")">
+                    <input type="hidden" id="lichKhamIdToDelete" name="id" />
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
-        // Thiết lập modal khi nhấn nút sửa trạng thái
-        $('#statusModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var lichKhamId = button.data('id');
-            var currentStatus = button.data('status');
-
-            var modal = $(this);
-            modal.find('#lichKhamId').val(lichKhamId);
-            modal.find('#newStatus').val(currentStatus);
+        // Hiển thị modal xác nhận xóa và gán ID lịch khám vào input ẩn
+        $(document).on('click', '.show-delete-modal-btn', function () {
+            const id = $(this).data('id');
+            $('#deleteLichKhamId').val(id);  // Gán giá trị id vào input ẩn
+            $('#lichKhamIdToDelete').val(id);  // Gán giá trị id vào input trong form
+            $('#deleteModal').modal('show');  // Hiển thị modal
         });
 
-        // Gửi form cập nhật trạng thái
-        $('#statusForm').on('submit', function (e) {
+        // Cập nhật trạng thái
+        $('#statusModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            $('#lichKhamId').val(button.data('id'));
+            $('#newStatus').val(button.data('status'));
+        });
+
+        $('#statusForm').submit(function (e) {
             e.preventDefault();
-            var formData = $(this).serialize();
+
+            const lichKhamId = $('#lichKhamId').val();
+            const newStatus = $('#newStatus').val();
 
             $.ajax({
-                type: "POST",
                 url: '@Url.Action("UpdateStatus")',
-                data: formData,
+                method: 'POST',
+                data: {
+                    lichKhamId: lichKhamId,
+                    newStatus: newStatus
+                },
                 success: function (response) {
-                    if (response.success) {
-                        location.reload(); // Làm mới trang để cập nhật danh sách
-                    } else {
-                        alert('Cập nhật thất bại. Vui lòng thử lại!');
-                    }
+                    location.reload();  // Reload lại trang sau khi cập nhật
                 }
             });
         });

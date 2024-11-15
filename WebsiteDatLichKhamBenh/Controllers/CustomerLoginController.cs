@@ -31,12 +31,21 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 switch (account.Role)
                 {
                     case "BenhNhan":
+                        // Kiểm tra nếu có ReturnUrl trong TempData, chuyển hướng về đó
+                        if (TempData["ReturnUrl"] != null)
+                        {
+                            return Redirect(TempData["ReturnUrl"].ToString());
+                        }
+                        // Nếu không có ReturnUrl, chuyển hướng về trang chủ
                         return RedirectToAction("Index", "CustomerHome");
+
                     case "Admin":
                         return RedirectToAction("Index", "AdminDashboard");
+
                     case "BacSi":
                         // Chuyển hướng đến giao diện bác sĩ
                         return RedirectToAction("Index", "DoctorExaminationManagement");
+
                     default:
                         // Nếu không tìm thấy vai trò hợp lệ, có thể chuyển đến một trang mặc định hoặc thông báo lỗi
                         ViewBag.Error = "Vai trò người dùng không hợp lệ.";
@@ -50,6 +59,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 return View("Index");
             }
         }
+
 
         // Action Đăng Xuất
         public ActionResult Logout()

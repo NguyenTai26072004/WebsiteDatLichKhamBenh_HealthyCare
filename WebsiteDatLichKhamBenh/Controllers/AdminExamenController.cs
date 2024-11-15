@@ -15,82 +15,98 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // GET: AdminExamen
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            // Tìm kiếm theo mã ca khám hoặc tên bác sĩ
-            var caKhams = db.CaKhams.Include(c => c.BacSi).Include(c => c.CoSo).Include(c => c.KhungGio);
+            var examen = db.CaKhams.Include(b => b.BacSi);
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                // Kiểm tra xem searchTerm có phải là số không
-                if (int.TryParse(searchTerm, out int maCaKham))
+                // Kiểm tra kiểu dữ liệu của searchTerm và thực hiện tìm kiếm tương ứng
+                int parsedSearchTerm;
+                bool isNumber = int.TryParse(searchTerm, out parsedSearchTerm);
+
+                if (isNumber)
                 {
-                    // Tìm kiếm theo mã ca khám nếu searchTerm là số
-                    caKhams = caKhams.Where(c => c.MaCaKham == maCaKham);
+                    // Nếu searchTerm là số, tìm kiếm theo mã ca khám (MaCaKham là kiểu số)
+                    examen = examen.Where(b => b.MaCaKham == parsedSearchTerm || b.BacSi.tenBS.Contains(searchTerm));
                 }
                 else
                 {
-                    // Tìm kiếm theo tên bác sĩ
-                    caKhams = caKhams.Where(c => c.BacSi.tenBS.Contains(searchTerm));
+                    // Nếu searchTerm là chuỗi, tìm kiếm theo tên bác sĩ và mã ca khám dưới dạng chuỗi
+                    examen = examen.Where(b =>
+                        b.MaCaKham.ToString().Contains(searchTerm) || // Tìm theo mã ca khám
+                        b.BacSi.tenBS.Contains(searchTerm)           // Tìm theo tên Bác sĩ
+                    );
                 }
             }
 
             int pageSize = 10;
-            ViewBag.TotalCount = caKhams.Count();
+            ViewBag.TotalCount = examen.Count();
             ViewBag.PageSize = pageSize;
             ViewBag.CurrentPage = page;
+            ViewBag.SearchTerm = searchTerm;
 
-            var result = caKhams.OrderBy(c => c.NgayKham)
-                                .Skip((page - 1) * pageSize)
-                                .Take(pageSize)
-                                .ToList();
+            var result = examen.OrderBy(b => b.NgayKham)
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToList();
+
             return View(result);
         }
 
-
-        // Phê duyệt ca khám
-        public async Task<ActionResult> Approve(int id) // Thay đổi kiểu dữ liệu id
-        {
-            var appointment = await db.CaKhams.FindAsync(id); // Tìm kiếm theo id int
-            if (appointment != null)
-            {
-                appointment.TrangThai = "Đang hoạt động";
-                await db.SaveChangesAsync();
-            }
-            return RedirectToAction("Index");
-        }
-
-        // Từ chối ca khám
-        public async Task<ActionResult> Reject(int id)
-        {
-            var appointment = await db.CaKhams.FindAsync(id);
-            if (appointment != null)
-            {
-                appointment.TrangThai = "Đã từ chối";
-                await db.SaveChangesAsync();
-            }
-            return RedirectToAction("Index");
-        }
-
-        // Cập nhật trạng thái ca khám qua AJAX
+        // Cập nhật trạng thái đặt lịch qua AJAX
         [HttpPost]
         public async Task<ActionResult> UpdateStatus(int caKhamId, string newStatus)
         {
-            var appointment = await db.CaKhams.FindAsync(caKhamId);
-            if (appointment != null)
+            var examen = await db.CaKhams.FindAsync(caKhamId);
+            if (examen != null)
             {
-                appointment.TrangThai = newStatus;
+                examen.TrangThai = newStatus;
                 await db.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Cập nhật trạng thái thành công";
                 return Json(new { success = true });
             }
-            return Json(new { success = false });
+            else
+            {
+                TempData["ErrorMessage"] = "Ca khám không tồn tại";
+                return Json(new { success = false });
+            }
         }
 
-        protected override void Dispose(bool disposing)
+        // Xóa ca khám
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            if (disposing)
+            // Tìm ca khám theo id
+            var examen = db.CaKhams.Find(id);
+
+            if (examen == null)
             {
-                db.Dispose();
+                TempData["ErrorMessage"] = "Ca khám không tồn tại.";
+                return RedirectToAction("Index");
             }
-            base.Dispose(disposing);
+
+            // Kiểm tra xem có tồn tại lịch khám nào liên kết với ca khám này không
+            var relatedBookings = db.LichKhams.Where(lk => lk.MaCaKham == examen.MaCaKham).ToList();
+
+            // Nếu có bản ghi trong LichKham liên kết với MaCaKham thì không cho phép xóa
+            if (relatedBookings.Any())
+            {
+                TempData["ErrorMessage"] = "Không thể xóa ca khám này vì nó đang được liên kết với một lịch khám.";
+                return RedirectToAction("Index");
+            }
+
+            // Kiểm tra trạng thái và các điều kiện xóa
+            if (examen.TrangThai != "Đã từ chối")
+            {
+                TempData["ErrorMessage"] = "Chỉ có thể xóa ca khám với trạng thái 'Đã từ chối'.";
+                return RedirectToAction("Index");
+            }
+
+            // Tiến hành xóa ca khám
+            db.CaKhams.Remove(examen);
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Xóa ca khám thành công.";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -17,20 +17,24 @@ namespace WebsiteDatLichKhamBenh.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BenhNhan()
         {
+            this.BenhNhan_DiUng = new HashSet<BenhNhan_DiUng>();
+            this.BenhNhan_TienSuBenh = new HashSet<BenhNhan_TienSuBenh>();
             this.LichKhams = new HashSet<LichKham>();
         }
     
         public int idBenhNhan { get; set; }
         public string tenBenhNhan { get; set; }
         public Nullable<System.DateTime> ngaySinh { get; set; }
-        public string tienSuBenh { get; set; }
-        public string DiUng { get; set; }
         public string SDT { get; set; }
         public string Email { get; set; }
         public string GioiTinh { get; set; }
         public Nullable<int> idAccount { get; set; }
     
         public virtual Account Account { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BenhNhan_DiUng> BenhNhan_DiUng { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BenhNhan_TienSuBenh> BenhNhan_TienSuBenh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichKham> LichKhams { get; set; }
     }

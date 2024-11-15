@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h5 class="card-title">Bác Sĩ Hiện Có</h5>
+                            <h5 class="card-title">Bác Sĩ Hiện Đang Hoạt Động</h5>
                             <p class="card-text display-6">@ViewBag.TotalDoctors</p>
                         </div>
                         <i class="fas fa-user-md fa-3x"></i>
@@ -58,4 +58,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Biểu đồ thống kê -->
+    <div class="mt-5">
+        <canvas id="appointmentsChart" width="400" height="200"></canvas>
+    </div>
 </div>
+
+<!-- Thêm thư viện Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctx = document.getElementById('appointmentsChart').getContext('2d');
+    var appointmentsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Lịch Hẹn Hôm Nay', 'Bệnh Nhân Đăng Ký', 'Bác Sĩ', 'Ca Khám'],
+            datasets: [{
+                label: 'Số Lượng',
+                data: [
+                    @ViewBag.ConfirmedAppointmentsToday,
+                    @ViewBag.RegisteredPatientsToday,
+                    @ViewBag.TotalDoctors,
+                    @ViewBag.ActiveSchedules
+                ],
+                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                borderColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+

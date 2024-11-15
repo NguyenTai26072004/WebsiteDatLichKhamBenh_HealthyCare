@@ -1,49 +1,25 @@
-﻿@model WebsiteDatLichKhamBenh.Controllers.CustomerBookingViewModel
-
+﻿@model WebsiteDatLichKhamBenh.Models.CustomerBookingViewModel
 
 @{
     ViewBag.Title = "Đặt Khám";
-    var doctor = Model.Doctor; 
-    var schedule = Model.Schedule; 
+    var doctor = Model.Doctor;
+    var schedule = Model.Schedule;
 }
 
 <html>
 <head>
-    <title>Doctor Appointment</title>
+    <title>Đặt Lịch Khám</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
 
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        
 
-        .profile {
-            display: flex;
-            align-items: center;
-        }
+        
 
-            .profile img {
-                border-radius: 10px;
-                width: 150px;
-                height: 150px;
-                object-fit: cover;
-            }
+            
 
-        .profile-info {
-            margin-left: 20px;
-        }
+       
 
             .profile-info h2 {
                 margin: 0;
@@ -155,9 +131,136 @@
         #datepicker {
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0;
             z-index: 10;
         }
+
+        #confirmation-message p {
+            font-weight: bold;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+            .profile img {
+                border-radius: 10px;
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
+
+        .profile-info {
+            margin-left: 20px;
+        }
+
+            .profile-info h2 {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+        .schedule-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .date {
+            background-color: #e0f7fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            text-align: right; 
+            width: 98%; 
+        }
+
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+            .time-slots button {
+                background-color: #e0f7fa;
+                border: 1px solid #00c853;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .time-slots button:hover {
+                    background-color: #00c853;
+                    color: #fff;
+                }
+
+        #confirmation-message {
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+
+        #datepicker {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 10;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* Căn các nút về bên trái */
+            margin-top: 10px;
+            gap: 10px; /* Tạo khoảng cách giữa các nút */
+        }
+
+            .time-slots button {
+                background-color: #ffffff; /* Màu nền trắng */
+                border: 2px solid #00c853; /* Viền màu xanh lá */
+                color: #00c853; /* Màu chữ xanh lá */
+                font-weight: bold;
+                border-radius: 10px; /* Bo góc nút */
+                padding: 10px 20px; /* Khoảng cách trong nút */
+                cursor: pointer;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+                transition: all 0.3s ease-in-out;
+                min-width: 120px; /* Đảm bảo nút có kích thước tối thiểu */
+                text-align: center;
+            }
+
+                .time-slots button:hover {
+                    background-color: #00c853; /* Nền xanh lá khi hover */
+                    color: #ffffff; /* Chữ trắng khi hover */
+                    transform: translateY(-3px); /* Tạo hiệu ứng nhấn nổi */
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng khi hover */
+                }
+
+                .time-slots button:active {
+                    transform: translateY(0); /* Hiệu ứng nhấn xuống */
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Giảm đổ bóng khi nhấn */
+                }
+
     </style>
 </head>
 <body>
@@ -178,55 +281,89 @@
                     </div>
                 </div>
             </div>
-            <div class="share-button">
-                <button>
-                    <i class="fab fa-facebook-f"></i>
-                    Share
-                </button>
-            </div>
         </div>
         <div class="schedule">
-            <div class="schedule-header">
-                <div class="location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <strong>Bệnh Viện E</strong>
-                        <br />
-                        Số 87 - 89 Trần Cung, Nghĩa Tân, Cầu Giấy, Hà Nội
-                    </div>
-                </div>
+            <h3 class="schedule-title">Chọn ngày khám</h3>
+
+            <div class="date">
+                <span id="selected-date"><strong>Vui lòng chọn ngày đặt lịch</strong></span>
+                <i class="fas fa-calendar-alt"></i>
+                <div id="datepicker" style="display:none;"></div>
             </div>
-            <div class="schedule-title">
-                Lịch khám tại viện
-                <div class="date">
-                    Ngày <span id="selected-date">04/10/2024</span>
-                    <i class="fas fa-caret-down"></i>
-                    <div id="datepicker" style="display:none;"></div>
-                </div>
-            </div>
+
+            <h3 class="schedule-title">Chọn giờ khám</h3>
             <div class="time-slots">
-                @foreach (var item in schedule)
-                {
-                    <button>@item.GioKham</button>
-                }
+                <!-- Hiển thị các khung giờ sau khi chọn ngày -->
+            </div>
+            <!-- Thông báo khi người dùng chọn ca khám -->
+            <div id="confirmation-message">
+                <p>Khung giờ đã chọn: <span id="selected-time"></span></p>
+                <button id="confirm-btn">Xác nhận đặt lịch</button>
             </div>
         </div>
-    </div>
+        </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
     <script>
         $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "dd/mm/yy",
                 onSelect: function (dateText) {
+                    if ($("#selected-date").text() === "Vui lòng chọn ngày đặt lịch") {
+                        $("#selected-date").text(""); // Xóa nội dung mặc định
+                    }
                     $("#selected-date").text(dateText);
                     $("#datepicker").hide();
+                    const doctorId = @Model.Doctor.idBS;
+                    fetchSchedulesByDate(doctorId, dateText);
                 }
             });
 
             $(".date").on("click", function () {
                 $("#datepicker").toggle();
             });
+        });
+
+        // Hàm gọi API lấy danh sách các khung giờ theo ngày
+        function fetchSchedulesByDate(doctorId, selectedDate) {
+            $.ajax({
+                url: '/CustomerBooking/GetSchedulesByDate',
+                type: 'GET',
+                data: { doctorId: doctorId, selectedDate: selectedDate },
+                success: function (data) {
+                    $(".time-slots").empty();
+                    $("#confirmation-message").hide();
+
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            $(".time-slots").append(
+                                `<button onclick="selectTime('${item.GioKham}', ${item.CaKhamId})">${item.GioKham}</button>`
+                            );
+                        });
+                    } else {
+                        $(".time-slots").append("<strong>Không có lịch khám cho ngày này.</strong>");
+                    }
+                },
+                error: function () {
+                    alert("Không thể tải dữ liệu. Vui lòng thử lại sau.");
+                }
+            });
+        }
+
+        // Hàm xử lý khi chọn giờ khám
+        var selectedCaKhamId = null;
+        function selectTime(time, caKhamId) {
+            $("#confirmation-message").show();
+            $("#selected-time").text(time);
+            selectedCaKhamId = caKhamId;
+        }
+
+        // Xác nhận đặt lịch
+        $("#confirm-btn").click(function () {
+            if (selectedCaKhamId) {
+                window.location.href = '@Url.Action("BookingDetails", "CustomerBooking")' + "?caKhamId=" + selectedCaKhamId;
+            }
         });
     </script>
 </body>

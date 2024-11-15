@@ -11,7 +11,7 @@ namespace WebsiteDatLichKhamBenh.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class CaKham
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,17 +19,14 @@ namespace WebsiteDatLichKhamBenh.Models
         {
             this.LichKhams = new HashSet<LichKham>();
         }
-
+    
         public int MaCaKham { get; set; }
         public Nullable<int> idBS { get; set; }
         public Nullable<System.DateTime> NgayKham { get; set; }
         public Nullable<int> MaKhungGio { get; set; }
         public string TrangThai { get; set; }
-        public Nullable<int> idCoSo { get; set; }
-
-        public Nullable<System.DateTime> GioKham { get; set; }
+    
         public virtual BacSi BacSi { get; set; }
-        public virtual CoSo CoSo { get; set; }
         public virtual KhungGio KhungGio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichKham> LichKhams { get; set; }

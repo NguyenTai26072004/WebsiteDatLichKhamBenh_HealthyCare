@@ -14,15 +14,20 @@ namespace WebsiteDatLichKhamBenh.Models
     
     public partial class DonThuoc
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DonThuoc()
+        {
+            this.ChiTietDonThuocs = new HashSet<ChiTietDonThuoc>();
+            this.LichKhams = new HashSet<LichKham>();
+        }
+    
         public int MaDonThuoc { get; set; }
-        public Nullable<int> MaLichKham { get; set; }
         public string GhiChu { get; set; }
         public Nullable<System.DateTime> NgayKeDon { get; set; }
-        public string MaThuoc { get; set; }
-        public string TenThuoc { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public string LieuLuong { get; set; }
     
-        public virtual LichKham LichKham { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichKham> LichKhams { get; set; }
     }
 }

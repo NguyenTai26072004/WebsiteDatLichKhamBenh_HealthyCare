@@ -1,39 +1,126 @@
 ﻿@model WebsiteDatLichKhamBenh.Models.BacSi
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa Bác Sĩ";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Sửa Bác Sĩ</h2>
+<h2 class="text-center">Sửa Thông Tin Bác Sĩ</h2>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "AdminDoctorManagement", FormMethod.Post, new { enctype = "multipart/form-data", id = "editDoctorForm" }))
 {
     @Html.AntiForgeryToken()
 
+    <!-- Hidden fields -->
     @Html.HiddenFor(m => m.idBS)
     @Html.HiddenFor(m => m.idAccount)
     @Html.HiddenFor(m => m.luotDat)
     @Html.HiddenFor(m => m.diemDanhGia)
+    @Html.HiddenFor(m => m.anhBS)
 
+    <!-- Nhập Tên Bác Sĩ -->
     <div class="form-group">
-        @Html.Label("tenBS", "Tên bác sĩ:")
-        @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.tenBS)
+        @Html.LabelFor(m => m.tenBS, "Tên bác sĩ:", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.tenBS, new { @class = "form-control", placeholder = "Nhập tên bác sĩ..." })
+        @Html.ValidationMessageFor(m => m.tenBS, "", new { @class = "text-danger" })
     </div>
 
+    <!-- Nhập Chuyên Khoa -->
     <div class="form-group">
-        @Html.Label("chuyenKhoa", "Chuyên khoa:")
-        @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.chuyenKhoa)
+        @Html.LabelFor(m => m.chuyenKhoa, "Chuyên khoa:", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.chuyenKhoa, new { @class = "form-control", placeholder = "Nhập chuyên khoa..." })
+        @Html.ValidationMessageFor(m => m.chuyenKhoa, "", new { @class = "text-danger" })
     </div>
 
+    <!-- Chọn Cơ Sở -->
     <div class="form-group">
-        @Html.Label("anhBS", "Ảnh bác sĩ:")
-        <input type="file" name="imageFile" class="form-control" />
-        @Html.ValidationMessageFor(m => m.anhBS)
+        @Html.LabelFor(m => m.idCoSo, "Cơ Sở:", new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.idCoSo, (SelectList)ViewBag.CoSoList, "Chọn cơ sở", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.idCoSo, "", new { @class = "text-danger" })
     </div>
 
+    <!-- Ảnh Bác Sĩ Hiện Tại -->
+    <div class="form-group">
+        @Html.Label("anhHienTai", "Ảnh hiện tại:", new { @class = "control-label" })
+        <div>
+            <img src="@Model.anhBS" alt="Ảnh bác sĩ" width="150" height="150" />
+        </div>
+    </div>
+
+    <!-- Upload Ảnh Mới -->
+    <div class="form-group">
+        @Html.Label("imageFile", "Thay đổi ảnh bác sĩ:", new { @class = "control-label" })
+        <input type="file" id="imageFile" name="imageFile" class="form-control" />
+    </div>
+
+    <!-- Nút Cập Nhật -->
     <button type="submit" class="btn btn-primary">Cập nhật</button>
     @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
 }
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Ràng buộc không cho phép nhập số
+            $.validator.addMethod("noNumbers", function (value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+            }, "Trường này không được chứa số.");
+
+            $("#editDoctorForm").validate({
+                rules: {
+                    "tenBS": {
+                        required: true,
+                        minlength: 3,
+                        noNumbers: true
+                    },
+                    "chuyenKhoa": {
+                        required: true,
+                        noNumbers: true
+                    },
+                    "idCoSo": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "tenBS": {
+                        required: "Vui lòng nhập tên bác sĩ.",
+                        minlength: "Tên bác sĩ phải có ít nhất 3 ký tự."
+                    },
+                    "chuyenKhoa": {
+                        required: "Vui lòng nhập chuyên khoa."
+                    },
+                    "idCoSo": {
+                        required: "Vui lòng chọn cơ sở."
+                    }
+                },
+                errorClass: "text-danger"
+            });
+        });
+    </script>
+}
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-secondary {
+        margin-left: 10px;
+    }
+</style>

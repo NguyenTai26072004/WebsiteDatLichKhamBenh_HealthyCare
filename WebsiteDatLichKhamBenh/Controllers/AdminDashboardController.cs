@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using WebsiteDatLichKhamBenh.Models; // Chỉnh đường dẫn namespace của DbContext nếu khác
+using WebsiteDatLichKhamBenh.Models;
 
 namespace WebsiteDatLichKhamBenh.Controllers
 {
@@ -9,31 +10,32 @@ namespace WebsiteDatLichKhamBenh.Controllers
     {
         private WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
 
-        // GET: AdminDashboard
+        // GET: Dashboard
         public ActionResult Index()
         {
-            // Lịch hẹn hôm nay với trạng thái "Đã xác nhận"
-            var today = DateTime.Today;
+            var today = DateTime.Now.Date;  // Lấy ngày hiện tại mà không có thời gian
+
+            // Lấy số lịch hẹn xác nhận trong hôm nay
             var confirmedAppointmentsToday = db.LichKhams
-                .Where(l => l.NgayDatLich == today && l.TrangThai == "Đã xác nhận")
+                .Where(l => DbFunctions.TruncateTime(l.NgayDatLich) == today && l.TrangThai == "Đã được duyệt")
                 .Count();
 
-            // Bệnh nhân đã đăng ký hôm nay
+            // Lấy số bệnh nhân đã đăng ký trong hôm nay
             var registeredPatientsToday = db.LichKhams
-                .Where(l => l.NgayDatLich == today)
-                .Select(l => l.MaBenhNhan)
-                .Distinct()
+                .Where(l => DbFunctions.TruncateTime(l.NgayDatLich) == today)
+                .Select(l => l.MaBenhNhan)  // Chọn mã bệnh nhân
+                .Distinct()  // Chỉ lấy các mã bệnh nhân duy nhất
                 .Count();
 
-            // Tổng số bác sĩ hiện có
-            var totalDoctors = db.BacSis.Count();
+            // Lấy số bác sĩ hiện có
+            var totalDoctors = db.BacSis.Count();  // Số lượng bác sĩ trong hệ thống
 
-            // Số ca khám với trạng thái "Đang hoạt động"
+            // Lấy số ca khám hiện hành
             var activeSchedules = db.CaKhams
                 .Where(c => c.TrangThai == "Đang hoạt động")
                 .Count();
 
-            // Truyền dữ liệu sang View thông qua ViewBag
+            // Truyền các giá trị vào ViewBag
             ViewBag.ConfirmedAppointmentsToday = confirmedAppointmentsToday;
             ViewBag.RegisteredPatientsToday = registeredPatientsToday;
             ViewBag.TotalDoctors = totalDoctors;
@@ -41,5 +43,18 @@ namespace WebsiteDatLichKhamBenh.Controllers
 
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            // Xóa thông tin người dùng trong session hoặc cookie
+            Session.Clear(); // Nếu bạn sử dụng session để lưu trữ thông tin người dùng
+                             // Hoặc nếu dùng cookie thì bạn có thể làm như sau:
+                             // Response.Cookies["username"].Expires = DateTime.Now.AddDays(-1); // Ví dụ xóa cookie tên người dùng
+
+            // Chuyển hướng về trang đăng nhập sau khi đăng xuất
+            return RedirectToAction("Index", "CustomerLogin"); // Điều hướng về trang đăng nhập
+        }
+
+
     }
 }

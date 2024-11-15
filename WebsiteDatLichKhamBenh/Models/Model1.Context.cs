@@ -28,10 +28,17 @@ namespace WebsiteDatLichKhamBenh.Models
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<BacSi> BacSis { get; set; }
         public virtual DbSet<BenhNhan> BenhNhans { get; set; }
+        public virtual DbSet<BenhNhan_DiUng> BenhNhan_DiUng { get; set; }
+        public virtual DbSet<BenhNhan_TienSuBenh> BenhNhan_TienSuBenh { get; set; }
         public virtual DbSet<CaKham> CaKhams { get; set; }
+        public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
         public virtual DbSet<CoSo> CoSoes { get; set; }
+        public virtual DbSet<DiUng> DiUngs { get; set; }
         public virtual DbSet<DonThuoc> DonThuocs { get; set; }
         public virtual DbSet<KhungGio> KhungGios { get; set; }
         public virtual DbSet<LichKham> LichKhams { get; set; }
+        public virtual DbSet<Thuoc> Thuocs { get; set; }
+        public virtual DbSet<TienSuBenh> TienSuBenhs { get; set; }
+        public virtual DbSet<TinTuc> TinTucs { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model WebsiteDatLichKhamBenh.Models.BenhNhan
+﻿@model WebsiteDatLichKhamBenh.Models.PersonalViewModel
 
 @{
     ViewBag.Title = "Thông Tin Bệnh Nhân";
@@ -8,7 +8,6 @@
 <html>
 <head>
     <title>Thông Tin Bệnh Nhân</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         /* Body and container styling */
         body {
@@ -90,10 +89,13 @@
                 margin-bottom: 20px;
             }
 
+        .info{
+            margin-left: 20px;
+        }
         .info p {
             font-size: 18px;
             color: #333;
-            margin: 10px 0;
+            margin: 30px 0;
         }
 
         .info span {
@@ -108,6 +110,26 @@
             text-align: right;
             margin-top: 20px;
         }
+
+        /* Căn chỉnh các hàng thông tin cá nhân */
+        .info .row {
+            display: flex;
+            justify-content: space-between; /* Tạo khoảng cách giữa các phần tử */
+            align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+            margin-bottom: 15px; /* Khoảng cách giữa các hàng */
+        }
+
+            /* Căn chỉnh cho phần tử <p> trong mỗi hàng */
+            .info .row p {
+                margin: 0; /* Loại bỏ khoảng cách mặc định */
+                flex: 1; /* Cho phép các phần tử phát triển đều */
+            }
+
+                /* Căn chỉnh các phần tử <strong> */
+                .info .row p strong {
+                    font-weight: bold;
+                }
+
 
             .edit-button button {
                 background-color: #4CAF50;
@@ -127,10 +149,6 @@
             font-weight: bold;
         }
     </style>
-
-
-
-
 </head>
 <body>
     <div class="container">
@@ -140,51 +158,52 @@
             <a href="@Url.Action("Index", "CustomerHistory")">
                 <p>Lịch sử đặt lịch</p>
             </a>
-
         </div>
         <div class="content">
             <h2>THÔNG TIN BỆNH NHÂN</h2>
             <div class="info">
+                <div class="row">
+                    <p><strong>Họ và tên:</strong> @Model.tenBenhNhan</p>
+                    <p><strong>SĐT:</strong> @Model.SDT</p>
+                </div>
+                <div class="row">
+                    <p><strong>Ngày sinh:</strong> @((Model.ngaySinh)?.ToString("dd/MM/yyyy"))</p>
+                    <p><strong>Giới tính:</strong> @Model.GioiTinh</p>
+                </div>
+                <p><strong>Email:</strong> @Model.Email</p>
+
+                <!-- Hiển thị Tiền sử bệnh -->
                 <p>
-                    <span>Họ và tên:</span> <span class="value">@Model.tenBenhNhan</span>
-                    <span style="float: right;"><span>SĐT:</span> <span class="value">@Model.SDT</span></span>
-                </p>
-                <p>
-                    <span>Ngày sinh:</span> <span class="value">@((Model.ngaySinh)?.ToString("dd/MM/yyyy"))</span>
-                    <span style="float: right;"><span>Giới tính:</span> <span class="value">@Model.GioiTinh</span></span>
-                </p>
-                <p><span>Email:</span> <span class="value">@Model.Email</span></p>
-                <p>
-                    <span>Tiền sử bệnh án:</span>
-                    <span class="value">
-                        @if (string.IsNullOrEmpty(Model.tienSuBenh))
+                    <strong>Tiền sử bệnh án:</strong>
+                    @if (Model.TienSuBenh != null && Model.TienSuBenh.Any())
+                    {
+                        foreach (var tsb in Model.TienSuBenh)
                         {
-                            <span class="note">Cần được bổ sung</span>
+                            <span class="value">@tsb</span><br />
                         }
-                        else
-                        {
-                            <text>@Model.tienSuBenh</text>
-                        }
-                    </span>
-                </p>
-                <p>
-                    <span>Dị ứng:</span>
-                    <span class="value">
-                        @if (string.IsNullOrEmpty(Model.DiUng))
-                        {
-                            <span class="note">Cần được bổ sung</span>
-                        }
-                        else
-                        {
-                            <text>@Model.DiUng</text>
-                        }
-                    </span>
+                    }
+                    else
+                    {
+                        <span class="note">Cần được bổ sung</span>
+                    }
                 </p>
 
-
+                <!-- Hiển thị Dị ứng -->
+                <p>
+                    <strong>Dị ứng:</strong>
+                    @if (Model.DiUng != null && Model.DiUng.Any())
+                    {
+                        foreach (var du in Model.DiUng)
+                        {
+                            <span class="value">@du</span><br />
+                        }
+                    }
+                    else
+                    {
+                        <span class="note">Cần được bổ sung</span>
+                    }
+                </p>
             </div>
-
-
 
 
             <div class="edit-button">

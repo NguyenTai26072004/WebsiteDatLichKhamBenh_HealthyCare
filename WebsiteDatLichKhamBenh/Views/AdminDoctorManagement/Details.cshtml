@@ -5,38 +5,139 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Thông Tin Chi Tiết Bác Sĩ</h2>
+@section Styles {
+    <style>
+        .card-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
 
-<div>
-    <h4>@Model.tenBS</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Mã Bác Sĩ:</dt>
-        <dd class="col-sm-10">@Model.idBS</dd>
+        .card {
+            width: 80%;
+            max-width: 1100px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
 
-        <dt class="col-sm-2">Tên Bác Sĩ:</dt>
-        <dd class="col-sm-10">@Model.tenBS</dd>
+        .card-header {
+            background-color: #6c757d;
+            color: #ffffff;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
 
-        <dt class="col-sm-2">Chuyên Khoa:</dt>
-        <dd class="col-sm-10">@Model.chuyenKhoa</dd>
+        .card-body {
+            display: flex;
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
 
-        <dt class="col-sm-2">Lượt Đặt:</dt>
-        <dd class="col-sm-10">@Model.luotDat</dd>
+        .image-section {
+            flex: 1;
+            padding-right: 20px;
+        }
 
-        <dt class="col-sm-2">Lượt Đánh Giá:</dt>
-        <dd class="col-sm-10">@Model.diemDanhGia</dd>
+            .image-section img {
+                width: 100%;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
 
-        <dt class="col-sm-2">Tên Tài Khoản:</dt>
-        <dd class="col-sm-10">@Model.Account.TaiKhoan</dd>
+        .info-section {
+            flex: 2;
+            padding-left: 20px;
+        }
 
-        <dt class="col-sm-2">Mật Khẩu:</dt>
-        <dd class="col-sm-10">@Model.Account.MatKhau</dd>
+        .info-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
 
-        <dt class="col-sm-2">Ảnh Bác Sĩ:</dt>
-        <dd class="col-sm-10">
-            <img src="@Model.anhBS" alt="Ảnh của bác sĩ" style="max-width:200px;" />
-        </dd>
-    </dl>
+        .info-label {
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
 
-    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-secondary" })
+        .info-value {
+            color: #555;
+            flex: 2;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .btn-back:hover {
+                background-color: #0056b3;
+            }
+    </style>
+}
+
+<div class="card-container">
+    <div class="card">
+        <div class="card-header">
+            <h4>Thông Tin Chi Tiết Bác Sĩ</h4>
+        </div>
+        <div class="card-body">
+            <!-- Hình ảnh Bác Sĩ -->
+            <div class="image-section">
+                <img src="@Model.anhBS" alt="Ảnh của bác sĩ" />
+            </div>
+
+            <!-- Thông tin Bác Sĩ -->
+            <div class="info-section">
+                <div class="info-row">
+                    <span class="info-label">Mã Bác Sĩ:</span>
+                    <span class="info-value">@Model.idBS</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Tên Bác Sĩ:</span>
+                    <span class="info-value">@Model.tenBS</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Chuyên Khoa:</span>
+                    <span class="info-value">@Model.chuyenKhoa</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Lượt Đặt:</span>
+                    <span class="info-value">@Model.luotDat</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Lượt Đánh Giá:</span>
+                    <span class="info-value">@Model.diemDanhGia</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Tên Tài Khoản:</span>
+                    <span class="info-value">@Model.Account.TaiKhoan</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Mật Khẩu:</span>
+                    <span class="info-value">@Model.Account.MatKhau</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Bệnh Viện:</span>
+                    <span class="info-value">@Model.CoSo.tenBenhVien</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút quay lại -->
+        <div class="text-center">
+            <a href="@Url.Action("Index", "AdminDoctorManagement")" class="btn-back">Quay lại</a>
+        </div>
+    </div>
 </div>

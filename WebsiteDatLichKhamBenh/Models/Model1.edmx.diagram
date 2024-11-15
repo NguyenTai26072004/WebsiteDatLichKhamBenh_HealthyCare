@@ -4,23 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e7c916be001a46b9a898e7baac8e0318" Name="Diagram1">
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.Account" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BacSi" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BenhNhan" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CaKham" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CoSo" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.DonThuoc" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.KhungGio" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.LichKham" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BacSi__idAccount__3D5E1FD2" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan__idAcco__398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__CaKham__idBS__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__LichKham__MaBenh__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__CaKham__idCoSo__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__CaKham__MaKhungG__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__LichKham__MaCaKh__49C3F6B7" ManuallyRouted="false" />
-        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__DonThuoc__MaLich__4CA06362" ManuallyRouted="false" />
+      <Diagram DiagramId="0efd3b27b40845b795c86820d9ead283" Name="Diagram1">
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.Account" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BacSi" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BenhNhan" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BenhNhan_DiUng" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.BenhNhan_TienSuBenh" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CaKham" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.ChiTietDonThuoc" Width="1.5" PointX="7.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.CoSo" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.DiUng" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.DonThuoc" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.KhungGio" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.LichKham" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.Thuoc" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.TienSuBenh" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDatLichKhamBenhDBModel.TinTuc" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BacSi__idCoSo__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan__idAcco__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BacSi__idCoSo__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__CaKham__idBS__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan___idBen__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan___idBen__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__LichKham__MaBenh__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan___idDiU__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__BenhNhan___idTie__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__CaKham__MaKhungG__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__LichKham__MaCaKh__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__ChiTietDo__MaDon__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__ChiTietDo__MaThu__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="WebDatLichKhamBenhDBModel.FK__LichKham__MaDonT__5DCAEF64" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

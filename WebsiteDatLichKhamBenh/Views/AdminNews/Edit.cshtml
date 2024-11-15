@@ -1,0 +1,32 @@
+﻿@model WebsiteDatLichKhamBenh.Models.TinTuc
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Sửa Tin Tức";
+}
+
+<h3>Sửa Tin Tức</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.idTinTuc)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TieuDe)
+        @Html.TextBoxFor(m => m.TieuDe, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.MoTa)
+        @Html.TextBoxFor(m => m.MoTa, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.NoiDung)
+        @Html.TextAreaFor(m => m.NoiDung, new { @class = "form-control", rows = 5 })
+    </div>
+
+    <button type="submit" class="btn btn-success">Cập Nhật</button>
+    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+}

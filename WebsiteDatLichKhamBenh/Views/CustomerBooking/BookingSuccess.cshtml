@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "BookingSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* Giao diện chung */
+    .container.booking-success {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Chiếm hết chiều cao màn hình */
+    }
+
+    /* Tiêu đề thành công */
+    .success-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    /* Thông điệp thành công */
+    .success-message {
+        font-size: 18px;
+        color: #34495e;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+
+    /* Nút "Xem lịch sử đặt lịch" */
+    a.btn {
+        display: inline-block;
+        background-color: #28a745; /* Màu nền xanh */
+        padding: 12px 30px;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif; /* Chỉnh font chữ */
+        font-weight: bold; /* Chữ in đậm */
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        color: white; /* Màu chữ */
+        width: 100%;
+        max-width: 250px;
+        margin-top: 30px;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Khi hover */
+        a.btn:hover {
+            background-color: #218838; /* Màu nền xanh đậm khi hover */
+        }
+
+        /* Nếu bạn muốn điều chỉnh kiểu chữ thêm (ví dụ như kích thước chữ khi hover) */
+        a.btn:hover {
+            font-size: 17px; /* Thay đổi kích thước chữ khi hover */
+        }
+
+
+
+
+</style>
+<div class="container booking-success">
+    <h2 class="success-title">Đặt lịch khám thành công!</h2>
+    <p class="success-message">Lịch khám của bạn đã được gửi đi và chờ duyệt từ Admin.</p>
+
+    <!-- Nút "Xem lịch sử đặt lịch" -->
+    <a href="@Url.Action("Index", "CustomerHistory")" class="btn btn-primary">
+        Xem lịch sử đặt lịch
+    </a>
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebsiteDatLichKhamBenh.Models.TinTuc>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.PageTitle = "Quản lý tin tức";
+}
+
+<h3>Danh Sách Tin Tức</h3>
+<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm Tin Tức</a>
+
+<div class="table-responsive mt-3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mã Tin Tức</th>
+                <th>Tiêu Đề</th>
+                <th>Mô Tả</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tinTuc in Model)
+            {
+                <tr>
+                    <td>@tinTuc.idTinTuc</td>
+                    <td>@tinTuc.TieuDe</td>
+                    <td>@tinTuc.MoTa</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = tinTuc.idTinTuc })" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", new { id = tinTuc.idTinTuc })" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

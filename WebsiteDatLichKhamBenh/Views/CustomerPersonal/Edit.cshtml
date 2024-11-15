@@ -1,4 +1,5 @@
-﻿@model WebsiteDatLichKhamBenh.Models.BenhNhan
+﻿@model WebsiteDatLichKhamBenh.Models.PersonalViewModel
+@using System.Linq
 
 @{
     ViewBag.Title = "Chỉnh Sửa Thông Tin Bệnh Nhân";
@@ -6,9 +7,10 @@
 }
 
 <style>
+    /* Chỉnh sửa giao diện chung */
     body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color: #f4f7f6;
         margin: 0;
         padding: 0;
     }
@@ -70,6 +72,73 @@
         border-radius: 5px;
     }
 
+    /* Chỉnh sửa phần dropdown để hiển thị tốt hơn */
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+        font-size: 14px;
+        color: #333;
+        transition: background-color 0.3s ease;
+    }
+
+        select:hover {
+            background-color: #f1f1f1;
+        }
+
+        select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Chỉnh sửa thẩm mỹ của nút Lưu */
+    button {
+        background-color: #4CAF50; /* Màu nền nút Lưu */
+        color: white; /* Màu chữ */
+        padding: 10px 20px; /* Padding xung quanh chữ */
+        border-radius: 5px; /* Bo tròn các góc */
+        border: none; /* Loại bỏ viền */
+        font-size: 16px; /* Kích thước chữ */
+        display: inline-block; /* Giữ nó như nút */
+        cursor: pointer; /* Con trỏ chuột khi hover */
+        transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+        height: 40px; /* Đảm bảo nút Lưu có chiều cao giống nút Hủy */
+        line-height: 20px; /* Căn giữa chữ theo chiều dọc */
+    }
+
+        /* Thêm hiệu ứng khi hover */
+        button:hover {
+            background-color: #45a049; /* Màu nền khi hover */
+        }
+
+    /* CSS cho nút Hủy */
+    .cancel-button {
+        background-color: #f44336; /* Màu nền nút Hủy */
+        color: white; /* Màu chữ */
+        padding: 10px 20px; /* Padding xung quanh chữ */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        border-radius: 5px; /* Bo tròn các góc */
+        border: none; /* Loại bỏ viền */
+        font-size: 16px; /* Kích thước chữ */
+        display: inline-block; /* Giữ nó như nút */
+        cursor: pointer; /* Con trỏ chuột khi hover */
+        transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+        height: 20px; /* Đảm bảo nút Hủy có chiều cao giống nút Lưu */
+        line-height: 20px; /* Căn giữa chữ theo chiều dọc */
+        margin-top: 20px;
+    }
+
+        /* Thêm hiệu ứng khi hover */
+        .cancel-button:hover {
+            background-color: #d32f2f; /* Màu nền khi hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ khi hover */
+        }
+
+
+    /* Căn chỉnh nút Lưu và Hủy ở dưới cùng, bên phải */
     .edit-button {
         display: flex;
         gap: 10px;
@@ -77,33 +146,9 @@
         margin-top: 20px;
     }
 
-        .edit-button .cancel-button {
-            background-color: #f44336;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-        }
-
-            .edit-button .cancel-button:hover {
-                background-color: #d32f2f;
-            }
-
         .edit-button button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-top: 20px;
         }
-
-            .edit-button button:hover {
-                background-color: #45a049;
-            }
 </style>
 
 <div class="container">
@@ -120,109 +165,56 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.idBenhNhan)
 
-    <div class="info">
-        <p>
-            <span>Họ và tên:</span>
-            @Html.TextBoxFor(model => model.tenBenhNhan, new { @class = "form-control" })
-        </p>
-        <p>
-            <span>Ngày sinh:</span>
-            @Html.TextBoxFor(model => model.ngaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-        </p>
-        <p>
-            <span>SĐT:</span>
-            @Html.TextBoxFor(model => model.SDT, new { @class = "form-control" })
-        </p>
-        <p>
-            <span>Email:</span>
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-        </p>
-        <p>
-            <span>Giới tính:</span>
-            @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new[] { "Nam", "Nữ" }), new { @class = "form-control" })
-        </p>
+            <div class="info">
+                <p>
+                    <span>Họ và tên:</span>
+                    @Html.TextBoxFor(model => model.tenBenhNhan, new { @class = "form-control" })
+                </p>
 
-        <!-- Dropdown cho Tiền sử bệnh án với lựa chọn mặc định trống -->
-        <p>
-            <span>Tiền sử bệnh án:<span style="color: red;">*</span></span>
-            @Html.DropDownListFor(model => model.tienSuBenh, new SelectList(new[] {
-                "",
-                "Không có",
-                "Tăng huyết áp",
-                "Đái tháo đường type 2",
-                "Bệnh tim mạch",
-                "Hen phế quản",
-                "Viêm gan B",
-                "Bệnh phổi tắc nghẽn mạn tính",
-                "Bệnh dạ dày",
-                "Rối loạn lo âu",
-                "Bệnh tiểu đường thai kỳ",
-                "Bệnh suy thận mạn",
-                "Khác..."
-            }), new { @class = "form-control", id = "tienSuBenh", onchange = "toggleInputField(this, 'customTienSuBenh')" })
-            <!-- Trường nhập ẩn để người dùng nhập khi chọn "Khác..." -->
-            <input type="text" id="customTienSuBenh" name="customTienSuBenh" class="form-control" placeholder="Nhập Tiền sử bệnh án khác..." style="display:none; margin-top:5px;" />
-        </p>
+                <p>
+                    <span>Ngày sinh:</span>
+                    @Html.TextBoxFor(model => model.ngaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </p>
+                <p>
+                    <span>SĐT:</span>
+                    @Html.TextBoxFor(model => model.SDT, new { @class = "form-control" })
+                </p>
+                <p>
+                    <span>Email:</span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                </p>
+                <p>
+                    <span>Giới tính:</span>
+                    @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new[] { "Nam", "Nữ" }), new { @class = "form-control" })
+                </p>
 
-        <p>
-            <span>Dị ứng:<span style="color: red;">*</span></span>
-            @Html.DropDownListFor(model => model.DiUng, new SelectList(new[] {
-                "",
-                "Không có",
-                "Phấn hoa",
-                "Đậu phộng",
-                "Hải sản",
-                "Sữa",
-                "Trứng",
-                "Kháng sinh penicillin",
-                "Nọc độc côn trùng",
-                "Thực phẩm chứa gluten",
-                "Thuốc giảm đau NSAID",
-                "Mạt bụi nhà",
-                "Khác..."
-            }), new { @class = "form-control", id = "diUng", onchange = "toggleInputField(this, 'customDiUng')" })
-            <!-- Trường nhập ẩn để người dùng nhập khi chọn "Khác..." -->
-            <input type="text" id="customDiUng" name="customDiUng" class="form-control" placeholder="Nhập dị ứng khác..." style="display:none; margin-top:5px;" />
-        </p>
-        
+                <label for="TienSuBenh">Tiền Sử Bệnh</label>
+                <select id="TienSuBenh" name="SelectedTienSuBenhs" multiple="multiple">
+                    @foreach (var item in (List<SelectListItem>)ViewBag.AllTienSuBenhs)
+                    {
+                        <option value="@item.Value"
+                                @(ViewBag.SelectedTienSuBenhs.Contains(int.Parse(item.Value)) ? "selected" : "")>
+                            @item.Text
+                        </option>
+                    }
+                </select>
 
-    </div>
+                <label for="DiUng">Dị Ứng</label>
+                <select id="DiUng" name="SelectedDiUngs" multiple="multiple">
+                    @foreach (var item in (List<SelectListItem>)ViewBag.AllDiUngs)
+                    {
+                        <option value="@item.Value"
+                                @(ViewBag.SelectedDiUngs.Contains(int.Parse(item.Value)) ? "selected" : "")>
+                            @item.Text
+                        </option>
+                    }
+                </select>
 
-            <div class="edit-button">
-                <button type="submit" onclick="return validateForm()">Lưu</button>
-                <a href="@Url.Action("Index", "CustomerPersonal")" class="cancel-button">Hủy</a>
+                <div class="edit-button">
+                    <a href="@Url.Action("Index", "CustomerPersonal")" class="cancel-button">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
             </div>
         }
     </div>
 </div>
-
-<script>
-    function toggleInputField(dropdown, inputId) {
-        var inputField = document.getElementById(inputId);
-        if (dropdown.value === "Khác...") {
-            inputField.style.display = "block"; // Hiển thị trường nhập nếu chọn "Khác..."
-        } else {
-            inputField.style.display = "none"; // Ẩn trường nhập nếu chọn mục khác
-            inputField.value = ""; // Xóa nội dung của trường nhập
-        }
-    }
-
-    function validateForm() {
-        var tienSuBenh = document.getElementById("tienSuBenh").value;
-        var diUng = document.getElementById("diUng").value;
-        var customTienSuBenh = document.getElementById("customTienSuBenh").value.trim();
-        var customDiUng = document.getElementById("customDiUng").value.trim();
-
-        // Kiểm tra nếu cả hai đều không chọn và không có nhập
-        if ((tienSuBenh === "" || (tienSuBenh === "Khác..." && customTienSuBenh === "")) ||
-            (diUng === "" || (diUng === "Khác..." && customDiUng === ""))) {
-            alert("Vui lòng chọn hoặc nhập thông tin cho Tiền sử bệnh án và Dị ứng.");
-            return false; // Ngăn gửi biểu mẫu nếu chưa nhập đủ
-        }
-
-        return true; // Cho phép gửi biểu mẫu nếu đã nhập đủ
-    }
-</script>
-
-
-

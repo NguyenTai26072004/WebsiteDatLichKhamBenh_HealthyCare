@@ -1,0 +1,49 @@
+﻿@model WebsiteDatLichKhamBenh.Models.CaKham
+
+@{
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+    ViewBag.PageTitle = "Chỉnh Sửa Ca Khám";
+}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Chỉnh Sửa Ca Khám</h3>
+
+    <!-- Form Chỉnh Sửa Ca Khám -->
+    <form method="post" action="@Url.Action("Edit", "DoctorExaminationManagement", new { id = Model.MaCaKham })">
+        @Html.AntiForgeryToken()
+
+        <!-- Ngày Khám -->
+        <div class="mb-3">
+            <label for="NgayKham" class="form-label">Ngày Khám</label>
+            <input type="date" class="form-control" id="NgayKham" name="NgayKham"
+                   value="@ViewBag.NgayKham?.ToString("yyyy-MM-dd")" required />
+        </div>
+
+
+
+        <!-- Khung Giờ -->
+        <div class="mb-3">
+            <label for="MaKhungGio" class="form-label">Khung Giờ</label>
+            <select class="form-select" id="MaKhungGio" name="MaKhungGio" required>
+                @foreach (var khungGio in ViewBag.KhungGioList)
+                {
+                    <option value="@khungGio.Value" @(khungGio.Value == Model.MaKhungGio.ToString() ? "selected" : "")>
+                        @khungGio.Text
+                    </option>
+                }
+            </select>
+        </div>
+
+
+        <!-- Trạng Thái (Không cho thay đổi) -->
+        <input type="hidden" name="TrangThai" value="@Model.TrangThai" />
+
+        <!-- Mã Ca Khám -->
+        <input type="hidden" name="MaCaKham" value="@Model.MaCaKham" />
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success">Lưu Thay Đổi</button>
+            <a href="@Url.Action("Index", "DoctorExaminationManagement")" class="btn btn-secondary ms-3">Hủy</a>
+        </div>
+    </form>
+</div>

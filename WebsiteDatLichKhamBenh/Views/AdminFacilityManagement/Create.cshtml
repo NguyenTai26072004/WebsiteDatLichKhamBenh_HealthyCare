@@ -23,6 +23,12 @@
         @Html.ValidationMessageFor(m => m.DiaChi)
     </div>
 
-    <button type="submit" class="btn btn-success">Lưu</button>
-    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+    <button type="submit" class="btn btn-success custom-button">Lưu</button>
+    @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary custom-button" })
 }
+
+<style>
+    .custom-button {
+        margin-top: 20px;
+    }
+</style>

@@ -9,6 +9,7 @@
 <div class="mt-5">
     <h3>Danh Sách Bác Sĩ</h3>
 
+
     <!-- Nút thêm bác sĩ mới -->
     <a class="btn btn-primary add-btn" href="@Url.Action("CreateAccount", "AdminDoctorManagement")"><i class="fas fa-plus"></i> Thêm Bác Sĩ</a>
 
@@ -28,6 +29,7 @@
                     <th>Tên Bác Sĩ</th>
                     <th>Chuyên Khoa</th>
                     <th>Lượt đặt</th>
+                    <th>Cơ Sở</th>
                     <th>Thao Tác</th>
                 </tr>
             </thead>
@@ -39,6 +41,7 @@
                         <td>@doctor.tenBS</td>
                         <td>@doctor.chuyenKhoa</td>
                         <td>@doctor.luotDat</td>
+                        <td>@doctor.CoSo.tenBenhVien</td>
                         <td>
                             <a class="btn btn-sm btn-info btn-custom" href="@Url.Action("Details", new { id = doctor.idBS })"><i class="fas fa-eye"></i></a>
                             <a class="btn btn-sm btn-warning btn-custom" href="@Url.Action("Edit", new { id = doctor.idBS })"><i class="fas fa-edit"></i></a>

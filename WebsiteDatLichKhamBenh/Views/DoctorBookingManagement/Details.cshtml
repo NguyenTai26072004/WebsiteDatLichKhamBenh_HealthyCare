@@ -1,0 +1,48 @@
+﻿@model WebsiteDatLichKhamBenh.Models.AppointmentViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+    ViewBag.PageTitle = "Chi Tiết Lịch Hẹn";
+}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Chi Tiết Lịch Hẹn</h3>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Mã Lịch Hẹn</th>
+            <td>@Model.MaLichKham</td>
+        </tr>
+        <tr>
+            <th>Bệnh Nhân</th>
+            <td>@Model.tenBenhNhan</td>
+        </tr>
+        <tr>
+            <th>Bác Sĩ</th>
+            <td>@Model.tenBS</td>
+        </tr>
+        <tr>
+            <th>Ngày Khám</th>
+            @if (Model.NgayKham.HasValue)
+            {
+                <td>@Model.NgayKham.Value.ToString("dd/MM/yyyy")</td>
+            }
+            else
+            {
+                <td>Không có giá trị</td>
+            }
+        </tr>
+        <tr>
+            <th>Giờ Khám</th>
+            <td>@Model.GioKham</td>
+        </tr>
+        <tr>
+            <th>Trạng Thái</th>
+            <td>@Model.TrangThai</td>
+        </tr>
+    </table>
+
+    <a href="@Url.Action("Index", "DoctorBookingManagement")" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+</div>

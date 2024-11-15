@@ -30,6 +30,7 @@ public class AdminFacilityManagementController : Controller
         {
             db.CoSoes.Add(coSo);
             db.SaveChanges();
+            TempData["SuccessMessage"] = "Tạo cơ sở thành công.";
             return RedirectToAction("Index");
         }
         return View(coSo);
@@ -55,6 +56,7 @@ public class AdminFacilityManagementController : Controller
         {
             db.Entry(coSo).State = EntityState.Modified;
             db.SaveChanges();
+            TempData["SuccessMessage"] = "Cập nhật cơ sở thành công.";
             return RedirectToAction("Index");
         }
         return View(coSo);
@@ -76,9 +78,30 @@ public class AdminFacilityManagementController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult DeleteConfirmed(int id)
     {
+        // Tìm cơ sở theo id
         var coSo = db.CoSoes.Find(id);
+
+        if (coSo == null)
+        {
+            return HttpNotFound();
+        }
+
+        // Kiểm tra xem có bác sĩ nào đang liên kết với cơ sở này không
+        var relatedDoctors = db.BacSis.Any(b => b.idCoSo == id); // Kiểm tra có bác sĩ nào với MaCoSo này không
+
+        if (relatedDoctors)
+        {
+            // Nếu có bác sĩ liên kết, không cho phép xóa và thông báo lỗi
+            TempData["ErrorMessage"] = "Không thể xóa cơ sở vì có bác sĩ liên kết với cơ sở này.";
+            return RedirectToAction("Index");
+        }
+
+        // Nếu không có bác sĩ liên kết, tiến hành xóa cơ sở
         db.CoSoes.Remove(coSo);
         db.SaveChanges();
+
+        // Thông báo thành công
+        TempData["SuccessMessage"] = "Cơ sở đã được xóa thành công.";
         return RedirectToAction("Index");
     }
 }

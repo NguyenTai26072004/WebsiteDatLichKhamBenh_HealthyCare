@@ -17,7 +17,7 @@ namespace WebsiteDatLichKhamBenh.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CoSo()
         {
-            this.CaKhams = new HashSet<CaKham>();
+            this.BacSis = new HashSet<BacSi>();
         }
     
         public int idCoSo { get; set; }
@@ -25,6 +25,6 @@ namespace WebsiteDatLichKhamBenh.Models
         public string tenBenhVien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CaKham> CaKhams { get; set; }
+        public virtual ICollection<BacSi> BacSis { get; set; }
     }
 }

@@ -29,6 +29,10 @@
             margin-right: 20px;
         }
 
+            .sidebar a {
+                text-decoration: none;
+            }
+
             .sidebar h2 {
                 color: #4CAF50;
                 font-size: 26px;
@@ -37,25 +41,22 @@
                 padding-bottom: 10px;
             }
 
-            /* Sidebar items (paragraphs) */
             .sidebar p {
                 font-size: 18px;
                 color: #333;
                 margin: 10px 0;
                 text-decoration: none;
                 display: block;
-                padding: 8px 12px; /* Control padding for hover size */
+                padding: 8px 12px;
                 border-radius: 6px;
                 transition: background-color 0.2s, color 0.2s;
             }
 
-                /* Hover effect for individual sidebar paragraphs only */
                 .sidebar p:hover {
                     background-color: #4CAF50;
                     color: #fff;
                 }
 
-                /* Active item styling */
                 .sidebar p.active {
                     font-weight: bold;
                     font-size: 20px;
@@ -64,12 +65,6 @@
                     padding: 8px 12px;
                     border-radius: 6px;
                 }
-
-            /* Link styling */
-            .sidebar a {
-                text-decoration: none; /* No underline */
-                color: inherit; /* Inherit color from parent */
-            }
 
         .content {
             width: 75%;
@@ -115,23 +110,36 @@
             border-radius: 5px;
             color: #fff;
             font-size: 14px;
+            font-weight: bold;
         }
 
             .status.pending {
-                background-color: #f44336;
+                background-color: gold;
             }
 
             .status.approved {
-                background-color: #4CAF50;
+                background-color: green;
             }
 
             .status.done {
-                background-color: #39B34C;
+                background-color:dodgerblue;
             }
 
             .status.drug {
-                background-color: #388DD2;
+                background-color:cadetblue;
             }
+
+            .status.deleted {
+                background-color: #FF012D;
+            }
+
+        /* Thông báo khi chưa có lịch sử đặt lịch */
+        .no-appointments {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -143,47 +151,57 @@
         </div>
         <div class="content">
             <h1>LỊCH SỬ ĐẶT LỊCH</h1>
-            <div class="appointment">
-                <div class="appointment-header">
-                    <span>13:21 P.M | 1/10/2024</span>
+            <!-- Kiểm tra nếu không có lịch khám -->
+            @if (Model.Count == 0)
+            {
+                <div class="no-appointments">
+                    <p>Bạn chưa có lịch sử đặt lịch</p>
                 </div>
-                <div class="appointment-details">
-                    <p><strong>Khung giờ khám bệnh:</strong> 16:00 P.M</p>
-                    <p><strong>Ngày khám bệnh:</strong> 2/10/2024</p>
-                    <p><strong>Bác sĩ phụ trách:</strong> Lê Dương Bảo Lâm</p>
-                    <p><strong>Chuyên khoa:</strong> Phụ sản</p>
-                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
-                    <span class="status pending">Chưa được duyệt</span>
-                </div>
+            }
+            else
+            {
+                foreach (var appointment in Model)
+                {
+        <div class="appointment">
+            <div class="appointment-header">
+                <span>
+                    <!-- Hiển thị Giờ đặt lịch và Ngày khám bệnh -->
+                    <span>
+                        <!-- Hiển thị giờ đặt lịch từ khi người dùng nhấn nút -->
+                        @appointment.GioDatLich.ToString(@"hh\:mm") | @appointment.NgayDatLich.ToString("dd/MM/yyyy")
+                    </span>
+                </span>
             </div>
-            <div class="appointment">
-                <div class="appointment-header">
-                    <span>8:02 A.M | 25/09/2024</span>
-                </div>
-                <div class="appointment-details">
-                    <p><strong>Khung giờ khám bệnh:</strong> 09:00 A.M</p>
-                    <p><strong>Ngày khám bệnh:</strong> 28/09/2024</p>
-                    <p><strong>Bác sĩ phụ trách:</strong> Trấn Thành</p>
-                    <p><strong>Chuyên khoa:</strong> Da liễu</p>
-                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
-                    <span class="status approved">Đã được duyệt</span>
-                </div>
-            </div>
+            <div class="appointment-details">
+                <p><strong>Khung giờ khám bệnh:</strong> @appointment.GioKham.ToString(@"hh\:mm")</p>
+                <p><strong>Ngày khám bệnh:</strong> @appointment.NgayKhamBenh.ToString("dd/MM/yyyy")</p>
+                <p><strong>Bác sĩ phụ trách:</strong> @appointment.BacSi</p>
+                <p><strong>Chuyên khoa:</strong> @appointment.ChuyenKhoa</p>
+                <p><strong>Trạng thái:</strong> @appointment.TrangThai</p>
+                <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
 
-            <div class="appointment">
-                <div class="appointment-header">
-                    <span>21:02 A.M | 03/09/2024</span>
-                </div>
-                <div class="appointment-details">
-                    <p><strong>Khung giờ khám bệnh:</strong> 14:15 P.M</p>
-                    <p><strong>Ngày khám bệnh:</strong> 10/09/2024</p>
-                    <p><strong>Bác sĩ phụ trách:</strong> Trường Giang</p>
-                    <p><strong>Chuyên khoa:</strong> Dạ giày</p>
-                    <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
-                    <span class="status done">Đã khám</span>
-                    <span class="status drug">Đơn thuốc</span>
-                </div>
+                @switch (appointment.TrangThai)
+                {
+                    case "Đang chờ duyệt":
+                        <span class="status pending">Chưa được duyệt</span>
+                        break;
+                    case "Đã được duyệt":
+                        <span class="status approved">Đã được duyệt</span>
+                        break;
+                    case "Đã từ chối":
+                        <span class="status deleted">Đã từ chối</span>
+                        break;
+                    case "Đã khám":
+                        <span class="status done">Đã khám</span>
+                        <span class="status drug">Đơn thuốc</span>
+                        break;
+                }
             </div>
+        </div>
+                }
+
+            }
+
         </div>
     </div>
 </body>
