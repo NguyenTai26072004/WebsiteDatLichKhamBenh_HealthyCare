@@ -7,7 +7,7 @@
 
 <h3>Sửa Tin Tức</h3>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "AdminNews", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.idTinTuc)
@@ -25,6 +25,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.NoiDung)
         @Html.TextAreaFor(m => m.NoiDung, new { @class = "form-control", rows = 5 })
+    </div>
+
+    <div class="form-group">
+        <label>Hình ảnh hiện tại:</label>
+        @if (!string.IsNullOrEmpty(Model.HinhAnh))
+        {
+            <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh tin tức" class="img-thumbnail" width="200" />
+        }
+
+        <br />
+
+        <label>Chọn hình ảnh mới:</label>
+        @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", type = "file", accept = "image/*" })
     </div>
 
     <button type="submit" class="btn btn-success">Cập Nhật</button>

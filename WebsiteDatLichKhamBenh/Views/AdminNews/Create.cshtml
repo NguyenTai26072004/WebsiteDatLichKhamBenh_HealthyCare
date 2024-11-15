@@ -7,7 +7,7 @@
 
 <h3>Thêm Tin Tức</h3>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "AdminNews", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -20,11 +20,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.MoTa)
         @Html.TextBoxFor(m => m.MoTa, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MoTa)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.NoiDung)
         @Html.TextAreaFor(m => m.NoiDung, new { @class = "form-control", rows = 5 })
+        @Html.ValidationMessageFor(m => m.NoiDung)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.HinhAnh)
+        <input type="file" name="HinhAnh" class="form-control" />
+        @Html.ValidationMessageFor(m => m.HinhAnh)
     </div>
 
     <button type="submit" class="btn btn-success">Lưu</button>

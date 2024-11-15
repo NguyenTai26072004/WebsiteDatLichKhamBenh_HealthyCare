@@ -6,31 +6,47 @@
 }
 
 <h3>Danh Sách Tin Tức</h3>
-<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm Tin Tức</a>
+<a href="@Url.Action("Create")" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Thêm Tin Tức</a>
 
-<div class="table-responsive mt-3">
-    <table class="table table-striped">
-        <thead>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Tin Tức</th>
+            <th>Tiêu Đề</th>
+            <th>Mô Tả</th>
+            <th>Hình Ảnh</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tinTuc in Model)
+        {
             <tr>
-                <th>Mã Tin Tức</th>
-                <th>Tiêu Đề</th>
-                <th>Mô Tả</th>
-                <th>Thao Tác</th>
+                <td>@tinTuc.idTinTuc</td>
+                <td>@tinTuc.TieuDe</td>
+                <td>@tinTuc.MoTa</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(tinTuc.HinhAnh))
+                    {
+                        <img src="@Url.Content(tinTuc.HinhAnh)" alt="Hình ảnh tin tức" class="img-thumbnail" width="100" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa có hình ảnh</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group">
+                        @Html.ActionLink("Sửa", "Edit", new { id = tinTuc.idTinTuc }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = tinTuc.idTinTuc }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })
+                    </div>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var tinTuc in Model)
-            {
-                <tr>
-                    <td>@tinTuc.idTinTuc</td>
-                    <td>@tinTuc.TieuDe</td>
-                    <td>@tinTuc.MoTa</td>
-                    <td>
-                        <a href="@Url.Action("Edit", new { id = tinTuc.idTinTuc })" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                        <a href="@Url.Action("Delete", new { id = tinTuc.idTinTuc })" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
