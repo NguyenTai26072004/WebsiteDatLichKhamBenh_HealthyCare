@@ -16,6 +16,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public DateTime NgayChon { get; set; } // Ngày khám mà người dùng chọn
         public string TenBenhVien => CoSo?.tenBenhVien ?? "N/A"; // Tên cơ sở y tế
         public string DiaChiBenhVien => CoSo?.DiaChi ?? "Chưa xác định"; // Địa chỉ cơ sở y tế
+        public List<Rating> Ratings { get; set; }  // Thêm thông tin đánh giá
     }
 
     // ViewModel cho từng ca khám
@@ -27,5 +28,12 @@ namespace WebsiteDatLichKhamBenh.Models
         // Thêm các thông tin bổ sung để hiển thị trạng thái
         public bool IsAvailable { get; set; } // Trạng thái có sẵn của ca khám
         public string TrangThai => IsAvailable ? "Còn chỗ" : "Hết chỗ"; // Trạng thái text
+    }
+
+    public class Rating
+    {
+        public string PatientName { get; set; }
+        public double Score { get; set; }
+        public string Comment { get; set; }
     }
 }

@@ -22,45 +22,50 @@
 
         .nav-header {
             text-align: center;
-            padding: 20px;
-            background-color: #e0f7fa;
+            padding: 30px 20px; /* Thêm padding đều cho tất cả các chiều, nhưng giảm padding dọc để gọn gàng hơn */
+            background-color: #e0f7fa; /* Giữ màu nền ban đầu */
+            border-radius: 10px; /* Bo góc cho phần header để tạo cảm giác mềm mại */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho phần header */
+            margin-bottom: 20px; /* Thêm khoảng cách giữa phần header và nội dung phía dưới */
         }
 
             .nav-header h1 {
-                color: #39B34C;
-                font-size: 24px;
+                color: #39B34C; /* Giữ lại màu chữ xanh lá như ban đầu */
+                font-size: 28px; /* Tăng kích thước chữ cho tiêu đề để dễ nhìn hơn */
                 margin: 0;
+                font-weight: 600; /* Làm chữ in đậm để nổi bật */
+                letter-spacing: 1px; /* Thêm khoảng cách giữa các chữ để tạo cảm giác rộng rãi hơn */
             }
 
             .nav-header p {
-                color: #000;
-                font-size: 14px;
-                margin: 5px 0 20px;
+                color: #000; /* Giữ lại màu chữ đen cho phần mô tả */
+                font-size: 16px; /* Tăng kích thước chữ phần mô tả để dễ đọc */
+                margin: 10px 0 20px; /* Thêm khoảng cách phía dưới cho phần mô tả */
+                font-style: italic; /* Làm chữ nghiêng để tạo sự khác biệt */
             }
 
         .search-bar {
-            max-width:921px;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
+            max-width: 900px; /* Giới hạn độ rộng của thanh tìm kiếm */
+            margin: 0 auto; /* Căn giữa thanh tìm kiếm */
             position: relative;
         }
 
             .search-bar .input-search {
-                width: 300%;
-                padding: 10px 20px 10px 40px;
-                border-radius: 25px;
-                border: 1px solid #ccc;
-                font-size: 14px;
+                width: 100%; /* Đặt chiều rộng của thanh tìm kiếm 100% */
+                padding: 12px 30px; /* Tăng padding cho thanh tìm kiếm để trông thoải mái hơn */
+                border-radius: 25px; /* Bo tròn góc thanh tìm kiếm */
+                border: 1px solid #ccc; /* Viền mềm mại cho thanh tìm kiếm */
+                font-size: 16px; /* Tăng kích thước chữ cho dễ nhìn */
             }
 
             .search-bar i {
                 position: absolute;
-                left: 25%;
+                left: 15px;
                 top: 50%;
                 transform: translateY(-50%);
-                color: #aaa;
+                color: #aaa; /* Giữ màu của icon tìm kiếm nhẹ nhàng */
             }
+
 
         .container {
             padding: 20px;
@@ -86,76 +91,97 @@
             }
 
         .doctor-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            display: grid; /* Dùng grid để bố trí các bác sĩ */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Tự động điều chỉnh số cột tùy theo kích thước màn hình */
+            gap: 20px; /* Khoảng cách giữa các card */
+            padding: 20px;
         }
 
         .doctor-card {
-            width: 23%;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 10px 0;
-            text-align: center;
+            border-radius: 15px; /* Bo tròn góc mềm mại hơn */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ánh sáng nhẹ quanh card */
             padding: 20px;
-            box-sizing: border-box;
+            text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng hover */
         }
 
-            .doctor-card img {
-                width: 100px;
-                height: auto;
+            .doctor-card:hover {
+                transform: translateY(-5px); /* Di chuyển nhẹ lên khi hover */
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* Tăng độ bóng khi hover */
             }
 
-            .doctor-card h3 {
-                font-size: 16px;
-                color: #000;
-                margin: 10px 0;
-            }
+        .img_doctor_container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Đảm bảo ảnh bác sĩ là hình tròn */
+            margin: 0 auto;
+            overflow: hidden;
+            border: 3px solid #39B34C; /* Thêm viền xanh lá cho ảnh */
+        }
 
-            .doctor-card .info {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 10px 0;
-            }
-
-                .doctor-card .info i {
-                    color: #39B34C;
-                    margin-right: 5px;
-                }
-
-                .doctor-card .info span {
-                    font-size: 14px;
-                    color: #000;
-                }
-
-            .doctor-card .specialty {
-                background-color: #e0f7fa;
-                padding: 5px 10px;
-                border-radius: 5px;
-                font-size: 14px;
-                color: #000;
-            }
-
-            .doctor-card .book-button {
-                background-color: #39B34C;
-                color: #fff;
-                padding: 10px;
-                border: none;
-                border-radius: 5px;
-                font-size: 14px;
-                cursor: pointer;
+            .img_doctor_container img {
                 width: 100%;
-                margin-top: 10px;
+                height: 100%;
+                object-fit: cover; /* Đảm bảo ảnh không bị méo */
             }
 
-                .doctor-card .book-button:hover {
-                    background-color: #39B34C;
-                }
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+            .info i {
+                color: #39B34C;
+                font-size: 16px;
+            }
+
+            .info span {
+                font-size: 14px;
+                color: #555;
+            }
+
+        .specialty {
+            background-color: #e0f7fa;
+            padding: 5px 15px;
+            margin-top: 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #39B34C;
+            font-weight: bold;
+        }
+
+        .book-button {
+            background-color: #39B34C;
+            color: #fff;
+            padding: 12px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            .book-button:hover {
+                background-color: #2e9b2b; /* Thay đổi màu khi hover */
+            }
+
+
 
         .pagination {
             display: flex;
@@ -190,6 +216,20 @@
             position: absolute;
             left: 340px !important;
         }
+
+        .filters button {
+            background-color: #39B34C; /* Màu nền của nút */
+            color: #fff; /* Màu chữ */
+            padding: 10px 20px; /* Kích thước padding */
+            border: none; /* Loại bỏ viền xung quanh nút */
+            border-radius: 5px; /* Bo tròn các góc nút */
+            font-size: 14px; /* Kích thước font chữ */
+            cursor: pointer; /* Biểu tượng con trỏ khi rê chuột lên nút */
+        }
+
+            .filters button:hover {
+                background-color: #2E8930; /* Màu nền thay đổi khi rê chuột */
+            }
     </style>
 </head>
 <body>
@@ -197,7 +237,6 @@
         <h1>Đặt lịch khám qua Healthy Life</h1>
         <p>Để được tiếp đón ưu tiên và nhận sự hỗ trợ tận tình từ chúng tôi</p>
         <div class="search-bar">
-            <i class="fas fa-search search_icon"></i>
             <form method="get" action="@Url.Action("Index")">
                 <input class= "input-search" placeholder="Tìm tên bác sĩ, chuyên khoa" type="text" name="searchTerm" value="@searchTerm" />
             </form>
@@ -275,8 +314,6 @@
                 <span class="disabled">Next</span>
             }
         </div>
-
-
     </div>
 </body>
 </html>

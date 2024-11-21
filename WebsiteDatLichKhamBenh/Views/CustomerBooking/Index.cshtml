@@ -12,37 +12,71 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <style>
+        /* Đặt font chung cho toàn bộ trang */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
 
-        
+        /* Bố cục của container chính */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-        
+        /* Bố cục của phần profile (bác sĩ) */
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-            
+            .profile img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
 
-       
+        .profile-info {
+            margin-left: 20px;
+            flex: 1;
+        }
 
             .profile-info h2 {
-                margin: 0;
                 font-size: 24px;
                 font-weight: bold;
+                color: #333;
             }
 
-            .profile-info .specialty {
-                background-color: #e0e0e0;
-                padding: 5px 10px;
-                border-radius: 5px;
-                display: inline-block;
-                margin-top: 5px;
-            }
+        .specialty {
+            background-color: #e0f7fa;
+            padding: 5px 15px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 5px;
+            font-weight: bold;
+            color: #00796b;
+        }
 
         .stats {
             display: flex;
-            align-items: center;
-            margin-top: 10px;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #555;
         }
 
             .stats div {
-                margin-right: 20px;
+                display: flex;
+                align-items: center;
             }
 
             .stats i {
@@ -57,76 +91,48 @@
             .share-button button {
                 background-color: #3b5998;
                 color: #fff;
+                padding: 12px 24px;
+                border-radius: 30px;
                 border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
                 cursor: pointer;
+                transition: background-color 0.3s ease;
             }
 
+                .share-button button:hover {
+                    background-color: #2d4373;
+                }
+
+        /* Bố cục của phần lịch khám */
         .schedule {
-            margin-top: 20px;
+            margin-top: 30px;
         }
-
-        .schedule-header {
-            background-color: #e0f7fa;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-            .schedule-header i {
-                color: #f44336;
-                margin-right: 5px;
-            }
 
         .schedule-title {
-            margin-top: 10px;
             font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
         }
 
+        /* Phần chọn ngày */
         .date {
             background-color: #e0f7fa;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
             position: relative;
+            text-align: left;
         }
 
             .date i {
-                margin-left: 5px;
+                margin-left: 10px;
+                color: #00796b;
             }
-
-        .time-slots {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-            .time-slots button {
-                background-color: #e0f7fa;
-                border: 1px solid #00c853;
-                border-radius: 5px;
-                padding: 10px;
-                margin: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-                .time-slots button:hover {
-                    background-color: #00c853;
-                    color: #fff;
-                }
-
-        .ui-datepicker {
-            font-size: 14px;
-        }
 
         #datepicker {
             position: absolute;
@@ -135,131 +141,157 @@
             z-index: 10;
         }
 
-        #confirmation-message p {
-            font-weight: bold;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-        }
-
-            .profile img {
-                border-radius: 10px;
-                width: 150px;
-                height: 150px;
-                object-fit: cover;
-            }
-
-        .profile-info {
-            margin-left: 20px;
-        }
-
-            .profile-info h2 {
-                font-size: 24px;
-                font-weight: bold;
-            }
-
-        .schedule-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .date {
-            background-color: #e0f7fa;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            text-align: right; 
-            width: 98%; 
-        }
-
-
+        /* Phần chọn giờ khám */
         .time-slots {
             display: flex;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 15px;
+            gap: 15px;
         }
 
             .time-slots button {
-                background-color: #e0f7fa;
-                border: 1px solid #00c853;
-                border-radius: 5px;
-                padding: 10px;
-                margin: 5px;
+                background-color: #ffffff;
+                border: 2px solid #00c853;
+                color: #00c853;
+                font-weight: bold;
+                border-radius: 10px;
+                padding: 10px 20px;
                 cursor: pointer;
-                transition: background-color 0.3s;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease-in-out;
+                min-width: 120px;
+                text-align: center;
             }
 
                 .time-slots button:hover {
                     background-color: #00c853;
-                    color: #fff;
+                    color: #ffffff;
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
                 }
 
+                .time-slots button:active {
+                    transform: translateY(0);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+        /* Phần xác nhận lịch */
         #confirmation-message {
             margin-top: 20px;
             font-weight: bold;
             display: none;
         }
 
-        #datepicker {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            z-index: 10;
-        }
-
-        .time-slots {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start; /* Căn các nút về bên trái */
-            margin-top: 10px;
-            gap: 10px; /* Tạo khoảng cách giữa các nút */
-        }
-
-            .time-slots button {
-                background-color: #ffffff; /* Màu nền trắng */
-                border: 2px solid #00c853; /* Viền màu xanh lá */
-                color: #00c853; /* Màu chữ xanh lá */
-                font-weight: bold;
-                border-radius: 10px; /* Bo góc nút */
-                padding: 10px 20px; /* Khoảng cách trong nút */
-                cursor: pointer;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-                transition: all 0.3s ease-in-out;
-                min-width: 120px; /* Đảm bảo nút có kích thước tối thiểu */
-                text-align: center;
+            #confirmation-message p {
+                color: #00796b;
             }
 
-                .time-slots button:hover {
-                    background-color: #00c853; /* Nền xanh lá khi hover */
-                    color: #ffffff; /* Chữ trắng khi hover */
-                    transform: translateY(-3px); /* Tạo hiệu ứng nhấn nổi */
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng khi hover */
-                }
+        #confirm-btn {
+            background-color: #00c853;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-                .time-slots button:active {
-                    transform: translateY(0); /* Hiệu ứng nhấn xuống */
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Giảm đổ bóng khi nhấn */
-                }
+            #confirm-btn:hover {
+                background-color: #00796b;
+            }
+
+        #selected-time {
+            font-weight: bold;
+            color: #00c853;
+        }
+
+        .ui-datepicker {
+            font-size: 14px;
+        }
+
+        /* Cải thiện giao diện cho các thông báo lỗi hoặc không có lịch */
+        .time-slots strong {
+            font-size: 16px;
+            color: #f44336;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Phần đánh giá từ bệnh nhân */
+        .reviews {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+            .reviews h3 {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+                border-bottom: 2px solid #00c853;
+                padding-bottom: 10px;
+            }
+
+        .review {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+            .review:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+
+        .reviewer-info {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00796b;
+        }
+
+            .reviewer-info span {
+                font-size: 16px;
+                color: #ffb300;
+                margin-left: 10px;
+            }
+
+        .review p {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        /* Định dạng cho các bình luận dài */
+        .review p {
+            text-align: justify;
+        }
+
+        /* Thêm một icon nhỏ trước tên bệnh nhân */
+        .reviewer-info strong:before {
+            content: "\f007"; /* Font Awesome user icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: #00796b;
+        }
+
+        /* Style cho phần điểm đánh giá */
+        .reviewer-info span:before {
+            content: "\f005"; /* Font Awesome star icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-right: 5px;
+            color: #ffb300;
+        }
+
 
     </style>
 </head>
@@ -301,7 +333,21 @@
                 <button id="confirm-btn">Xác nhận đặt lịch</button>
             </div>
         </div>
-        </div>
+    </div>
+
+    <div class="reviews">
+        <h3>Đánh giá từ bệnh nhân</h3>
+        @foreach (var review in Model.Ratings)
+        {
+            <div class="review">
+                <div class="reviewer-info">
+                    <strong>@review.PatientName</strong> - <span>@review.Score</span>
+                </div>
+                <p>@review.Comment</p>
+            </div>
+        }
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 

@@ -19,6 +19,7 @@ namespace WebsiteDatLichKhamBenh.Models
         {
             this.BenhNhan_DiUng = new HashSet<BenhNhan_DiUng>();
             this.BenhNhan_TienSuBenh = new HashSet<BenhNhan_TienSuBenh>();
+            this.DanhGiaBacSis = new HashSet<DanhGiaBacSi>();
             this.LichKhams = new HashSet<LichKham>();
         }
     
@@ -35,6 +36,8 @@ namespace WebsiteDatLichKhamBenh.Models
         public virtual ICollection<BenhNhan_DiUng> BenhNhan_DiUng { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BenhNhan_TienSuBenh> BenhNhan_TienSuBenh { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGiaBacSi> DanhGiaBacSis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichKham> LichKhams { get; set; }
     }

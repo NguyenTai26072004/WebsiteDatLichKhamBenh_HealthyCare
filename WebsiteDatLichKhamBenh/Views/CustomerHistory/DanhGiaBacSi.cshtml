@@ -1,0 +1,147 @@
+﻿@model WebsiteDatLichKhamBenh.Models.DanhGiaBacSiViewModel
+
+@{
+    ViewBag.Title = "Đánh giá bác sĩ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title>Đánh Giá Bác Sĩ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .content {
+            width: 50%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #000;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        select:focus, textarea:focus, button:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+
+        select {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        textarea {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-to-history {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-history a {
+            font-size: 16px;
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-history a:hover {
+            color: #45a049;
+        }
+
+    </style>
+</head>
+
+<div class="container">
+    <div class="content">
+        <h2>Đánh giá bác sĩ: @Model.TenBacSi</h2>
+
+        @using (Html.BeginForm("LuuDanhGia", "CustomerHistory", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.MaLichKham)
+            @Html.HiddenFor(m => m.MaBacSi)
+
+            <div class="form-group">
+                <label for="diemDanhGia">Điểm đánh giá:</label>
+                <select id="diemDanhGia" name="diemDanhGia" class="form-control" required>
+                    <option value="0">Chọn điểm đánh giá</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="binhLuan">Bình luận:</label>
+                <textarea id="binhLuan" name="binhLuan" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+        }
+
+        <div class="back-to-history">
+            <a href="@Url.Action("Index", "CustomerHistory")">Quay lại lịch sử khám bệnh</a>
+        </div>
+    </div>
+</div>

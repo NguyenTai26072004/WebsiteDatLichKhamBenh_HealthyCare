@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
             margin: 0;
             padding: 0;
+            color: #333;
         }
 
         .container {
@@ -22,11 +23,12 @@
 
         .sidebar {
             width: 25%;
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-right: 30px;
+            transition: all 0.3s ease;
         }
 
             .sidebar a {
@@ -35,57 +37,62 @@
 
             .sidebar h2 {
                 color: #4CAF50;
-                font-size: 26px;
-                margin-bottom: 24px;
+                font-size: 28px;
+                margin-bottom: 20px;
                 border-bottom: 2px solid #4CAF50;
                 padding-bottom: 10px;
+                font-weight: bold;
             }
 
             .sidebar p {
                 font-size: 18px;
-                color: #333;
-                margin: 10px 0;
-                text-decoration: none;
-                display: block;
-                padding: 8px 12px;
+                color: #444;
+                margin: 12px 0;
+                padding: 10px 15px;
                 border-radius: 6px;
-                transition: background-color 0.2s, color 0.2s;
+                transition: background-color 0.3s, color 0.3s;
             }
 
                 .sidebar p:hover {
                     background-color: #4CAF50;
                     color: #fff;
+                    cursor: pointer;
                 }
 
                 .sidebar p.active {
                     font-weight: bold;
                     font-size: 20px;
-                    color: #fff;
                     background-color: #4CAF50;
-                    padding: 8px 12px;
-                    border-radius: 6px;
+                    color: #fff;
                 }
 
         .content {
             width: 75%;
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
             .content h1 {
-                font-size: 24px;
+                font-size: 28px;
                 color: #333;
-                margin: 0 0 20px 0;
+                margin-bottom: 20px;
             }
 
         .appointment {
             border: 1px solid #4CAF50;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
+
+            .appointment:hover {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+            }
 
         .appointment-header {
             display: flex;
@@ -101,36 +108,39 @@
         }
 
             .appointment-details p {
-                margin: 5px 0;
+                margin: 10px 0;
+                line-height: 1.5;
             }
 
         .status {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: #fff;
+            padding: 8px 15px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: bold;
+            text-align: center;
+            color: #fff;
         }
 
             .status.pending {
-                background-color: gold;
+                background-color: #f0ad4e;
             }
 
             .status.approved {
-                background-color: green;
+                background-color: #5bc0de;
             }
 
             .status.done {
-                background-color:dodgerblue;
+                background-color: #5cb85c;
             }
 
             .status.drug {
-                background-color:cadetblue;
+                background-color: #0275d8;
+                text-decoration: none;
             }
 
             .status.deleted {
-                background-color: #FF012D;
+                background-color: #d9534f;
             }
 
         /* Thông báo khi chưa có lịch sử đặt lịch */
@@ -138,8 +148,44 @@
             font-size: 18px;
             color: #666;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            font-style: italic;
         }
+
+        /* Nút "Đánh giá bác sĩ" */
+        /* Nút "Đánh giá bác sĩ" */
+        .status.review {
+            background-color: #ff6f61; /* Màu cam san hô tươi sáng */
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+            .status.review:hover {
+                background-color: #e45750; /* Màu cam đỏ đậm khi hover */
+            }
+
+        /* Nút "Đã đánh giá" */
+        .status.done.reviewed {
+            background-color: #8e44ad; /* Màu tím đậm */
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+            .status.done.reviewed:hover {
+                background-color: #732d91; /* Màu tím đậm hơn khi hover */
+            }
+
+
     </style>
 </head>
 <body>
@@ -162,46 +208,50 @@
             {
                 foreach (var appointment in Model)
                 {
-        <div class="appointment">
-            <div class="appointment-header">
-                <span>
-                    <!-- Hiển thị Giờ đặt lịch và Ngày khám bệnh -->
-                    <span>
-                        <!-- Hiển thị giờ đặt lịch từ khi người dùng nhấn nút -->
-                        @appointment.GioDatLich.ToString(@"hh\:mm") | @appointment.NgayDatLich.ToString("dd/MM/yyyy")
-                    </span>
-                </span>
-            </div>
-            <div class="appointment-details">
-                <p><strong>Khung giờ khám bệnh:</strong> @appointment.GioKham.ToString(@"hh\:mm")</p>
-                <p><strong>Ngày khám bệnh:</strong> @appointment.NgayKhamBenh.ToString("dd/MM/yyyy")</p>
-                <p><strong>Bác sĩ phụ trách:</strong> @appointment.BacSi</p>
-                <p><strong>Chuyên khoa:</strong> @appointment.ChuyenKhoa</p>
-                <p><strong>Trạng thái:</strong> @appointment.TrangThai</p>
-                <p><strong>Địa chỉ khám bệnh:</strong> 828 Sư Vạn Hạnh</p>
+                    <div class="appointment">
+                        <div class="appointment-header">
+                            <span>@appointment.GioDatLich.ToString(@"hh\:mm") | @appointment.NgayDatLich.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="appointment-details">
+                            <p><strong>Khung giờ khám bệnh:</strong> @appointment.GioKham.ToString(@"hh\:mm")</p>
+                            <p><strong>Ngày khám bệnh:</strong> @appointment.NgayKhamBenh.ToString("dd/MM/yyyy")</p>
+                            <p><strong>Bác sĩ phụ trách:</strong> @appointment.BacSi</p>
+                            <p><strong>Chuyên khoa:</strong> @appointment.ChuyenKhoa</p>
+                            <p><strong>Địa chỉ khám bệnh:</strong> @appointment.DiaChi</p>
 
-                @switch (appointment.TrangThai)
-                {
-                    case "Đang chờ duyệt":
-                        <span class="status pending">Chưa được duyệt</span>
-                        break;
-                    case "Đã được duyệt":
-                        <span class="status approved">Đã được duyệt</span>
-                        break;
-                    case "Đã từ chối":
-                        <span class="status deleted">Đã từ chối</span>
-                        break;
-                    case "Đã khám":
-                        <span class="status done">Đã khám</span>
-                        <span class="status drug">Đơn thuốc</span>
-                        break;
-                }
-            </div>
-        </div>
+                            @switch (appointment.TrangThai)
+                            {
+                                case "Đang chờ duyệt":
+                                    <span class="status pending">Chưa được duyệt</span>
+                                    break;
+                                case "Đã được duyệt":
+                                    <span class="status approved">Đã được duyệt</span>
+                                    break;
+                                case "Đã từ chối":
+                                    <span class="status deleted">Đã từ chối</span>
+                                    break;
+                                case "Đã khám":
+                                    <span class="status done">Đã khám</span>
+
+                                    <a href="@Url.Action("XemDonThuoc", "CustomerHistory", new { maLichKham = appointment.Id })" class="status drug">
+                                        Xem đơn thuốc
+                                    </a>
+
+                                    if (appointment.ReviewStatus == "Đã đánh giá")
+                                    {
+                                        
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("DanhGiaBacSi", "CustomerHistory", new { maLichKham = appointment.Id })" class="status review">Đánh giá bác sĩ</a>
+                                    }
+                                    break;
+                            }
+                        </div>
+                    </div>
                 }
 
             }
-
         </div>
     </div>
 </body>

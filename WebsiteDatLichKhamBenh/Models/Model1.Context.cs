@@ -33,6 +33,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public virtual DbSet<CaKham> CaKhams { get; set; }
         public virtual DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
         public virtual DbSet<CoSo> CoSoes { get; set; }
+        public virtual DbSet<DanhGiaBacSi> DanhGiaBacSis { get; set; }
         public virtual DbSet<DiUng> DiUngs { get; set; }
         public virtual DbSet<DonThuoc> DonThuocs { get; set; }
         public virtual DbSet<KhungGio> KhungGios { get; set; }

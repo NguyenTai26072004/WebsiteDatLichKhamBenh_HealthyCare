@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthy Life</title>
-    <link rel="stylesheet" href="~/assets/css/header_footer.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <style>
         body {
@@ -18,148 +17,229 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: white; /* Nền trắng cho header */
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho header */
+            background: linear-gradient(90deg, #4CAF50, #2E7D32);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-            .header .logo {
-                margin-right: 20px; /* Khoảng cách bên phải cho logo */
+            .header .logo img {
+                height: 50px; /* Chiều cao logo */
+                width: auto; /* Chiều rộng tự động */
+                border-radius: 50%; /* Bo tròn hoàn toàn */
+                border: 2px solid #ffffff; /* Viền trắng để nổi bật */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+                transition: transform 0.3s ease-in-out; /* Hiệu ứng khi hover */
             }
 
-                .header .logo img {
-                    height: 60px; /* Tăng chiều cao logo */
-                    width: auto; /* Để logo tự động điều chỉnh chiều rộng */
+                .header .logo img:hover {
+                    transform: scale(1.1); /* Phóng to nhẹ khi hover */
                 }
 
         nav {
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            flex-grow: 1;
+            gap: 30px; /* Tăng khoảng cách giữa các mục */
         }
 
         .nav_item {
-            color: #333; /* Màu chữ cho các liên kết */
+            color: #ffffff; /* Màu trắng sáng */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Hiệu ứng đổ bóng để nổi bật hơn */
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Hiệu ứng động thêm chiều sâu */
         }
 
-            .nav_item:hover {
-                color: #4CAF50; /* Màu xanh lá cây khi hover */
+
+
+            .nav_item::after {
+                content: '';
+                position: absolute;
+                bottom: -5px; /* Vị trí gạch chân */
+                left: 0;
+                width: 0%;
+                height: 2px;
+                background-color: #ffeb3b; /* Gạch chân màu vàng nổi bật */
+                transition: width 0.3s ease-in-out;
             }
+
+            .nav_item:hover {
+                color: #ffeb3b; /* Đổi màu vàng sáng khi hover */
+                transform: scale(1.1); /* Tăng nhẹ kích thước khi hover */
+            }
+
+                .nav_item:hover::after {
+                    width: 100%; /* Hiệu ứng gạch chân chạy ngang khi hover */
+                }
+
 
         .buttons {
             display: flex;
             align-items: center;
-            gap: 15px; /* Khoảng cách giữa greeting và button */
+            gap: 15px;
+            flex-shrink: 0; /* Giữ cố định kích thước, không bị co lại */
         }
 
         .greeting {
             margin: 0;
-            color: #4CAF50; /* Màu chữ xanh lá cây cho greeting */
-            font-size: 16px; /* Kích thước chữ */
-            font-weight: bold; /* In đậm chữ */
-            display: flex; /* Để căn chỉnh biểu tượng và chữ */
-            align-items: center; /* Căn giữa dọc */
+            color: white; /* Màu trắng cho chữ */
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
         }
 
             .greeting i {
-                margin-right: 5px; /* Khoảng cách giữa biểu tượng và chữ */
-                color: #228B22; 
+                margin-right: 8px;
+                font-size: 20px; /* Biểu tượng lớn hơn một chút */
+                color: #ffeb3b; /* Biểu tượng màu vàng */
             }
 
-        button {
+        /* Healthy Button styles */
+        .healthy-button {
             padding: 10px 15px;
-            border: 1px solid #4CAF50; /* Viền nút xanh lá cây */
-            border-radius: 5px;
-            background-color: white; /* Nền nút trắng */
-            color: #4CAF50; /* Màu chữ xanh lá cây */
+            border: 2px solid white;
+            border-radius: 20px;
+            background-color: transparent;
+            color: white;
             cursor: pointer;
+            font-weight: bold;
             transition: background-color 0.3s, color 0.3s;
         }
 
-            button:hover {
-                background-color: #4CAF50; /* Nền nút xanh lá cây khi hover */
-                color: white; /* Màu chữ trắng khi hover */
+            .healthy-button:hover {
+                background-color: #ffeb3b;
+                color: #333;
             }
 
+
+
+        /* Footer styles */
         /* Footer styles */
         .footer {
-            background-color: white; /* Nền trắng cho footer */
-            color: #333; /* Màu chữ tối cho footer */
-            padding: 20px;
+            background-color: white; /* Nền trắng */
+            color: #333; /* Màu chữ tối cho tương phản */
+            padding: 40px 20px; /* Tăng khoảng cách padding */
             text-align: center;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ cho footer */
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ cho footer */
         }
 
         .footer-logo img {
-            height: 60px; /* Tăng chiều cao logo footer */
-            width: auto; /* Để logo tự động điều chỉnh chiều rộng */
-            margin-bottom: 10px; /* Khoảng cách phía dưới logo */
+            height: 60px; /* Chiều cao logo */
+            width: auto; /* Chiều rộng tự động */
+            border-radius: 50%; /* Bo tròn hoàn toàn */
+            border: 2px solid #4CAF50; /* Viền màu xanh lá cây */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+            transition: transform 0.3s ease-in-out; /* Hiệu ứng khi hover */
         }
+
+            .footer-logo img:hover {
+                transform: scale(1.1); /* Phóng to nhẹ khi hover */
+            }
+
 
         .footer-container {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
+            gap: 20px; /* Khoảng cách giữa các mục */
             padding: 20px 0;
+            border-top: 2px solid #f0f0f0; /* Đường gạch ngang phía trên footer */
         }
 
         .section {
-            flex: 1 1 200px; /* Đảm bảo mỗi phần có chiều rộng tối thiểu 200px */
+            flex: 1 1 250px; /* Đảm bảo các mục cân đối */
             margin: 10px;
-            text-align: left; /* Căn trái cho nội dung */
+            text-align: left; /* Căn trái nội dung */
         }
 
             .section h3 {
-                margin: 10px 0;
+                margin: 15px 0;
                 font-size: 18px;
-                text-decoration: underline; /* Gạch chân tiêu đề */
-                color: #4CAF50; /* Màu chữ xanh lá cây cho tiêu đề */
+                text-transform: uppercase; /* In hoa tiêu đề */
+                letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+                color: #4CAF50; /* Màu chữ xanh lá cây nổi bật */
+                border-bottom: 2px solid #4CAF50; /* Đường gạch dưới màu xanh lá */
+                display: inline-block;
             }
 
-            .section p, .section ul {
+            .section p,
+            .section ul {
                 font-size: 14px;
-                line-height: 1.6;
+                line-height: 1.8;
+                color: #555; /* Chữ màu xám nhẹ nhàng */
+                margin: 10px 0;
             }
 
-        .button {
+            .section ul {
+                padding: 0;
+                list-style: none;
+            }
+
+                .section ul li {
+                    margin-bottom: 8px;
+                    position: relative;
+                    padding-left: 15px;
+                }
+
+                    .section ul li::before {
+                        content: "•"; /* Biểu tượng dấu chấm cho danh sách */
+                        position: absolute;
+                        left: 0;
+                        color: #4CAF50; /* Màu xanh lá nổi bật */
+                        font-size: 18px;
+                    }
+
+        .footer-button {
             display: inline-block;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #4CAF50; /* Nền nút xanh lá cây */
-            color: white; /* Màu chữ trắng */
+            padding: 12px 20px;
+            border-radius: 25px;
+            background-color: #4CAF50; /* Màu nền xanh lá */
+            color: white;
+            font-weight: bold;
             text-decoration: none;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-            .button:hover {
-                background-color: #333; /* Màu nền tối khi hover */
+            .footer-button:hover {
+                background-color: #2E7D32; /* Xanh đậm khi hover */
+                color: white;
+                transform: scale(1.05); /* Phóng to nhẹ khi hover */
             }
 
         .social-icons {
-            margin-right: 74px;
             display: flex;
-            justify-content: center; /* Căn giữa các biểu tượng */
-            margin-top: 10px; /* Khoảng cách phía trên cho các biểu tượng */
+            justify-content: center;
+            margin-top: 10px;
         }
 
             .social-icons a {
-                color: #4CAF50; /* Màu chữ xanh lá cây cho biểu tượng */
-                margin: 0 10px;
-                font-size: 20px;
-                transition: color 0.3s;
+                color: #4CAF50; /* Màu xanh lá cho biểu tượng */
+                margin: 0 15px;
+                font-size: 24px;
+                transition: color 0.3s, transform 0.2s;
             }
 
                 .social-icons a:hover {
-                    color: #333; /* Màu tối hơn khi hover */
+                    color: #2E7D32; /* Xanh đậm hơn khi hover */
+                    transform: scale(1.2); /* Tăng kích thước nhẹ khi hover */
                 }
 
         .footer-bottom {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #555; /* Màu chữ nhạt hơn cho footer bottom */
+            margin-top: 30px;
+            font-size: 13px;
+            color: #777; /* Màu chữ xám nhạt hơn */
+            border-top: 1px solid #f0f0f0; /* Đường kẻ ngang ngăn cách */
+            padding-top: 20px;
         }
+
+
     </style>
 </head>
 <body>
@@ -185,12 +265,12 @@
                     <i class="fas fa-user-circle"></i> <!-- Biểu tượng chào mừng -->
                     Xin chào, @Session["Username"]!
                 </span>
-                <button onclick="location.href='@Url.Action("Logout", "CustomerLogin")'">Đăng Xuất</button>
+                <button class="healthy-button" onclick="location.href='@Url.Action("Logout", "CustomerLogin")'">Đăng Xuất</button>
             }
             else
             {
-                <button onclick="location.href='@Url.Action("Index", "CustomerRegister")'">Đăng Ký</button>
-                <button onclick="location.href='@Url.Action("Index", "CustomerLogin")'">Đăng Nhập</button>
+                <button class="healthy-button" onclick="location.href='@Url.Action("Index", "CustomerRegister")'">Đăng Ký</button>
+                <button class="healthy-button" onclick="location.href='@Url.Action("Index", "CustomerLogin")'">Đăng Nhập</button>
             }
         </div>
     </header>
@@ -223,9 +303,9 @@
             </div>
             <div class="section support">
                 <h3>Hỗ trợ chuyên môn</h3>
-                <a class="button" href="tel:0942770374">094 2770 374</a>
+                <a class="footer-button" href="tel:0942770374">094 2770 374</a>
                 <h3>Tổng đài đặt khám</h3>
-                <a class="button" href="tel:19001234">1900 1234</a>
+                <a class="footer-button" href="tel:19001234">1900 1234</a>
             </div>
             <div class="section social-media">
                 <h3>Theo dõi tin tức từ</h3>

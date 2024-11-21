@@ -18,6 +18,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public BacSi()
         {
             this.CaKhams = new HashSet<CaKham>();
+            this.DanhGiaBacSis = new HashSet<DanhGiaBacSi>();
         }
     
         public int idBS { get; set; }
@@ -33,5 +34,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public virtual CoSo CoSo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CaKham> CaKhams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGiaBacSi> DanhGiaBacSis { get; set; }
     }
 }

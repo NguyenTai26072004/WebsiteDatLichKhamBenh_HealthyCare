@@ -8,13 +8,13 @@
 
 <h2>Kê thuốc cho bệnh nhân</h2>
 
-@using (Html.BeginForm("SavePrescription", "DoctorPrescribeManagement", FormMethod.Post))
+@using (Html.BeginForm("KeThuoc", "DoctorPrescribeManagement", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.MaLichKham) <!-- Thêm trường ẩn để giữ giá trị MaLichKham -->
     <div>
         <label for="GhiChu">Ghi chú cho toàn bộ đơn thuốc:</label>
         @Html.TextAreaFor(m => m.GhiChu, new { @class = "form-control", placeholder = "Ghi chú cho đơn thuốc..." })
     </div>
-
     <h3>Chi tiết đơn thuốc</h3>
     <table class="table" id="prescriptionTable">
         <thead>
@@ -56,24 +56,29 @@
 
 @section Scripts {
     <script>
+        // Chuyển ThuocList từ Razor sang JavaScript
+        var thuocList = @Html.Raw(Json.Encode(Model.ThuocList));
+
         // Thêm thuốc mới vào bảng
         function addRow() {
             var table = document.querySelector('#prescriptionTable tbody');
             var rowCount = table.rows.length;
             var newRow = table.insertRow();
 
-            // Tạo nội dung mới cho dòng
+            // Tạo nội dung cho dòng mới
+            var options = '';
+            thuocList.forEach(function(thuoc) {
+                options += `<option value="${thuoc.Value}">${thuoc.Text}</option>`;
+            });
+
             newRow.innerHTML = `
                 <td>
                     <select class="form-control" name="PrescriptionDetails[${rowCount}].MaThuoc">
-                        @foreach (var thuoc in Model.ThuocList)
-                        {
-                            <option value="@thuoc.Value">@thuoc.Text</option>
-                        }
+                        ${options}
                     </select>
                 </td>
-                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].LieuLuong" placeholder="Liều lượng"></td>
-                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].SoLuong" placeholder="Số lượng"></td>
+                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].LieuLuong" placeholder="Liều lượng"/></td>
+                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].SoLuong" placeholder="Số lượng"/></td>
                 <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button></td>
             `;
         }

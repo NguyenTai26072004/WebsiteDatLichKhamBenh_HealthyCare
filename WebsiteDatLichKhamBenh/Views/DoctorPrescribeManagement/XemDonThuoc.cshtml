@@ -43,4 +43,9 @@ else
 
 <div>
     <a href="@Url.Action("Index", "DoctorPrescribeManagement")" class="btn btn-primary">Quay lại danh sách</a>
+
+    <!-- Nút In Đơn Thuốc -->
+    <a href="@Url.Action("InDonThuoc", "DoctorPrescribeManagement", new { maLichKham = Model.MaLichKham })" class="btn btn-success" target="_blank">
+        In Đơn Thuốc
+    </a>
 </div>

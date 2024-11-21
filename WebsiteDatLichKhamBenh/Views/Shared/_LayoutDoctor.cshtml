@@ -73,17 +73,17 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="@Url.Action("Index", "DoctorExaminationManagement")" class="nav-link text-white active">
+                    <a href="@Url.Action("Index", "DoctorExaminationManagement")" class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DoctorExaminationManagement" ? "active bg-primary" : "")">
                         <i class="fas fa-calendar-plus me-2"></i> Đăng Ký Ca Khám
                     </a>
                 </li>
                 <li>
-                    <a href="@Url.Action("Index", "DoctorBookingManagement")" class="nav-link text-white">
+                    <a href="@Url.Action("Index", "DoctorBookingManagement")" class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DoctorBookingManagement" ? "active bg-primary" : "")">
                         <i class="fas fa-calendar-check me-2"></i> Quản Lý Lịch Hẹn
                     </a>
                 </li>
                 <li>
-                    <a href="@Url.Action("Index", "DoctorPrescribeManagement")" class="nav-link text-white">
+                    <a href="@Url.Action("Index", "DoctorPrescribeManagement")" class="nav-link text-white @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DoctorPrescribeManagement" ? "active bg-primary" : "")">
                         <i class="fas fa-prescription-bottle-alt me-2"></i> Quản Lý Kê Thuốc
                     </a>
                 </li>

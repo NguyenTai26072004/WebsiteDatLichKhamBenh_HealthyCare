@@ -87,6 +87,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DanhGiaBacSis">
+      <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DanhGiaBacSi">
+        <MappingFragment StoreEntitySet="DanhGiaBacSi">
+          <ScalarProperty Name="idDanhGia" ColumnName="idDanhGia" />
+          <ScalarProperty Name="idBacSi" ColumnName="idBacSi" />
+          <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+          <ScalarProperty Name="diemDanhGia" ColumnName="diemDanhGia" />
+          <ScalarProperty Name="binhLuan" ColumnName="binhLuan" />
+          <ScalarProperty Name="ngayDanhGia" ColumnName="ngayDanhGia" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DiUngs">
       <EntityTypeMapping TypeName="WebDatLichKhamBenhDBModel.DiUng">
         <MappingFragment StoreEntitySet="DiUng">

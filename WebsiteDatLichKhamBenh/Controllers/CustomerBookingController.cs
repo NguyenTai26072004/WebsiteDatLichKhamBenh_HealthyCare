@@ -61,15 +61,29 @@ namespace WebsiteDatLichKhamBenh.Controllers
                              })
                              .ToList();
 
+            // Lấy danh sách đánh giá từ bảng DanhGiaBacSi
+            var ratings = db.DanhGiaBacSis
+                                    .Where(d => d.idBacSi == doctorId)  // Sử dụng idBacSi thay vì idBS
+                                    .Select(d => new Rating
+                                    {
+                                        PatientName = d.BenhNhan.tenBenhNhan, // Tên bệnh nhân
+                                        Score = d.diemDanhGia.HasValue ? d.diemDanhGia.Value : 0,  // Kiểm tra null và gán giá trị mặc định nếu null
+                                        Comment = d.binhLuan                  // Nội dung bình luận (dùng binhLuan thay vì NoiDung)
+                                    })
+                                    .ToList();
+
+
             var viewModel = new CustomerBookingViewModel
             {
                 Doctor = doctor,
                 Schedule = schedule,
-                CoSo = doctor.CoSo
+                CoSo = doctor.CoSo,
+                Ratings = ratings // Thêm thông tin đánh giá
             };
 
             return View(viewModel);
         }
+
 
         // Kiểm tra trạng thái đăng nhập
         public ActionResult BookingCheck(int doctorId)
@@ -94,8 +108,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
 
             if (Session["UserId"] == null)
             {
-                // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
-                return RedirectToAction("Index", "CustomerLogin ");
+                return RedirectToAction("Index", "CustomerLogin");
             }
 
             int userId = (int)Session["UserId"];

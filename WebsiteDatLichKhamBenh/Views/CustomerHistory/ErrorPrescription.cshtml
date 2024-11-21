@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Thông Báo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="error-container">
+    <h1>Thông Báo</h1>
+    <p class="error-message">@ViewBag.ErrorMessage</p>
+</div>
+
+<style>
+    .error-container {
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+        .error-container h1 {
+            font-size: 24px;
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
+
+    .error-message {
+        font-size: 18px;
+        color: #555;
+    }
+</style>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}

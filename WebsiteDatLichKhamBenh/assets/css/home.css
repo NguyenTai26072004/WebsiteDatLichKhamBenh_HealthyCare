@@ -1,9 +1,12 @@
-﻿body {
+﻿/* Toàn bộ trang */
+body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     padding: 0;
-    margin: 0;
     box-sizing: border-box;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
 }
 
 /* main image */
@@ -11,199 +14,200 @@
     width: 100%;
     height: 500px;
     background-size: cover;
-    overflow: hidden; /* Đảm bảo hình ảnh không tràn ra ngoài */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
     .main-image img {
-        width: 100%; /* Đảm bảo ảnh chiếm hết chiều rộng */
-        height: 100%; /* Đảm bảo ảnh chiếm hết chiều cao */
-        object-fit: cover; /* Đảm bảo ảnh không bị méo và lấp đầy khung */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
-/* end main image */
-
-
 
 /* content 1 */
 .content1_container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    padding: 55px 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
 }
 
 .content1_text_content {
+    flex: 1;
     max-width: 500px;
-    margin-right: 20px;
-    text-align: center; /* Căn giữa các thành phần bên trong */
+    text-align: left;
+    padding-right: 20px;
 }
 
 .content1_title {
     color: #39B34C;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
-    text-align: left;
-    white-space: nowrap; /* Đảm bảo tiêu đề hiển thị trên một dòng */
 }
 
 .content1_description {
-    color: #333333;
     font-size: 16px;
-    line-height: 1.5;
     margin-bottom: 20px;
-    text-align: left;
-    max-width: 500px; /* Điều chỉnh độ rộng của mô tả */
-    margin: 0 auto; /* Căn giữa mô tả trong phần text content */
 }
 
 .content1_button {
-    display: inline-block; /* Giữ nguyên kích thước ban đầu của nút */
+    display: inline-block;
     padding: 10px 20px;
-    color: #39B34C;
-    border: 2px solid #39B34C;
-    border-radius: 5px;
+    color: #fff;
+    background-color: #39B34C;
+    border-radius: 8px;
     text-decoration: none;
-    font-size: 16px;
     font-weight: bold;
-    margin-top: 20px; /* Khoảng cách phía trên nút */
+    transition: all 0.3s;
 }
 
+    .content1_button:hover {
+        background-color: #2c8b3e;
+    }
+
 .content1_image {
-    flex-shrink: 0;
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
     .content1_image img {
         max-width: 100%;
-        height: auto;
-        margin-left: 30px;
+        border-radius: 12px;
     }
 
-.content1_button:hover {
-    background-color: #39B34C;
-    color: #ffffff;
-}
-
 /* content 2 */
-
 .content2_container {
+    background-color: #e6f9f1;
+    padding: 40px 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #d3f8e8;
 }
 
 .content2_content {
     display: flex;
-    background-color: #d3f8e8;
-    padding: 20px;
-    border-radius: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 1200px;
 }
 
 .content2_images {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    flex: 1;
 }
 
     .content2_images img {
         width: 100%;
-        border-radius: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
     }
 
+        .content2_images img:hover {
+            transform: scale(1.05);
+        }
+
 .content2_text {
-    margin-top: 65px;
-    margin-left: 80px;
-    max-width: 500px;
+    flex: 1;
+    padding-left: 40px;
     text-align: center;
 }
 
     .content2_text h2 {
         color: #39B34C;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
     .content2_text p {
-        color: #333333;
-        line-height: 1.6;
+        font-size: 16px;
+        margin-bottom: 20px;
     }
 
 .content2_button {
-    display: inline-block;
-    margin-top: 20px;
     padding: 10px 20px;
     border: 2px solid #39B34C;
-    border-radius: 5px;
     color: #39B34C;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
+    transition: all 0.3s;
 }
 
     .content2_button:hover {
         background-color: #39B34C;
-        color: #ffffff;
+        color: #fff;
     }
 
 /* content 3 */
 .content3_container {
-    width: 80%;
-    margin: 0 auto;
     text-align: center;
-    padding: 20px 0;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
     .content3_container h1 {
         color: #39B34C;
-        font-size: 24px;
+        font-size: 28px;
+        margin-bottom: 20px;
     }
 
     .content3_container p {
         font-size: 16px;
-        line-height: 1.5;
-        margin: 20px 0;
+        margin-bottom: 30px;
     }
 
-    .content3_container .content3_image-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+.content3_image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+    .content3_image-grid img {
+        width: 100%;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-        .content3_container .content3_image-grid img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
+        .content3_image-grid img:hover {
+            transform: scale(1.05);
         }
 
-
 /* content 4 */
-
 .content4_container {
-    margin-top: 50px;
-    width: 80%;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 40px auto;
     padding: 20px;
+    text-align: center;
 }
 
 .content4_title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px;
     color: #39B34C;
     margin-bottom: 20px;
 }
 
 .content4_main_news {
-    margin-bottom: 20px;
+    text-align: left;
+    margin-bottom: 30px;
 }
 
     .content4_main_news img {
         width: 100%;
-        height: auto;
+        border-radius: 12px;
     }
 
     .content4_main_news .description {
@@ -220,61 +224,64 @@
 
 .content4_tabs {
     display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
     .content4_tabs .tab {
-        margin-right: 20px;
-        font-size: 14px;
+        padding: 10px 20px;
         color: #39B34C;
+        font-weight: bold;
         cursor: pointer;
     }
 
         .content4_tabs .tab.active {
-            font-weight: bold;
-            text-decoration: underline;
+            background-color: #39B34C;
+            color: #fff;
+            border-radius: 8px;
         }
 
 .content4_side_news {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
     .content4_side_news .news-item {
-        width: 48%;
-        margin-bottom: 20px;
+        text-align: left;
     }
 
         .content4_side_news .news-item img {
             width: 100%;
-            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .content4_side_news .news-item .description {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
-            color: #39B34C;
             margin-top: 10px;
+            color: #39B34C;
         }
 
         .content4_side_news .news-item .topic {
-            font-size: 12px;
+            font-size: 14px;
             color: #666;
         }
 
 .content4_load_more {
-    text-align: center;
     margin-top: 20px;
 }
 
     .content4_load_more button {
-        font-size: 14px;
-        color: #39B34C;
-        background-color: #fff;
-        border: 1px solid #39B34C;
         padding: 10px 20px;
+        border: 2px solid #39B34C;
+        background-color: #fff;
+        color: #39B34C;
+        border-radius: 8px;
+        font-weight: bold;
         cursor: pointer;
+        transition: all 0.3s;
     }
 
         .content4_load_more button:hover {
