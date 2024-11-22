@@ -9,7 +9,6 @@ namespace WebsiteDatLichKhamBenh.Controllers
         private WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
 
         // GET: CustomerPersonal
-        // GET: CustomerPersonal
         public ActionResult Index()
         {
             int? accountId = Session["UserID"] as int?;
@@ -24,11 +23,10 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 return HttpNotFound("Không tìm thấy thông tin bệnh nhân.");
             }
 
-            // Khởi tạo PersonalViewModel với thông tin bệnh nhân
             var viewModel = new PersonalViewModel
             {
                 idBenhNhan = patient.idBenhNhan,
-                tenBenhNhan = patient.tenBenhNhan,
+                tenBenhNhan = patient.tenBenhNhan, // Lấy tên bệnh nhân từ bảng BenhNhan
                 ngaySinh = patient.ngaySinh,
                 SDT = patient.SDT,
                 Email = patient.Email,
@@ -38,13 +36,14 @@ namespace WebsiteDatLichKhamBenh.Controllers
                                 .Select(bts => bts.TienSuBenh.tenTSB)
                                 .ToList(),
                 DiUng = db.BenhNhan_DiUng
-                          .Where(bd => bd.idBenhNhan == patient.idBenhNhan)
-                          .Select(bd => bd.DiUng.tenDiUng)
-                          .ToList()
+                            .Where(bd => bd.idBenhNhan == patient.idBenhNhan)
+                            .Select(bd => bd.DiUng.tenDiUng)
+                            .ToList()
             };
 
-            return View(viewModel); // Truyền PersonalViewModel vào View
+            return View(viewModel);
         }
+
 
         // GET: CustomerPersonal/Edit
         public ActionResult Edit()

@@ -28,7 +28,24 @@ namespace WebsiteDatLichKhamBenh.Controllers
             var existingAccount = db.Accounts.FirstOrDefault(a => a.TaiKhoan == model.Username);
             if (existingAccount != null)
             {
-                ModelState.AddModelError("", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.");
+                // Thêm thông báo lỗi vào ModelState
+                ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.");
+                return View("Index", model);
+            }
+
+            // Kiểm tra xem email đã tồn tại chưa
+            var existingEmail = db.BenhNhans.FirstOrDefault(b => b.Email == model.Email);
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("Email", "Email đã được đăng ký. Vui lòng chọn email khác.");
+                return View("Index", model);
+            }
+
+            // Kiểm tra xem số điện thoại đã tồn tại chưa
+            var existingPhone = db.BenhNhans.FirstOrDefault(b => b.SDT == model.Phone);
+            if (existingPhone != null)
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại đã được đăng ký. Vui lòng chọn số điện thoại khác.");
                 return View("Index", model);
             }
 
@@ -54,10 +71,10 @@ namespace WebsiteDatLichKhamBenh.Controllers
             // Lấy ID của tài khoản vừa thêm
             var accountId = newAccount.idAccount;
 
-            // Tạo đối tượng BenhNhan
+            // Tạo đối tượng BenhNhan, sử dụng trường FullName từ RegisterViewModel
             var newBenhNhan = new BenhNhan
             {
-                tenBenhNhan = model.Username,
+                tenBenhNhan = model.FullName,
                 Email = model.Email,
                 SDT = model.Phone,
                 idAccount = accountId,
@@ -76,8 +93,14 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 return View("Index", model);
             }
 
+            // Lưu thông báo thành công vào TempData
+            TempData["MessageSuccess"] = "Bạn đã đăng ký tài khoản thành công!";
+
             // Sau khi đăng ký thành công, chuyển hướng đến trang đăng nhập
             return RedirectToAction("Index", "CustomerLogin");
         }
+
+
+
     }
 }

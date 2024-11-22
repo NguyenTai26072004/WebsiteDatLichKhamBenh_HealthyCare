@@ -239,6 +239,16 @@
             padding-top: 20px;
         }
 
+        .nav_item.active {
+            color: #ffeb3b; /* Màu vàng cho mục đang active */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Hiệu ứng đổ bóng mạnh hơn */
+            transform: scale(1.15); /* Tăng nhẹ kích thước */
+        }
+
+            .nav_item.active::after {
+                width: 100%; /* Luôn hiển thị gạch chân */
+            }
+
 
     </style>
 </head>
@@ -252,11 +262,19 @@
         </div>
 
         <nav>
-            <a class="nav_item" href="@Url.Action("Index", "CustomerHome")">Trang Chủ</a>
-            <a class="nav_item" href="@Url.Action("Index", "CustomerFindDoctor")">Đặt Lịch</a>
-            <a class="nav_item" href="@Url.Action("Index", "CustomerNews")">Tin Tức</a>
-            <a class="nav_item" href="@Url.Action("PersonalInfo", "CustomerHome")">Thông Tin Sức Khỏe</a>
+            <a class="nav_item @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "CustomerHome" ? "active" : "")"
+               href="@Url.Action("Index", "CustomerHome")">Trang Chủ</a>
+
+            <a class="nav_item @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "CustomerFindDoctor" ? "active" : "")"
+               href="@Url.Action("Index", "CustomerFindDoctor")">Đặt Lịch</a>
+
+            <a class="nav_item @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "CustomerNews" ? "active" : "")"
+               href="@Url.Action("Index", "CustomerNews")">Tin Tức</a>
+
+            <a class="nav_item @(ViewContext.RouteData.Values["action"].ToString() == "PersonalInfo" ? "active" : "")"
+               href="@Url.Action("PersonalInfo", "CustomerHome")">Thông Tin Sức Khỏe</a>
         </nav>
+
 
         <div class="buttons">
             @if (Session["Username"] != null)

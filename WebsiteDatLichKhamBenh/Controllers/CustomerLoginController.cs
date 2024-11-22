@@ -11,6 +11,13 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // GET: CustomerLogin
         public ActionResult Index()
         {
+            // Kiểm tra nếu có thông báo từ TempData
+            if (TempData["Message"] != null)
+            {
+                // Hiển thị thông báo nếu có
+                ViewBag.Message = TempData["Message"];
+            }
+
             return View();
         }
 

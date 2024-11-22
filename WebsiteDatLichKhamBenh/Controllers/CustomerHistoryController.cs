@@ -193,18 +193,20 @@ namespace WebsiteDatLichKhamBenh.Controllers
             var bacSi = db.BacSis.Find(maBacSi);
             if (bacSi != null)
             {
-                var diemTrungBinh = db.DanhGiaBacSis
-                                       .Where(d => d.idBacSi == maBacSi)
-                                       .Average(d => d.diemDanhGia);
+                var diemTrungBinh = (decimal?)db.DanhGiaBacSis
+                                .Where(d => d.idBacSi == maBacSi)
+                                .Average(d => d.diemDanhGia);
 
                 bacSi.diemDanhGia = diemTrungBinh;
                 db.SaveChanges();
             }
 
-    
+            // Lưu thông báo vào TempData
+            TempData["Message"] = "Cảm ơn bạn đã đánh giá";
 
             return RedirectToAction("Index", "CustomerHistory");
         }
+
 
     }
 }

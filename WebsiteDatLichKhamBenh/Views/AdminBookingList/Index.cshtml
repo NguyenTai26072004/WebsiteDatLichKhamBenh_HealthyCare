@@ -12,7 +12,7 @@
     <!-- Thanh tìm kiếm -->
     <form method="get" class="mt-3 mb-3">
         <div class="input-group">
-            <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm mã ca khám hoặc bác sĩ" value="@ViewBag.SearchTerm" />
+            <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm mã lịch khám hoặc tên bệnh nhân" value="@ViewBag.SearchTerm" />
             <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
         </div>
     </form>
@@ -44,7 +44,16 @@
                                 <span>Chưa có thông tin</span>
                             }
                         </td>
-                        <td>@item.GioDatLich</td>
+                        <td>
+                            @if (item.GioDatLich.HasValue)
+                            {
+                                @item.GioDatLich.Value.ToString("hh/mm")
+                            }
+                            else
+                            {
+                                <span>Chưa có thông tin</span>
+                            }
+                        </td>
                         <td>@item.BenhNhan.tenBenhNhan</td>
                         <td>
                             @if (item.TrangThai == "Đang chờ duyệt")

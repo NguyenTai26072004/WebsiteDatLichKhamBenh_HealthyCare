@@ -17,7 +17,11 @@ namespace WebsiteDatLichKhamBenh.Models
         public string TenBenhVien => CoSo?.tenBenhVien ?? "N/A"; // Tên cơ sở y tế
         public string DiaChiBenhVien => CoSo?.DiaChi ?? "Chưa xác định"; // Địa chỉ cơ sở y tế
         public List<Rating> Ratings { get; set; }  // Thêm thông tin đánh giá
+
+        // Thêm trường SoLuotDat để lưu số lượt đặt khám của bác sĩ
+        public int SoLuotDat { get; set; }  // Số lượt đặt của bác sĩ
     }
+
 
     // ViewModel cho từng ca khám
     public class ScheduleViewModel

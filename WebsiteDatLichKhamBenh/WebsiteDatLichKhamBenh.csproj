@@ -500,6 +500,7 @@
     <Content Include="assets\css\header_footer.css" />
     <Content Include="assets\css\home.css" />
     <Content Include="assets\css\LayoutAdmin.css" />
+    <Content Include="assets\css\LayoutDoctor.css" />
     <Content Include="assets\img\bacsi1.jpg" />
     <Content Include="assets\img\bacsi2.jpg" />
     <Content Include="assets\img\bacsi3.jpg" />

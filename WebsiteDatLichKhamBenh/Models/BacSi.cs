@@ -25,7 +25,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public string tenBS { get; set; }
         public string anhBS { get; set; }
         public string chuyenKhoa { get; set; }
-        public Nullable<double> diemDanhGia { get; set; }
+        public Nullable<decimal> diemDanhGia { get; set; }
         public Nullable<int> luotDat { get; set; }
         public Nullable<int> idAccount { get; set; }
         public Nullable<int> idCoSo { get; set; }

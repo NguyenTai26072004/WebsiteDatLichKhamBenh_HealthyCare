@@ -12,6 +12,7 @@ namespace WebsiteDatLichKhamBenh.Controllers.Customer
         private const int DoctorsPerPage = 12; // Số bác sĩ trên mỗi trang
 
         // GET: Booking
+        // GET: Booking
         public ActionResult Index(string searchTerm = "", string chuyenKhoa = "", int page = 1)
         {
             // Lấy danh sách bác sĩ từ cơ sở dữ liệu và lọc theo từ khóa tìm kiếm
@@ -25,8 +26,8 @@ namespace WebsiteDatLichKhamBenh.Controllers.Customer
                 allDoctors = allDoctors.Where(d => d.chuyenKhoa == chuyenKhoa);
             }
 
-            // Đảm bảo danh sách bác sĩ được sắp xếp trước khi gọi Skip và Take
-            allDoctors = allDoctors.OrderBy(d => d.tenBS); // Thêm phần sắp xếp ở đây
+            // Đảm bảo danh sách bác sĩ được sắp xếp theo idBS tăng dần
+            allDoctors = allDoctors.OrderBy(d => d.idBS); // Sắp xếp theo idBS
 
             // Tính toán phân trang
             int totalDoctors = allDoctors.Count();
@@ -47,14 +48,15 @@ namespace WebsiteDatLichKhamBenh.Controllers.Customer
 
             // Lấy danh sách chuyên khoa để hiển thị trong select box
             ViewBag.Specialties = new List<string>
-            {
-                "Da liễu", "Tâm lý", "Phục hồi chức năng", "Nội soi tiêu hóa", "Nhi khoa", "Nội khoa", "Nội cơ xương khớp",
-                "Tim mạch", "Hô hấp", "Thần kinh", "Tai mũi họng", "Nội tiết", "Y học cổ truyền", "Sản phụ khoa",
-                "Nha khoa", "Răng hàm mặt", "Gây mê hồi sức", "Huyết học"
-            };
+    {
+        "Da liễu", "Tâm lý", "Phục hồi chức năng", "Nội soi tiêu hóa", "Nhi khoa", "Nội khoa", "Nội cơ xương khớp",
+        "Tim mạch", "Hô hấp", "Thần kinh", "Tai mũi họng", "Nội tiết", "Y học cổ truyền", "Sản phụ khoa",
+        "Nha khoa", "Răng hàm mặt", "Gây mê hồi sức", "Huyết học"
+    };
 
             return View(doctorsToDisplay);
         }
+
 
         // POST: Cập nhật trạng thái lịch khám và số lượt đặt khám của bác sĩ
         [HttpPost]

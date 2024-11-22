@@ -293,9 +293,56 @@
         }
 
 
+        /* Container cho nút quay lại */
+        .back-button-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start; /* Canh trái */
+        }
+
+        /* Nút quay lại */
+        .back-button {
+            margin-top: 30px;
+            margin-left: 30px;
+            display: inline-flex;
+            align-items: center;
+            background-color: #e0f7fa; /* Màu nền nhạt */
+            color: #00796b; /* Màu chữ */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px; /* Khoảng cách trong nút */
+            border: 2px solid #00796b; /* Viền nút */
+            border-radius: 25px; /* Bo tròn nút */
+            transition: all 0.3s ease; /* Hiệu ứng hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+        }
+
+            /* Biểu tượng trong nút */
+            .back-button i {
+                margin-right: 10px; /* Khoảng cách giữa icon và chữ */
+            }
+
+            /* Hiệu ứng hover */
+            .back-button:hover {
+                background-color: #00796b; /* Đổi màu nền khi hover */
+                color: #ffffff; /* Đổi màu chữ khi hover */
+                transform: translateY(-3px); /* Hiệu ứng nổi */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng */
+            }
+
+
+
     </style>
 </head>
 <body>
+
+    <div class="back-button-container">
+        <a href="@Url.Action("Index", "CustomerFindDoctor")" class="back-button">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
     <div class="container">
         <div class="profile">
             <img alt="@doctor.tenBS" src="@doctor.anhBS" />
@@ -330,7 +377,10 @@
             <!-- Thông báo khi người dùng chọn ca khám -->
             <div id="confirmation-message">
                 <p>Khung giờ đã chọn: <span id="selected-time"></span></p>
-                <button id="confirm-btn">Xác nhận đặt lịch</button>
+                <form action="@Url.Action("ConfirmCheck", "CustomerBooking")" method="post">
+                    <!-- Các trường đặt lịch khám -->
+                    <button type="submit">Xác Nhận Đặt Lịch</button>
+                </form>
             </div>
         </div>
     </div>

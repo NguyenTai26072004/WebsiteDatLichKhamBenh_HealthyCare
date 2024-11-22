@@ -185,6 +185,29 @@
                 background-color: #732d91; /* Màu tím đậm hơn khi hover */
             }
 
+        .toast {
+            visibility: hidden; /* Ẩn toast mặc định */
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            opacity: 0;
+            transition: opacity 0.5s, visibility 0s linear 0.5s;
+        }
+
+            .toast.show {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.5s, visibility 0s;
+            }
 
     </style>
 </head>
@@ -197,6 +220,10 @@
         </div>
         <div class="content">
             <h1>LỊCH SỬ ĐẶT LỊCH</h1>
+            <!-- Thông báo Toast -->
+            <div id="toastMessage" class="toast">
+                Cảm ơn bạn đã đánh giá!
+            </div>
             <!-- Kiểm tra nếu không có lịch khám -->
             @if (Model.Count == 0)
             {
@@ -206,6 +233,26 @@
             }
             else
             {
+
+                if (TempData["Message"] != null)
+                {
+                    <script>
+                    // Kiểm tra xem TempData có thông báo không
+                    var toastMessage = '@TempData["Message"]';
+                    if (toastMessage) {
+                        // Hiển thị thông báo Toast
+                        var toast = document.getElementById("toastMessage");
+                        toast.innerHTML = toastMessage;  // Cập nhật nội dung thông báo
+                        toast.className = "toast show";
+
+                        // Ẩn thông báo sau 3 giây
+                        setTimeout(function () {
+                            toast.className = toast.className.replace("show", "");
+                        }, 3000);
+                    }
+                    </script>
+                }
+
                 foreach (var appointment in Model)
                 {
                     <div class="appointment">
@@ -239,7 +286,7 @@
 
                                     if (appointment.ReviewStatus == "Đã đánh giá")
                                     {
-                                        
+
                                     }
                                     else
                                     {
@@ -254,5 +301,8 @@
             }
         </div>
     </div>
+
+    
+
 </body>
 </html>

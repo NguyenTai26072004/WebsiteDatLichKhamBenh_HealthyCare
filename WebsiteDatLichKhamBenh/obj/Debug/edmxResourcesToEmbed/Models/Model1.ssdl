@@ -17,7 +17,7 @@
     <Property Name="tenBS" Type="nvarchar" MaxLength="100" />
     <Property Name="anhBS" Type="nvarchar" MaxLength="500" />
     <Property Name="chuyenKhoa" Type="nvarchar" MaxLength="100" />
-    <Property Name="diemDanhGia" Type="float" />
+    <Property Name="diemDanhGia" Type="decimal" Precision="3" Scale="1" />
     <Property Name="luotDat" Type="int" />
     <Property Name="idAccount" Type="int" />
     <Property Name="idCoSo" Type="int" />
@@ -152,7 +152,7 @@
     <Property Name="NoiDung" Type="nvarchar(max)" />
     <Property Name="HinhAnh" Type="nvarchar" MaxLength="500" />
   </EntityType>
-  <Association Name="FK__BacSi__idCoSo__4AB81AF0">
+  <Association Name="FK__BacSi__idAccount__4AB81AF0">
     <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
     <ReferentialConstraint>
@@ -361,7 +361,7 @@
     <EntitySet Name="Thuoc" EntityType="Self.Thuoc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TienSuBenh" EntityType="Self.TienSuBenh" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TinTuc" EntityType="Self.TinTuc" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__BacSi__idCoSo__4AB81AF0" Association="Self.FK__BacSi__idCoSo__4AB81AF0">
+    <AssociationSet Name="FK__BacSi__idAccount__4AB81AF0" Association="Self.FK__BacSi__idAccount__4AB81AF0">
       <End Role="Account" EntitySet="Account" />
       <End Role="BacSi" EntitySet="BacSi" />
     </AssociationSet>

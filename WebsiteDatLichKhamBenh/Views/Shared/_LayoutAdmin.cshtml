@@ -88,7 +88,51 @@
                 </ul>
             </div>
         </nav>
-
+        <nav class="Nav_Responsive_Cover">
+            <ul class="Nav_Responsive_Overview">
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminDashboard")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminDashboard" ? "active" : "")">
+                        <i class="fas fa-tachometer-alt me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminPatientManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminPatientManagement" ? "active" : "")">
+                        <i class="fas fa-user-injured me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminDoctorManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminDoctorManagement" ? "active" : "")">
+                        <i class="fas fa-user-md me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminBookingList")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminBookingList" ? "active" : "")">
+                        <i class="fas fa-calendar-check me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminExamen")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminExamen" ? "active" : "")">
+                        <i class="fas fa-stethoscope me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminFacilityManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminFacilityManagement" ? "active" : "")">
+                        <i class="fas fa-hospital me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminAccountManagement")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminAccountManagement" ? "active" : "")">
+                        <i class="fas fa-user-cog me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+                <li class="nav-item_responsive">
+                    <a href="@Url.Action("Index", "AdminNews")"
+                       class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "AdminNews" ? "active" : "")">
+                        <i class="fas fa-newspaper me-2 icon_sidebar"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <!-- Main Content -->
         <div class="content flex-grow-1">
             <!-- Header -->
@@ -96,7 +140,7 @@
                 <h2 class="mb-0">@ViewBag.PageTitle</h2>
                 <div class="admin-info">
                     <span class="me-3">Chào, Admin</span>
-                    
+
                 </div>
             </header>
 
@@ -175,6 +219,16 @@
             showNotification(successMessage, 'success');
         }
     });
+        $(document).ready(function () {
+            $('.Nav_Responsive_Overview .nav-item_responsive a').on('click', function () {
+                // Xóa lớp 'active' khỏi tất cả các nút
+                $('.Nav_Responsive_Overview .nav-item_responsive a').removeClass('active');
+
+                // Thêm lớp 'active' vào nút được chọn
+                $(this).addClass('active');
+            });
+        });
+
     </script>
 
 

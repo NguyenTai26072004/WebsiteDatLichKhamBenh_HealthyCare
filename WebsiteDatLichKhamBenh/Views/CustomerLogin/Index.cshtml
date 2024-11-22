@@ -157,27 +157,38 @@
     <div class="container">
         <h2>Đăng Nhập</h2>
 
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-warning" role="alert">
+                <strong>@TempData["ErrorMessage"]</strong>
+            </div>
+        }
+
         <!-- Hiển thị thông báo lỗi nếu có -->
         @if (TempData["Message"] != null)
         {
             <div class="alert alert-warning">
-                @TempData["Message"]
+                <strong>@TempData["Message"]</strong>
             </div>
         }
 
         @if (ViewBag.Error != null)
         {
             <div class="alert alert-warning">
-                @ViewBag.Error
+                <strong>@ViewBag.Error</strong>
             </div>
         }
 
-        @if (TempData["ErrorMessage"] != null)
+        @if (TempData["MessageSuccess"] != null)
         {
-            <div class="alert alert-warning">
-                @TempData["ErrorMessage"]
+            <div class="alert alert-success">
+                <strong>@TempData["MessageSuccess"]</strong>
             </div>
         }
+
+       
+
+
 
         <!-- Form đăng nhập -->
         <form method="post" action="@Url.Action("Authenticate", "CustomerLogin")">

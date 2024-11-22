@@ -8,7 +8,7 @@
     <Property Name="TaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="BacSis" Relationship="Self.FK__BacSi__idCoSo__4AB81AF0" FromRole="Account" ToRole="BacSi" />
+    <NavigationProperty Name="BacSis" Relationship="Self.FK__BacSi__idAccount__4AB81AF0" FromRole="Account" ToRole="BacSi" />
     <NavigationProperty Name="BenhNhans" Relationship="Self.FK__BenhNhan__idAcco__3B75D760" FromRole="Account" ToRole="BenhNhan" />
   </EntityType>
   <EntityType Name="BacSi">
@@ -19,11 +19,11 @@
     <Property Name="tenBS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="anhBS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="chuyenKhoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="diemDanhGia" Type="Double" />
+    <Property Name="diemDanhGia" Type="Decimal" Precision="3" Scale="1" />
     <Property Name="luotDat" Type="Int32" />
     <Property Name="idAccount" Type="Int32" />
     <Property Name="idCoSo" Type="Int32" />
-    <NavigationProperty Name="Account" Relationship="Self.FK__BacSi__idCoSo__4AB81AF0" FromRole="BacSi" ToRole="Account" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__BacSi__idAccount__4AB81AF0" FromRole="BacSi" ToRole="Account" />
     <NavigationProperty Name="CoSo" Relationship="Self.FK__BacSi__idCoSo__4BAC3F29" FromRole="BacSi" ToRole="CoSo" />
     <NavigationProperty Name="CaKhams" Relationship="Self.FK__CaKham__idBS__5629CD9C" FromRole="BacSi" ToRole="CaKham" />
     <NavigationProperty Name="DanhGiaBacSis" Relationship="Self.FK__DanhGiaBa__idBac__5070F446" FromRole="BacSi" ToRole="DanhGiaBacSi" />
@@ -184,7 +184,7 @@
     <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="HinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
-  <Association Name="FK__BacSi__idCoSo__4AB81AF0">
+  <Association Name="FK__BacSi__idAccount__4AB81AF0">
     <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="BacSi" Type="Self.BacSi" Multiplicity="*" />
     <ReferentialConstraint>
@@ -393,7 +393,7 @@
     <EntitySet Name="Thuocs" EntityType="Self.Thuoc" />
     <EntitySet Name="TienSuBenhs" EntityType="Self.TienSuBenh" />
     <EntitySet Name="TinTucs" EntityType="Self.TinTuc" />
-    <AssociationSet Name="FK__BacSi__idCoSo__4AB81AF0" Association="Self.FK__BacSi__idCoSo__4AB81AF0">
+    <AssociationSet Name="FK__BacSi__idAccount__4AB81AF0" Association="Self.FK__BacSi__idAccount__4AB81AF0">
       <End Role="Account" EntitySet="Accounts" />
       <End Role="BacSi" EntitySet="BacSis" />
     </AssociationSet>

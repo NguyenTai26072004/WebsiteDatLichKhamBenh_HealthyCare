@@ -18,6 +18,13 @@ namespace WebsiteDatLichKhamBenh
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "CustomerHome", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+            name: "CustomerRegister",
+            url: "dang-ky",
+            defaults: new { controller = "CustomerRegister", action = "Index" }
+            );
+
         }
     }
 }
