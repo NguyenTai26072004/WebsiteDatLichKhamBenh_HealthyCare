@@ -14,6 +14,12 @@ namespace WebsiteDatLichKhamBenh.Models
     
     public partial class LichKham
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LichKham()
+        {
+            this.DanhGiaBacSis = new HashSet<DanhGiaBacSi>();
+        }
+    
         public int MaLichKham { get; set; }
         public Nullable<int> MaBenhNhan { get; set; }
         public Nullable<int> MaCaKham { get; set; }
@@ -24,6 +30,8 @@ namespace WebsiteDatLichKhamBenh.Models
     
         public virtual BenhNhan BenhNhan { get; set; }
         public virtual CaKham CaKham { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGiaBacSi> DanhGiaBacSis { get; set; }
         public virtual DonThuoc DonThuoc { get; set; }
     }
 }

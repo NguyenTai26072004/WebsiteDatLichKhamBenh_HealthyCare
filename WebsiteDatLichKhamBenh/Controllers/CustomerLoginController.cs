@@ -33,6 +33,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 // Đăng nhập thành công, lưu thông tin vào session
                 Session["UserID"] = account.idAccount;
                 Session["Username"] = account.TaiKhoan;
+                System.Diagnostics.Debug.WriteLine($"UserID lưu vào Session: {Session["UserID"]}");
 
                 // Kiểm tra vai trò của người dùng và chuyển hướng
                 switch (account.Role)

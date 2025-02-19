@@ -12,15 +12,18 @@ namespace WebsiteDatLichKhamBenh.Controllers
         public ActionResult Index()
         {
             int? accountId = Session["UserID"] as int?;
+
+            // Kiểm tra nếu Session không tồn tại, chuyển hướng về trang đăng nhập
             if (!accountId.HasValue)
             {
-                return HttpNotFound("Không tìm thấy thông tin tài khoản.");
+                TempData["ReturnUrl"] = Url.Action("Index", "CustomerPersonal");
+                return RedirectToAction("Index", "CustomerLogin");
             }
 
             var patient = db.BenhNhans.FirstOrDefault(p => p.idAccount == accountId.Value);
             if (patient == null)
             {
-                return HttpNotFound("Không tìm thấy thông tin bệnh nhân.");
+                return HttpNotFound("Không tìm thấy thông tin bệnh nhân. Vui lòng kiểm tra lại tài khoản của bạn.");
             }
 
             var viewModel = new PersonalViewModel

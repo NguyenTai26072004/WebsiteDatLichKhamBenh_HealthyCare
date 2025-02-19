@@ -11,5 +11,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public string TenThuoc { get; set; }
         public string LieuLuong { get; set; }
         public int SoLuong { get; set; }
+
+        public string TenBenhNhan { get; set; }
     }
 }

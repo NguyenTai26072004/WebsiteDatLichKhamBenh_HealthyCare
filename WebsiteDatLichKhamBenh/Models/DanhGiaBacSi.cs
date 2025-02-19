@@ -17,6 +17,7 @@ namespace WebsiteDatLichKhamBenh.Models
         public int idDanhGia { get; set; }
         public Nullable<int> idBacSi { get; set; }
         public Nullable<int> idBenhNhan { get; set; }
+        public Nullable<int> MaLichKham { get; set; }
         public Nullable<double> diemDanhGia { get; set; }
         public string binhLuan { get; set; }
         public Nullable<System.DateTime> ngayDanhGia { get; set; }
@@ -24,5 +25,6 @@ namespace WebsiteDatLichKhamBenh.Models
     
         public virtual BacSi BacSi { get; set; }
         public virtual BenhNhan BenhNhan { get; set; }
+        public virtual LichKham LichKham { get; set; }
     }
 }

@@ -45,14 +45,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // Hiển thị trang đặt lịch khám
         public ActionResult Index(int doctorId)
         {
-            // Kiểm tra nếu người dùng đã đăng nhập
-            if (Session["UserID"] == null)
-            {
-                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập và truyền thông báo
-                TempData["Message"] = "Bạn cần đăng nhập để đặt lịch khám.";
-                return RedirectToAction("Index", "CustomerLogin");
-            }
-
+            
             var doctor = db.BacSis.Include(d => d.CoSo).FirstOrDefault(d => d.idBS == doctorId);
             if (doctor == null)
             {
@@ -97,17 +90,15 @@ namespace WebsiteDatLichKhamBenh.Controllers
 
 
         // Kiểm tra trạng thái đăng nhập
-        public ActionResult BookingCheck()
+        public ActionResult BookingCheck(int doctorId)
         {
-            // Kiểm tra xem người dùng đã đăng nhập hay chưa
             if (Session["Username"] == null)
             {
-                // Nếu chưa đăng nhập, trả về thông báo yêu cầu đăng nhập
-                return Json(new { redirectToLogin = true }, JsonRequestBehavior.AllowGet);
+                TempData["Message"] = "Bạn cần đăng nhập để tiếp tục.";
+                return RedirectToAction("Index", "CustomerLogin");
             }
 
-            // Nếu đã đăng nhập, trả về kết quả không chuyển hướng
-            return Json(new { redirectToLogin = false }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index", new { doctorId });
         }
 
 

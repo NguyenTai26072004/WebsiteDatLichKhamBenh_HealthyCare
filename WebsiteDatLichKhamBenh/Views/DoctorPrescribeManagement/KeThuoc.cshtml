@@ -37,7 +37,7 @@
                         @Html.TextBoxFor(m => m.PrescriptionDetails[i].LieuLuong, new { @class = "form-control", placeholder = "Liều lượng" })
                     </td>
                     <td>
-                        @Html.TextBoxFor(m => m.PrescriptionDetails[i].SoLuong, new { @class = "form-control", placeholder = "Số lượng" })
+                        @Html.TextBoxFor(m => m.PrescriptionDetails[i].SoLuong, new { @class = "form-control", placeholder = "Số lượng", oninput = "validateQuantity(this)" })
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button>
@@ -47,9 +47,8 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" onclick="addRow()">Thêm thuốc</button>
-
-    <div class="form-group">
+    <div class="button-container">
+        <button type="button" class="btn btn-primary" onclick="addRow()">Thêm thuốc</button>
         <button type="submit" class="btn btn-success">Lưu đơn thuốc</button>
     </div>
 }
@@ -58,6 +57,8 @@
     <script>
         // Chuyển ThuocList từ Razor sang JavaScript
         var thuocList = @Html.Raw(Json.Encode(Model.ThuocList));
+
+       
 
         // Thêm thuốc mới vào bảng
         function addRow() {
@@ -73,12 +74,13 @@
 
             newRow.innerHTML = `
                 <td>
-                    <select class="form-control" name="PrescriptionDetails[${rowCount}].MaThuoc">
+                    <select class="form-control" name="PrescriptionDetails[${rowCount}].MaThuoc" onchange="validateDrugSelection(this)">
+                        <option value="">--Chọn thuốc--</option>
                         ${options}
                     </select>
                 </td>
                 <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].LieuLuong" placeholder="Liều lượng"/></td>
-                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].SoLuong" placeholder="Số lượng"/></td>
+                <td><input type="text" class="form-control" name="PrescriptionDetails[${rowCount}].SoLuong" placeholder="Số lượng" oninput="validateQuantity(this)"/></td>
                 <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Xóa</button></td>
             `;
         }
@@ -90,3 +92,15 @@
         }
     </script>
 }
+
+<style>
+    /* Thêm khoảng cách giữa các nút */
+    .button-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        margin-right: 10px;
+    }
+</style>

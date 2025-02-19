@@ -37,5 +37,7 @@ namespace WebsiteDatLichKhamBenh.Models
         [Required(ErrorMessage = "Họ và tên không được để trống")]
         [StringLength(100, ErrorMessage = "Họ và tên không được vượt quá 100 ký tự")]
         public string FullName { get; set; }
+
+        public string OTP { get; set; }
     }
 }

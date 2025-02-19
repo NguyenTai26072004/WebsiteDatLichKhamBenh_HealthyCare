@@ -1,0 +1,14 @@
+Sau khi git clone về thực hiện các bước sau:
+
+1. Chạy file sql và chạy các câu lệnh 
+2. Mở file sln lên
+	- Kéo xuống dưới cùng tìm Web.config
+	- Kéo xuống dưới cùng tìm thẻ connectionStrings và xóa nó đi
+	Ví dụ: <connectionStrings>
+    			...
+  	       </connectionStrings>
+3. Vào thư mục Models Tìm Model1.edmx và xóa nó đi
+4. Click chuột phải vào Models -> Add -> New item -> Data -> ADO.NET Enity Data Model -> Add
+EF Designer -> Next -> New Connection -> Sau đó mở ứng dung SQL đã chạy lúc nãy lên copy tên
+connect của thiết bị paste vào -> Bên dưới ô Select chọn WebDatLichKhamBenhDB -> Next -> Click chọn Table -> Finish
+5. Khởi động dự án

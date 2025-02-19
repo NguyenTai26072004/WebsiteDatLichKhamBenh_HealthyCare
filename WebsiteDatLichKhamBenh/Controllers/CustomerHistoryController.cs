@@ -57,7 +57,10 @@ namespace WebsiteDatLichKhamBenh.Controllers
                     ChuyenKhoa = combined.bs.chuyenKhoa,
                     TrangThai = combined.lk.TrangThai, // Trạng thái chính xác của lịch khám
                     DiaChi = combined.DiaChi,
-                    ReviewStatus = db.DanhGiaBacSis.Any(d => d.idBenhNhan == benhNhanId && d.idBacSi == combined.bs.idBS && d.ngayDanhGia != null)
+                    ReviewStatus = db.DanhGiaBacSis.Any(d => d.idBenhNhan == benhNhanId
+                                      && d.idBacSi == combined.bs.idBS
+                                      && d.MaLichKham == combined.lk.MaLichKham
+                                      && d.ngayDanhGia != null)
                         ? "Đã đánh giá"
                         : "Chưa đánh giá"
                 }).ToList();
@@ -129,14 +132,16 @@ namespace WebsiteDatLichKhamBenh.Controllers
 
             // Kiểm tra trạng thái đánh giá
             var existingReview = db.DanhGiaBacSis
-                .FirstOrDefault(d => d.idBenhNhan == lichKham.MaBenhNhan && d.idBacSi == lichKham.CaKham.idBS);
+                        .FirstOrDefault(d => d.idBenhNhan == lichKham.MaBenhNhan
+                         && d.idBacSi == lichKham.CaKham.idBS
+                         && d.MaLichKham == maLichKham);
 
             if (existingReview != null)
             {
-                // Nếu đã đánh giá bác sĩ rồi, chuyển hướng về trang lịch sử
                 TempData["Message"] = "Bạn đã đánh giá bác sĩ này rồi!";
                 return RedirectToAction("Index");
             }
+
 
             // Lấy thông tin CaKham từ bảng CaKham qua MaCaKham
             var caKham = db.CaKhams.Find(lichKham.MaCaKham);

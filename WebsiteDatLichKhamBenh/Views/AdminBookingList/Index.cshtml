@@ -44,15 +44,8 @@
                                 <span>Chưa có thông tin</span>
                             }
                         </td>
-                        <td>
-                            @if (item.GioDatLich.HasValue)
-                            {
-                                @item.GioDatLich.Value.ToString("hh/mm")
-                            }
-                            else
-                            {
-                                <span>Chưa có thông tin</span>
-                            }
+                        <td>                        
+                                @item.GioDatLich                       
                         </td>
                         <td>@item.BenhNhan.tenBenhNhan</td>
                         <td>

@@ -377,10 +377,7 @@
             <!-- Thông báo khi người dùng chọn ca khám -->
             <div id="confirmation-message">
                 <p>Khung giờ đã chọn: <span id="selected-time"></span></p>
-                <form action="@Url.Action("ConfirmCheck", "CustomerBooking")" method="post">
-                    <!-- Các trường đặt lịch khám -->
-                    <button type="submit">Xác Nhận Đặt Lịch</button>
-                </form>
+                <button id="confirm-btn">Xác nhận đặt lịch</button>
             </div>
         </div>
     </div>

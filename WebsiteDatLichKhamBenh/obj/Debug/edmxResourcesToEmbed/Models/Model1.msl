@@ -93,6 +93,7 @@
           <ScalarProperty Name="idDanhGia" ColumnName="idDanhGia" />
           <ScalarProperty Name="idBacSi" ColumnName="idBacSi" />
           <ScalarProperty Name="idBenhNhan" ColumnName="idBenhNhan" />
+          <ScalarProperty Name="MaLichKham" ColumnName="MaLichKham" />
           <ScalarProperty Name="diemDanhGia" ColumnName="diemDanhGia" />
           <ScalarProperty Name="binhLuan" ColumnName="binhLuan" />
           <ScalarProperty Name="ngayDanhGia" ColumnName="ngayDanhGia" />
