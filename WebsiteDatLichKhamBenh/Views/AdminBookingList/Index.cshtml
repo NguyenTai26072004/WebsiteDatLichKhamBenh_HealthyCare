@@ -5,9 +5,48 @@
     ViewBag.PageTitle = "Quản lý lịch khám";
 }
 
+@{
+    // Lấy thông tin từ ViewBag
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string searchTerm = ViewBag.SearchTerm; // Lấy lại từ khóa tìm kiếm
+
+    // Cấu hình số lượng nút trang tối đa hiển thị
+    int maxPagesToShow = 5;
+
+    // Logic tính toán trang bắt đầu và trang kết thúc
+    int startPage, endPage;
+    if (totalPages <= maxPagesToShow)
+    {
+        startPage = 1;
+        endPage = totalPages;
+    }
+    else
+    {
+        int maxPagesBeforeCurrent = (int)Math.Floor((decimal)maxPagesToShow / 2);
+        int maxPagesAfterCurrent = (int)Math.Ceiling((decimal)maxPagesToShow / 2) - 1;
+
+        if (currentPage <= maxPagesBeforeCurrent)
+        {
+            startPage = 1;
+            endPage = maxPagesToShow;
+        }
+        else if (currentPage + maxPagesAfterCurrent >= totalPages)
+        {
+            startPage = totalPages - maxPagesToShow + 1;
+            endPage = totalPages;
+        }
+        else
+        {
+            startPage = currentPage - maxPagesBeforeCurrent;
+            endPage = currentPage + maxPagesAfterCurrent;
+        }
+    }
+}
+
 <!-- Quản Lý Ca Khám -->
 <div class="mt-5">
-    <h3>Danh Sách Ca Khám</h3>
+    <h3>Danh Sách Lịch khám</h3>
 
     <!-- Thanh tìm kiếm -->
     <form method="get" class="mt-3 mb-3">
@@ -44,8 +83,8 @@
                                 <span>Chưa có thông tin</span>
                             }
                         </td>
-                        <td>                        
-                                @item.GioDatLich                       
+                        <td>
+                            @item.GioDatLich
                         </td>
                         <td>@item.BenhNhan.tenBenhNhan</td>
                         <td>
@@ -63,7 +102,7 @@
                             }
                             else if (item.TrangThai == "Đã khám")
                             {
-                                <span class="badge bg-primary text-white rounded-pill">@item.TrangThai</span> 
+                                <span class="badge bg-primary text-white rounded-pill">@item.TrangThai</span>
                             }
                         </td>
                         <td>
@@ -93,23 +132,33 @@
         </table>
     </div>
 
-    <!-- Pagination -->
-    <nav aria-label="Page navigation example">
+    @if (totalPages > 1)
+    {
         <ul class="pagination">
-            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, searchTerm = ViewBag.SearchTerm })" tabindex="-1">Trước</a>
-            </li>
-            @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize); i++)
+            <!-- Nút Trang Đầu & Lùi 1 trang -->
+            @if (currentPage > 1)
             {
-                <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i, searchTerm = ViewBag.SearchTerm })">@i</a>
+                <!-- QUAN TRỌNG: Thêm 'searchTerm = searchTerm' vào tất cả các link -->
+                <li><a href="@Url.Action("Index", new { page = 1, searchTerm = searchTerm })">Đầu</a></li>
+                <li><a href="@Url.Action("Index", new { page = currentPage - 1, searchTerm = searchTerm })">«</a></li>
+            }
+
+            <!-- Vòng lặp hiển thị các trang trong "cửa sổ" -->
+            @for (var p = startPage; p <= endPage; p++)
+            {
+                <li class="@(p == currentPage ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = p, searchTerm = searchTerm })">@p</a>
                 </li>
             }
-            <li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize) ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, searchTerm = ViewBag.SearchTerm })">Sau</a>
-            </li>
+
+            <!-- Nút Tới 1 trang & Trang Cuối -->
+            @if (currentPage < totalPages)
+            {
+                <li><a href="@Url.Action("Index", new { page = currentPage + 1, searchTerm = searchTerm })">»</a></li>
+                <li><a href="@Url.Action("Index", new { page = totalPages, searchTerm = searchTerm })">Cuối</a></li>
+            }
         </ul>
-    </nav>
+    }
 </div>
 <!-- Modal Sửa Trạng Thái -->
 <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
@@ -125,7 +174,7 @@
                     <div class="mb-3">
                         <label for="newStatus" class="form-label">Trạng Thái Mới</label>
                         <select id="newStatus" name="newStatus" class="form-control">
-                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="Đang chờ duyệt">-- Chọn trạng thái --</option>
                             <option value="Đã được duyệt">Duyệt</option>
                             <option value="Đã từ chối">Từ chối</option>
                             <option value="Đã khám">Đã khám</option>
@@ -200,3 +249,40 @@
         });
     </script>
 }
+
+<style>
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+        .pagination li {
+            display: inline;
+        }
+
+            .pagination li a {
+                position: relative;
+                float: left;
+                padding: 6px 12px;
+                margin-left: -1px;
+                line-height: 1.42;
+                color: #337ab7;
+                text-decoration: none;
+                background-color: #fff;
+                border: 1px solid #ddd;
+            }
+
+            .pagination li.active a, .pagination li.active a:hover {
+                z-index: 2;
+                color: #fff;
+                cursor: default;
+                background-color: #337ab7;
+                border-color: #337ab7;
+            }
+
+            .pagination li a:hover {
+                background-color: #eee;
+            }
+</style>

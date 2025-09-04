@@ -194,7 +194,7 @@ namespace WebsiteDatLichKhamBenh.Controllers
                 return RedirectToAction("BookingSuccess");
             }
             catch (Exception ex)
-            {
+            {                
                 TempData["Error"] = "Đã xảy ra lỗi trong quá trình đặt lịch. Vui lòng thử lại.";
                 return RedirectToAction("BookingDetails", new { caKhamId });
             }

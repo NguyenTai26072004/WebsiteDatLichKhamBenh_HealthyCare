@@ -8,6 +8,7 @@ using WebsiteDatLichKhamBenh.Models;
 
 namespace WebsiteDatLichKhamBenh.Controllers
 {
+
     public class AdminBookingListController : Controller
     {
         private WebDatLichKhamBenhDBEntities db = new WebDatLichKhamBenhDBEntities();
@@ -15,39 +16,42 @@ namespace WebsiteDatLichKhamBenh.Controllers
         // GET: AdminBookingList
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var bookings = db.LichKhams.Include(b => b.BenhNhan).Include(b => b.CaKham); // Liên kết với bảng bệnh nhân và ca khám
+            // IQueryable cho phép xây dựng truy vấn động, hiệu quả hơn
+            IQueryable<LichKham> bookingsQuery = db.LichKhams.Include(b => b.BenhNhan).Include(b => b.CaKham);
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                // Kiểm tra xem searchTerm là số hay chuỗi
+                // ... (Logic tìm kiếm của bạn đã rất tốt, giữ nguyên)
                 int parsedSearchTerm;
                 bool isNumber = int.TryParse(searchTerm, out parsedSearchTerm);
 
                 if (isNumber)
                 {
-                    // Nếu searchTerm là số, tìm theo mã lịch khám
-                    bookings = bookings.Where(b => b.MaLichKham == parsedSearchTerm);
+                    bookingsQuery = bookingsQuery.Where(b => b.MaLichKham == parsedSearchTerm);
                 }
                 else
                 {
-                    // Nếu searchTerm là chuỗi, tìm theo tên bệnh nhân
-                    bookings = bookings.Where(b =>
-                        b.BenhNhan.tenBenhNhan.Contains(searchTerm) || // Tìm theo tên bệnh nhân
-                        b.MaLichKham.ToString().Contains(searchTerm)   // Tìm theo mã lịch khám dưới dạng chuỗi
+                    bookingsQuery = bookingsQuery.Where(b =>
+                        b.BenhNhan.tenBenhNhan.Contains(searchTerm) ||
+                        b.MaLichKham.ToString().Contains(searchTerm)
                     );
                 }
             }
 
+            // --- PHẦN TỐI ƯU ---
             int pageSize = 10;
-            ViewBag.TotalCount = bookings.Count();
-            ViewBag.PageSize = pageSize;
-            ViewBag.CurrentPage = page;
-            ViewBag.SearchTerm = searchTerm;
+            int totalCount = bookingsQuery.Count(); // Đếm tổng số kết quả sau khi lọc
 
-            var result = bookings.OrderBy(b => b.NgayDatLich)
-                                 .Skip((page - 1) * pageSize)
-                                 .Take(pageSize)
-                                 .ToList();
+            // Gửi các thông tin cần thiết cho View
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.SearchTerm = searchTerm; // Rất quan trọng để giữ lại khi chuyển trang
+
+            // Lấy dữ liệu cho trang hiện tại
+            var result = bookingsQuery.OrderByDescending(b => b.NgayDatLich) // Sắp xếp trước khi phân trang
+                                     .Skip((page - 1) * pageSize)
+                                     .Take(pageSize)
+                                     .ToList();
 
             return View(result);
         }
